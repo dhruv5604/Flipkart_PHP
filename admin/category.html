@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/index.css">
     </link>
     <link rel="stylesheet" href="../css/product.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         body {
             background-color: white;
@@ -71,8 +71,9 @@
     </div>
 
     <div class="form2">
-        <form id="categoryForm">
-            <input type="text" id="newCategory" placeholder="Enter New Category">
+        <form id="categoryForm" action="../add-category.php" method="POST">
+            <input type="hidden" id="categoryId" name="categoryId">
+            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category">
             <button type="submit">Add Category</button>
         </form>
 
@@ -84,7 +85,9 @@
                     <th class="action">Actions</th>
                 </tr>
             </thead>
-            <tbody id="category-list"></tbody>
+            <tbody id="category-list">
+    
+            </tbody>
         </table>
     </div>
     </div>
