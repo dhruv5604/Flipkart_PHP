@@ -2,16 +2,16 @@
 
 require('connection.php');
 
-$query = "SELECT * FROM category";
-$result = $con->    query($query);
+$query = "select * from products";
+$result = $con->query($query);
 
-$categories = [];
+$products = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $categories[] = $row;
+        $products[] = $row;
     }
 }
 
 header('Content-Type: application/json');
-echo json_encode($categories);
+echo json_encode($products);

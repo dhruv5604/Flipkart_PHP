@@ -2,11 +2,11 @@
 
 require('connection.php');
 
-if($_SERVER['REQUEST_METHOD'] == "POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $category = $_POST['newCategory'];
     $id = isset($_POST['categoryId']) ? intval($_POST['categoryId']) : 0;
 
-    if($id > 0){
+    if ($id > 0) {
         // **Update Category**
         $query = "UPDATE category SET category = ? WHERE id = ?";
         $stmt = $con->prepare($query);
@@ -17,10 +17,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $stmt = $con->prepare($query);
         $stmt->bind_param("s", $category);
     }
-        
+
     $stmt->execute();
     $stmt->close();
     $con->close();
     header("Location: admin/category.html");
 }
-?>

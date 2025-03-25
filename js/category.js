@@ -149,6 +149,7 @@ $(document).ready(function () {
     dataType: "json",
     success: function (response) {
       response.forEach((category) => {
+        
         const categoryList = document.getElementById("category-list");
 
         let tr = document.createElement("tr");
