@@ -97,6 +97,13 @@
           name="productDescription"
           required
         />
+        <label for="productOffer">Offer:</label>
+        <input type="number" name="productOffer" id="productOffer" max="100" min="0">
+        <label for="productStatus">Status:</label>
+        <select name="productStatus" id="productStatus">
+          <option value="Available">Available</option>
+          <option value="Not Available">Not Available</option>
+        </select>
         <input type="submit" value="Add product" />
       </form>
     </div>
@@ -119,6 +126,8 @@
           </th>
           <th>Name</th>
           <th>Category Id</th>
+          <th>Offer</th>
+          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>

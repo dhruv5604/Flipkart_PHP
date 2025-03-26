@@ -34,6 +34,8 @@ function editProduct(id) {
       document.getElementById("productId").value = response['products'][0]["id"];
       document.getElementById("productImage").src = response['products'][0]["image"];
       document.getElementById("existingImage").value = response['products'][0]["image"];
+      document.getElementById("productOffer").value = response['products'][0]["offer"];
+      document.getElementById("productStatus").value = (response['products'][0]["status"] == 1) ? "Available" : "Not Available";
       document.getElementById("productImage").removeAttribute("required");
     },
     error: function (xhr, status, error) {
@@ -98,6 +100,12 @@ $(document).ready(function () {
         let td_category = document.createElement("td");
         td_category.innerText = product["category_id"];
 
+        let td_offer = document.createElement("td");
+        td_offer.innerHTML = product['offer'];
+
+        let td_status = document.createElement("td");
+        td_status.innerHTML = product['status'];
+
         let td_btn = document.createElement("td");
 
         let btn_edit = document.createElement("button");
@@ -115,6 +123,8 @@ $(document).ready(function () {
         tr.appendChild(td_price);
         tr.appendChild(td_desc);
         tr.appendChild(td_category);
+        tr.appendChild(td_offer);
+        tr.appendChild(td_status);
         tr.appendChild(td_btn);
 
         tbody.appendChild(tr);

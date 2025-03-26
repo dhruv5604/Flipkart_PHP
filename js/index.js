@@ -101,6 +101,9 @@ $(document).ready(function () {
     dataType: "json",
     success: function (response) {
       response.forEach((product) => {
+        if(product.status == 0){
+            return;
+        }
         let categoryId = product.category_id;
         let cardWrapper = document.getElementById(categoryId);
 

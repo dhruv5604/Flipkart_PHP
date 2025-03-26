@@ -11,11 +11,5 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $stmt->execute();
     $stmt->close();
 
-    $query = "delete from products where category_id = ?";
-    $stmt = $con->prepare($query);
-    $stmt->bind_param("i",$id);
-    $stmt->execute();
-    $stmt->close();
-
     $con->close();
 }
