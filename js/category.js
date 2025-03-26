@@ -54,10 +54,6 @@ function deleteCategory(id) {
   window.location.href = "category.html";
 }
 
-// document.getElementById("categoryForm").addEventListener("submit", (e) => {
-//     e.preventDefault();
-//     addOrUpdateCategory();
-// });
 
 $(document).ready(function () {
   $.ajax({
