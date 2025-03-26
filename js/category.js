@@ -120,7 +120,7 @@ function editCategory(id) {
                     document.getElementById("newCategory").value = category;
                     document.getElementById("categoryId").value = id;
                 });
-            }
+          }
         }
     });
 }

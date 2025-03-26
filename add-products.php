@@ -8,29 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $category = $_POST['categoryList'];
     $desc = $_POST['productDescription'];
     $existingImage = $_POST['existingImage']; // Fetch existing image path
-
     // Define target directory for images
-    $targetDir = "../img/";
+    $imageToSave = $existingImage; // Default to existing image
 
     // Check if a new image is uploaded
-    if (!empty($_FILES['productImage']['name'])) {
-        $newImage = basename($_FILES["productImage"]["name"]);
-        $targetFilePath = $targetDir . $newImage;
-
-        // Move the uploaded file to the target directory
-        if (move_uploaded_file($_FILES["productImage"]["tmp_name"], $targetFilePath)) {
-            $imageToSave = $targetFilePath; // Save full path: "../img/filename.jpeg"
-        } else {
-            echo json_encode(["error" => "Image upload failed"]);
-            exit;
-        }
-    } else {
-        $imageToSave = $existingImage; // Use the old image if no new one is uploaded
-    }
-
-    // Ensure image path consistency in DB
-    if (!str_starts_with($imageToSave, "../img/")) {
-        $imageToSave = "../img/" . $imageToSave;
+    if (!empty($_POST['productImage'])) {
+        $newImage = $_POST["productImage"];
+        $targetFilePath = "../img/" . $newImage; // Full path
+        $imageToSave = $targetFilePath;
     }
 
     // Update product in the database
@@ -45,3 +30,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     header("Location: admin/products.html");
     exit;
 }
+?>
