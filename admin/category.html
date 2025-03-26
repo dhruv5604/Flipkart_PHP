@@ -70,9 +70,9 @@
     </div>
 
     <div class="form2">
-        <form id="categoryForm" action="../add-category.php" method="POST">
+        <form id="categoryForm" >
             <input type="hidden" id="categoryId" name="categoryId">
-            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category">
+            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" required>
             <button type="submit">Add Category</button>
         </form>
 
@@ -81,7 +81,7 @@
                 <tr>
                     <th class="id">Id</th>
                     <th class="category">Category</th>
-                    <th class="action">Actions</th>
+                    <th class="action">Actions</th> 
                 </tr>
             </thead>
             <tbody id="category-list">

@@ -1,106 +1,39 @@
-// function addProduct() {
-//     const price = document.getElementById("productPrice").value.trim();
-//     const image = document.getElementById("productImage");
-//     const description = document.getElementById("productDescription").value.trim();
-//     const category = document.getElementById("categoryList").value.trim();
-//     if(!category){
-//         alert("No category!!");
-//         window.location.href = "category.html";
-//     }
-//     const tempCategory = categories.find(c => c.newCategory == category);
-//     const categoryId = tempCategory.id;
+document.getElementById("form1").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-//     if (!price || !description) {
-//         alert("Please fill in all details");
-//         return;
-//     }
-//     let file = image.files[0];
-//     let reader = new FileReader();
-//     reader.onloadend = () => {
-//         let imageBase64 = reader.result;
-//         let lastId = products.length > 0 ? products[products.length - 1].id : 0;
+  let formData = new FormData(this);
 
-//         products.push({
-//             id: parseInt(lastId) + 1,
-//             image: imageBase64,
-//             price,
-//             description,
-//             categoryId,
-//             category
-//         });
-//         localStorage.setItem("flipkartProducts", JSON.stringify(products));
-
-//         showProducts(products);
-//     }
-
-//     document.getElementById("productImage").value = "";
-//     document.getElementById("productPrice").value = "";
-//     document.getElementById("productDescription").value = "";
-//     document.getElementById("categoryList").value = "";
-
-//     reader.readAsDataURL(file);
-// }
-
-// document.getElementById("form1").addEventListener("submit", (e) => {
-//     e.preventDefault();
-//     addProduct();
-// })
-
-// function editProduct(index) {
-//     localStorage.setItem("editProductId", index);
-//     window.location.href = "edit.html";
-// }
-
-// function deleteProduct(index) {
-//     if (confirm("Are you sure you want to delete this product?")) {
-//         products.splice(index, 1);
-//         showProducts(products);
-//         localStorage.setItem("flipkartProducts", JSON.stringify(products));
-//     }
-// }
-
-// const sortMethods = {
-//     id: (a, b) => a.id - b.id,
-//     price: (a, b) => a.price - b.price
-// };
-
-// document.querySelectorAll(".sort-btn").forEach((sortBtn) => {
-//     sortBtn.addEventListener("click", () => {
-//         let tempProducts = [...products];
-//         let sortType = sortBtn.dataset.sort;
-//         let sortOrder = sortBtn.dataset.order || "asc";
-
-//         if (sortOrder === "asc") {
-//             tempProducts.sort(sortMethods[sortType]);
-//             sortBtn.dataset.order = "desc";
-//             sortBtn.innerHTML = `<i class="fas fa-sort-up"></i>`;
-//         } else if (sortOrder === "desc") {
-//             tempProducts.sort((a, b) => sortMethods[sortType](b, a));
-//             sortBtn.dataset.order = "none";
-//             sortBtn.innerHTML = `<i class="fas fa-sort-down"></i>`;
-//         } else {
-//             tempProducts = [...products];
-//             sortBtn.dataset.order = "asc";
-//             sortBtn.innerHTML = `<i class="fas fa-sort"></i>`;
-//         }
-//         showProducts(tempProducts);
-//     });
-// });
+  $.ajax({
+    type: "POST",
+    url: "../add-products.php",
+    data: formData,
+    processData: false,
+    contentType: false,
+    dataType: "json",
+    success: function (response) {
+      if (response.success) {
+         location.reload();
+      } else {
+        alert(response.error);
+      }
+    },
+  });
+});
 
 function editProduct(id) {
   $.ajax({
     type: "POST",
     url: "../update-product.php",
     data: { id: id },
-    dataType: 'json',
+    dataType: "json",
     success: function (response) {
-      document.getElementById("productPrice").value = response[0]["price"];
+      document.getElementById("productPrice").value = response['products'][0]["price"];
       document.getElementById("productDescription").value =
-        response[0]["description"];
-      document.getElementById("categoryList").value = response[0]["category"];
-      document.getElementById("productId").value = response[0]["id"];
-      document.getElementById("productImage").src = response[0]["image"];
-      document.getElementById("existingImage").value = response[0]['image'];
+        response['products'][0]["name"];
+      document.getElementById("categoryList").value = response['category'];
+      document.getElementById("productId").value = response['products'][0]["id"];
+      document.getElementById("productImage").src = response['products'][0]["image"];
+      document.getElementById("existingImage").value = response['products'][0]["image"];
       document.getElementById("productImage").removeAttribute("required");
     },
     error: function (xhr, status, error) {
@@ -160,10 +93,10 @@ $(document).ready(function () {
         td_price.innerText = product["price"];
 
         let td_desc = document.createElement("td");
-        td_desc.innerText = product["description"];
+        td_desc.innerText = product["name"];
 
         let td_category = document.createElement("td");
-        td_category.innerText = product["category"];
+        td_category.innerText = product["category_id"];
 
         let td_btn = document.createElement("td");
 
@@ -188,5 +121,4 @@ $(document).ready(function () {
       });
     },
   });
-
 });

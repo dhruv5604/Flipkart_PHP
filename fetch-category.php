@@ -3,7 +3,7 @@
 require('connection.php');
 
 $query = "SELECT * FROM category";
-$result = $con->    query($query);
+$result = $con->query($query);
 
 $categories = [];
 

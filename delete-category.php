@@ -8,8 +8,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $query = "delete from category where id = ?";
     $stmt = $con->prepare($query);
     $stmt->bind_param("i", $id);
-    if($stmt->execute()){
-        $stmt->close();
-        $con->close();
-    }
+    $stmt->execute();
+    $stmt->close();
+
+    $query = "delete from products where category_id = ?";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("i",$id);
+    $stmt->execute();
+    $stmt->close();
+
+    $con->close();
 }
