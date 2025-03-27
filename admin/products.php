@@ -63,13 +63,13 @@ if($_SESSION['role'] == "admin"){
             </li>
 
             <li class="nav-item me-3">
-              <a type="button" class="btn btn-primary" href="./index.html"
+              <a type="button" class="btn btn-primary" href="./index.php"
                 >Admin Panel</a
               >
             </li>
 
             <li>
-              <a type="button" class="btn btn-primary" href="./category.html"
+              <a type="button" class="btn btn-primary" href="./category.php"
                 >Category crud</a
               >
             </li>

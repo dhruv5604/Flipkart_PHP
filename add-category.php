@@ -1,6 +1,7 @@
 <?php
 
 require('connection.php');
+require('check_post.php');
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $category = trim($_POST['newCategory']);

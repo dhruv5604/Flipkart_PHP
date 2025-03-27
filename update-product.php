@@ -1,6 +1,7 @@
 <?php
 
 require('connection.php');
+require('check_post.php');  
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     $id = $_POST['id'];
@@ -16,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $products[] = $row;
         $category_id = $row['category_id'];
     }
-
+    
     $query = "select * from category where id = ?";
     $stmt = $con->prepare($query);
     $stmt->bind_param("i", $category_id);

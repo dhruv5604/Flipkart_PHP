@@ -1,35 +1,34 @@
 <?php
-require('connection.php');
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $name = $_POST['uname'];
-    $pass = $_POST['pass'];
+require_once('connection.php');
+require_once('check_post.php');
 
-    $query = "SELECT * FROM User WHERE name = ? AND password = ?";
-    $stmt = $con->prepare($query);
-    
-    if ($stmt) {
-        $stmt->bind_param("ss", $name, $pass);
-        $stmt->execute();
-        
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
+$name = $_POST['uname'];
+$pass = $_POST['pass'];
 
-        if ($result->num_rows > 0) {
-            session_start();
-            $_SESSION['uname'] = $name;
-            $_SESSION['role'] = $row['role'];
-            header("Location: index.php");
-            exit();
-        } else {
-            echo "Invalid username or password.";
-        }
+$query = "SELECT * FROM User WHERE name = ? AND password = ?";
+$stmt = $con->prepare($query);
 
-        $stmt->close();
+if ($stmt) {
+    $stmt->bind_param("ss", $name, $pass);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    if ($result->num_rows > 0) {
+        session_start();
+        $_SESSION['uname'] = $name;
+        $_SESSION['role'] = $row['role'];
+        header("Location: index.php");
+        exit();
     } else {
-        echo "Error: " . $con->error;
+        echo "Invalid username or password.";
     }
 
-    $con->close();
+    $stmt->close();
+} else {
+    echo "Error: " . $con->error;
 }
-?>
+
+$con->close();

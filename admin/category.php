@@ -64,10 +64,10 @@ if($_SESSION['role'] == "admin"){
                         <a type="button" class="btn btn-primary" href="../index.php">HomePage</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a type="button" class="btn btn-primary" href="./index.html">Admin Panel</a>
+                        <a type="button" class="btn btn-primary" href="./index.php">Admin Panel</a>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-primary" href="./products.html">Product crud</a>
+                        <a type="button" class="btn btn-primary" href="./products.php">Product crud</a>
                     </li>
                 </ul>
             </div>
