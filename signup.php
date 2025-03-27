@@ -4,7 +4,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pass = $_POST['pass'];
     $num = $_POST['num'];
     $dob = $_POST['dob'];
-    
     session_start();
     require('connection.php');
 
