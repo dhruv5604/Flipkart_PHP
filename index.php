@@ -77,7 +77,7 @@ if(!isset($_SESSION['uname'])){
                     <?php 
                         if($_SESSION['role'] == 'admin'){
                             echo '<li>
-                                <a type="button" class="btn btn-primary" href="./admin/index.html">Admin Panel</a>
+                                <a type="button" class="btn btn-primary" href="./admin/index.php">Admin Panel</a>
                             </li>';
                         }
                     ?>

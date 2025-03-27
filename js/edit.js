@@ -4,7 +4,7 @@ let categories = JSON.parse(localStorage.getItem("flipkartCategories"));
 
 if(!productId){
     alert("Product not found!!!!");
-    window.location.href = "index.html";
+    window.location.href = "index.php";
 }
 
 let product = products.find(p=>p.id == productId);

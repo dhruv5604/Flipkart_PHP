@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+
+session_start();
+
+if($_SESSION['role'] == "admin"){
+    echo '
+        <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,3 +33,9 @@
 </body>
 
 </html>
+    ';
+}
+
+else{
+    header("Location: ../index.php");
+}
