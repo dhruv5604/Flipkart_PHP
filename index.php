@@ -16,7 +16,6 @@ if(!isset($_SESSION['uname'])){
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/index.css">
     </link>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Flipkart</title>
 </head>
 
@@ -75,9 +74,13 @@ if(!isset($_SESSION['uname'])){
                             </ul>
                         </div>
                     </li>
-                    <li>
-                        <a type="button" class="btn btn-primary" href="./admin/index.php">Admin Panel</a>
-                    </li>
+                    <?php 
+                        if($_SESSION['role'] == 'admin'){
+                            echo '<li>
+                                <a type="button" class="btn btn-primary" href="./admin/index.php">Admin Panel</a>
+                            </li>';
+                        }
+                    ?>
                     <li>
                         <a type="button" class="btn btn-primary logout-btn" href="logout.php">Logout</a>
                     </li>
