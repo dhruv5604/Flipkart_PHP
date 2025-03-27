@@ -13,10 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt->execute();
         
         $result = $stmt->get_result();
-        
+        $row = $result->fetch_assoc();
         if ($result->num_rows > 0) {
             session_start();
             $_SESSION['uname'] = $name;
+            $_SESSION['role'] = $row['role'];
+            echo $_SESSION['role'];
             header("Location: index.php");
             exit();
         } else {

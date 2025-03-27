@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+session_start();
+if($_SESSION['role'] == 'admin'){
+   echo ' <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -38,10 +41,10 @@
                         <a type="button" class="btn btn-primary" href="../index.php">HomePage</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a type="button" class="btn btn-primary" href="./products.html">Product Crud</a>
+                        <a type="button" class="btn btn-primary" href="./products.php">Product Crud</a>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-primary" href="./category.html">Category crud</a>
+                        <a type="button" class="btn btn-primary" href="./category.php">Category crud</a>
                     </li>
                 </ul>
             </div>
@@ -55,4 +58,9 @@
     </div>
 </body>
 
-</html>
+</html>';
+}
+
+else{
+    header('Location: ../index.php'); 
+}
