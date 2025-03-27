@@ -74,9 +74,13 @@ if(!isset($_SESSION['uname'])){
                             </ul>
                         </div>
                     </li>
-                    <li>
-                        <a type="button" class="btn btn-primary" href="./admin/index.html">Admin Panel</a>
-                    </li>
+                    <?php 
+                        if($_SESSION['role'] == 'admin'){
+                            echo '<li>
+                                <a type="button" class="btn btn-primary" href="./admin/index.html">Admin Panel</a>
+                            </li>';
+                        }
+                    ?>
                     <li>
                         <a type="button" class="btn btn-primary logout-btn" href="logout.php">Logout</a>
                     </li>
