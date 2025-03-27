@@ -1,3 +1,15 @@
+function addToCart(id){
+  $.ajax({
+    type: "POST",
+    url: "../add-cart.php",
+    data: {"product_id": id},
+    dataType: "json",
+    success: function (response) {
+      alert(response.message);
+    }
+  });
+}
+
 $(document).ready(function () {
   $.ajax({
     type: "GET",
@@ -72,12 +84,18 @@ $(document).ready(function () {
             div_price.appendChild(strongTag_discount);
             div_price.appendChild(document.createTextNode(" "));
             div_price.appendChild(offer_p);
-    
+
+            let btn = document.createElement("button");
+            btn.innerText = "Add to Cart";
+            btn.classList.add('btn','btn-primary','mb-1');
+            btn.addEventListener("click" , () => addToCart(product.id));
+
             card_body.appendChild(ptag);
             card_body.appendChild(div_price);
             card.appendChild(img);
             card.appendChild(card_body);
-    
+            card.appendChild(btn);
+
             cardWrapper.appendChild(card);
         }
     });

@@ -18,6 +18,7 @@ if ($stmt) {
 
     if ($result->num_rows > 0) {
         session_start();
+        $_SESSION['user_id'] = $row['id'];
         $_SESSION['uname'] = $name;
         $_SESSION['role'] = $row['role'];
         header("Location: index.php");
@@ -25,7 +26,6 @@ if ($stmt) {
     } else {
         echo "Invalid username or password.";
     }
-
     $stmt->close();
 } else {
     echo "Error: " . $con->error;
