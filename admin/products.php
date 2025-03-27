@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+
+session_start();
+
+if($_SESSION['role'] == "admin"){
+  echo '
+    <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -142,3 +148,11 @@
     <script src="../js/products.js"></script>
   </body>
 </html>
+  ';
+}
+
+else{
+  header("Location: ../index.php");
+}
+
+
