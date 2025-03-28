@@ -13,6 +13,7 @@ $(document).ready(function () {
 
                 let div_cartItem = document.createElement("div");
                 div_cartItem.classList.add("cart-item");
+                div_cartItem.id = product.cart_id;
 
                 let img = document.createElement("img");
                 img.src = product.image;
@@ -88,17 +89,42 @@ $(document).ready(function () {
             priceElement.text(originalPrice * newQuantity);
             updateTotalPrice();
         }
+
+        let cart_id = $(this).closest(".cart-item").attr("id");
+
+        $.ajax({
+            type: "POST",
+            url: "../update-inventory.php",
+            data: {"cart_id":cart_id, "action":"minus"},
+            dataType: "json",
+            success: function (response) {
+                
+            }
+        });
     });
 
     $(document).on("click", ".plus", function () {
         let inputField = $(this).siblings(".quantity-input");
         let priceElement = $(this).closest(".cart-item").find(".price");
         let originalPrice = parseFloat(priceElement.attr("data-price"));
-
+        
         let newQuantity = parseInt(inputField.val()) + 1;
         inputField.val(newQuantity);
         priceElement.text(originalPrice * newQuantity);
         updateTotalPrice();
+
+        let cart_id = $(this).closest(".cart-item").attr("id");
+
+        $.ajax({
+            type: "POST",
+            url: "../update-inventory.php",
+            data: {"cart_id":cart_id, "action":"plus"},
+            dataType: "json",
+            success: function (response) {
+                
+            }
+        });
+        
     });
 
     function updateTotalPrice() {
@@ -119,7 +145,6 @@ $(document).ready(function () {
         total_amount_rupee.appendChild(total_amount);
 
         $('.subtotal').html(total_amount_rupee);
-        
     }
 
     function removeItem(id){
@@ -135,5 +160,19 @@ $(document).ready(function () {
                 location.reload();
             }
         });
+        let inputField = $(this).siblings(".quantity-input");
+        let newQuantity = parseInt(inputField.val())
+
+        console.log(newQuantity);
+        $.ajax({
+            type: "POST",
+            url: "../update-inventory.php",
+            data: {"cart_id":cart_id, "action":"remove", "stock": 1},
+            dataType: "json",
+            success: function (response) {
+                
+            }
+        });
+
     }
 });

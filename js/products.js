@@ -54,7 +54,7 @@ function deleteProduct(id) {
     success: function (response) {},
   });
 
-  window.location.href = "products.html";
+  window.location.href = "products.php";
 }
 
 $(document).ready(function () {
@@ -104,7 +104,7 @@ $(document).ready(function () {
         td_offer.innerHTML = product['offer'];
 
         let td_status = document.createElement("td");
-        td_status.innerHTML = product['status'];
+        td_status.innerHTML = product['stock'];
 
         let td_btn = document.createElement("td");
 

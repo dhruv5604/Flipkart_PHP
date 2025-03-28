@@ -8,7 +8,7 @@ $price = $_POST['productPrice'];
 $category = $_POST['categoryList'];
 $desc = $_POST['productDescription'];
 $offer = $_POST['productOffer'];
-$status = ($_POST['productStatus'] == "Available") ? 1 : 0;
+$stock = $_POST['productStock'];
 $existingImage = $_POST['existingImage'] ?? "";
 $imageToSave = $existingImage;
 
@@ -48,30 +48,50 @@ if (!empty($_FILES['productImage']['name'])) {
     }
 }
 
-if (!empty($id)) {
-    $query = "UPDATE products SET price=?, category_id=?, name=?, image=?, offer=?, status=? WHERE id=?";
-    $stmt = $con->prepare($query);
-    $stmt->bind_param("iississ", $price, $category_id, $desc, $imageToSave, $offer, $status, $id);
-} else {
-    $query = "select * from products where name = ?";
-    $stmt = $con->prepare($query);
-    $stmt->bind_param("s", $desc);
-    $stmt->execute();
-    $result = $stmt->get_result();
+try {
+    $con->begin_transaction();
 
-    if ($result->num_rows == 0) {
-        $query = "INSERT INTO products (price, category_id, name, image,offer,status) VALUES (?, ?, ?, ?, ?, ?)";
+    if (!empty($id)) {
+        $query = "UPDATE products SET price=?, category_id=?, name=?, image=?, offer=? WHERE id=?";
         $stmt = $con->prepare($query);
-        $stmt->bind_param("iissss", $price, $category_id, $desc, $imageToSave, $offer, $status);
+        $stmt->bind_param("iissis", $price, $category_id, $desc, $imageToSave, $offer, $id);
+        if ($stmt->execute()) {
+            echo json_encode(["success" => true, "message" => "Product updated successfully"]);
+        } else {
+            throw new Exception("Database error in update");
+        }
     } else {
-        echo json_encode(["error" => "Product already exists"]);
-    }
-}
+        $query = "SELECT id FROM products WHERE name = ?";
+        $stmt = $con->prepare($query);
+        $stmt->bind_param("s", $desc);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-if ($stmt->execute()) {
-    echo json_encode(["success" => true, "message" => "Product added/updated successfully"]);
-} else {
-    echo json_encode(["error" => "Database error"]);
+        if ($result->num_rows == 0) {
+            $query = "INSERT INTO products (price, category_id, name, image, offer) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $con->prepare($query);
+            $stmt->bind_param("iissi", $price, $category_id, $desc, $imageToSave, $offer);
+            if ($stmt->execute()) {
+                $product_id = $con->insert_id;
+                $query = "INSERT INTO inventory(product_id, stock) VALUES(?, ?)";
+                $stmt = $con->prepare($query);
+                $stmt->bind_param("ii", $product_id, $stock);
+                if (!$stmt->execute()) {
+                    throw new Exception("Failed to insert into inventory");
+                }
+                echo json_encode(["success" => true, "message" => "Product added successfully"]);
+            } else {
+                throw new Exception("Failed to insert product");
+            }
+        } else {
+            echo json_encode(["error" => "Product already exists"]);
+        }
+    }
+
+    $con->commit();
+} catch (Exception $e) {
+    $con->rollback();
+    echo json_encode(["error" => $e->getMessage()]);
 }
 
 $stmt->close();

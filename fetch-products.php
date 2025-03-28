@@ -2,17 +2,14 @@
 
 require('connection.php');
 
-$query = "select * from products";
+$query = "select p.*, i.stock,i.id as cart_id from products p join inventory i on p.id = i.product_id";
 $result = $con->query($query);
 
 $products = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // if($row['status'] == 1){
             $products[] = $row;
-        // }
-        
     }
 }
 

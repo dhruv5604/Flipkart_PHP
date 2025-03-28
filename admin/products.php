@@ -105,11 +105,8 @@ if($_SESSION['role'] == "admin"){
         />
         <label for="productOffer">Offer:</label>
         <input type="number" name="productOffer" id="productOffer" max="100" min="0">
-        <label for="productStatus">Status:</label>
-        <select name="productStatus" id="productStatus">
-          <option value="Available">Available</option>
-          <option value="Not Available">Not Available</option>
-        </select>
+        <label for="productStatus">Stock:</label>
+        <input type="number" id="productStock" name="productStock"/>
         <input type="submit" value="Add product" />
       </form>
     </div>
@@ -133,7 +130,7 @@ if($_SESSION['role'] == "admin"){
           <th>Name</th>
           <th>Category Id</th>
           <th>Offer</th>
-          <th>Status</th>
+          <th>Stock</th>
           <th>Actions</th>
         </tr>
       </thead>
