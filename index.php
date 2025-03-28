@@ -23,7 +23,7 @@ if(!isset($_SESSION['uname'])){
 <body>
     <div class="container-fluid p-2">
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="index.php">
                 <img src="./img/flipkartlogo.svg" alt="Flipkart Logo" class="img-fluid">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -53,13 +53,13 @@ if(!isset($_SESSION['uname'])){
                             </li>
                             <li><a class="dropdown-item" href="#">My Profile</a></li>
                             <li><a class="dropdown-item" href="#">Flipkart Plus zone</a></li>
-                            <li><a class="dropdown-item" href="#">Orders</a></li>
+                            <li><a class="dropdown- item" href="#">Orders</a></li>
                             <li><a class="dropdown-item" href="#">Wishlist</a></li>
                             <li><a class="dropdown-item" href="#">Rewards</a></li>
                         </ul>
                     </li>
                     <li class="nav-item me-3">
-                        <button type="button" class="btn me-2"><i class="fa-solid fa-cart-shopping"></i> Cart</button>
+                        <button type="button" class="btn me-2" id="btn-cart"><i class="fa-solid fa-cart-shopping"></i> Cart</button>
                     </li>
                     <li class="nav-item me-3">
                         <button type="button" class="btn"><i class="fa-solid fa-shop"></i> Become a Seller</button>

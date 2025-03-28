@@ -5,6 +5,10 @@ function addToCart(id){
     data: {"product_id": id},
     dataType: "json",
     success: function (response) {
+      if(!response.success){
+        alert("Product already exists in cart");
+        return;
+      }
       alert(response.message);
     }
   });
@@ -102,4 +106,8 @@ $(document).ready(function () {
     
     },
   });
+});
+
+$('#btn-cart').click(function (e) { 
+  window.location.href = "../viewcart.php";
 });
