@@ -33,6 +33,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Successful</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -77,12 +78,14 @@ try {
         <div class="order-details">
             <p><strong>Order ID:</strong> <?php echo $data['order_id'] ?? 'N/A'; ?></p>
             <p><strong>Transaction ID:</strong> <?php echo $data['txn_id'] ?? 'N/A'; ?></p>
-            <p><strong>Amount Paid:</strong> ₹<?php echo $paid_amount ?? '0'; ?></p>
+            <p id="amount" data-amount="<?php echo $paid_amount; ?>"><strong>Amount Paid:</strong> ₹<?php echo $paid_amount ?? '0'; ?></p>
             <p><strong>Payment Status:</strong> Success</p>
         </div>
         <br>
         <a href="index.php" class="btn">Back to Home</a>
     </div>
+    
+    <script src="./js/checkout.js"></script>
 </body>
 </html>
 
