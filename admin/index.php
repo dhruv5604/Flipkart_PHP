@@ -1,7 +1,11 @@
 <?php
 session_start();
-if($_SESSION['role'] == 'admin'){
-   echo ' <!DOCTYPE html>
+if ($_SESSION['role'] != 'admin') {
+    header('Location: ../index.php');
+}
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -58,9 +62,4 @@ if($_SESSION['role'] == 'admin'){
     </div>
 </body>
 
-</html>';
-}
-
-else{
-    header('Location: ../index.php'); 
-}
+</html>

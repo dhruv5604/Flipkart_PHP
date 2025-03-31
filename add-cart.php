@@ -4,7 +4,6 @@ require('connection.php');
 require('check_post.php');
 session_start();
 
-
 $product_id = $_POST['product_id'];
 $user_id = $_SESSION['user_id'];
 

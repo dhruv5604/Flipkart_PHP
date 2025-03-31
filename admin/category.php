@@ -1,9 +1,11 @@
 <?php
 session_start();
 
-if($_SESSION['role'] == "admin"){
-    echo '
-    <!DOCTYPE html>
+if ($_SESSION['role'] != "admin") {
+    header("Location: ../index.php");
+}
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -75,7 +77,7 @@ if($_SESSION['role'] == "admin"){
     </div>
 
     <div class="form2">
-        <form id="categoryForm" >
+        <form id="categoryForm">
             <input type="hidden" id="categoryId" name="categoryId">
             <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" required>
             <button type="submit">Add Category</button>
@@ -86,7 +88,7 @@ if($_SESSION['role'] == "admin"){
                 <tr>
                     <th class="id">Id</th>
                     <th class="category">Category</th>
-                    <th class="action">Actions</th> 
+                    <th class="action">Actions</th>
                 </tr>
             </thead>
             <tbody id="category-list">
@@ -99,8 +101,3 @@ if($_SESSION['role'] == "admin"){
 </body>
 
 </html>
-    ';
-}
-else{
-    header("Location: ../index.php");
-}

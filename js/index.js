@@ -47,7 +47,7 @@ $(document).ready(function () {
     dataType: "json",
     success: function (response) {
       response.forEach((product) => {
-        if (product.status == 0) {
+        if (product.stock <= 0) {
             return;
         }
     

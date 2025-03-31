@@ -49,7 +49,8 @@ $(document).ready(function () {
 
                 let ip = document.createElement("input");
                 ip.type = "text";
-                ip.value = 1;
+                ip.value = product.quantity;
+                ip.id = "quantity-input-" + product.cart_id;
                 ip.classList.add("quantity-input");
 
                 let btn_plus = document.createElement("button");
@@ -57,9 +58,9 @@ $(document).ready(function () {
                 btn_plus.classList.add("plus");
 
                 let btn_delete = document.createElement("button");
-                btn_delete.classList.add("btn","btn-danger")
+                btn_delete.classList.add("btn", "btn-danger")
                 btn_delete.innerHTML = '<i class="fa-solid fa-trash"></i>';
-                btn_delete.addEventListener("click", () => removeItem(product.id));
+                btn_delete.addEventListener("click", () => removeItem(product.cart_id, product.product_id));
 
                 div_quantity.appendChild(btn_minus);
                 div_quantity.appendChild(ip);
@@ -71,6 +72,9 @@ $(document).ready(function () {
                 div_cartItem.appendChild(div_quantity);
 
                 container.appendChild(div_cartItem);
+
+                let form = document.getElementById("form1");
+
             });
 
             updateTotalPrice();
@@ -88,26 +92,26 @@ $(document).ready(function () {
             inputField.val(newQuantity);
             priceElement.text(originalPrice * newQuantity);
             updateTotalPrice();
+
+            let cart_id = $(this).closest(".cart-item").attr("id");
+
+            $.ajax({
+                type: "POST",
+                url: "../update-inventory.php",
+                data: { "cart_id": cart_id, "action": "minus" },
+                dataType: "json",
+                success: function (response) {
+
+                }
+            });
         }
-
-        let cart_id = $(this).closest(".cart-item").attr("id");
-
-        $.ajax({
-            type: "POST",
-            url: "../update-inventory.php",
-            data: {"cart_id":cart_id, "action":"minus"},
-            dataType: "json",
-            success: function (response) {
-                
-            }
-        });
     });
 
     $(document).on("click", ".plus", function () {
         let inputField = $(this).siblings(".quantity-input");
         let priceElement = $(this).closest(".cart-item").find(".price");
         let originalPrice = parseFloat(priceElement.attr("data-price"));
-        
+
         let newQuantity = parseInt(inputField.val()) + 1;
         inputField.val(newQuantity);
         priceElement.text(originalPrice * newQuantity);
@@ -118,13 +122,13 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "../update-inventory.php",
-            data: {"cart_id":cart_id, "action":"plus"},
+            data: { "cart_id": cart_id, "action": "plus" },
             dataType: "json",
             success: function (response) {
-                
+
             }
         });
-        
+
     });
 
     function updateTotalPrice() {
@@ -145,34 +149,39 @@ $(document).ready(function () {
         total_amount_rupee.appendChild(total_amount);
 
         $('.subtotal').html(total_amount_rupee);
+
+        let publishKey = "pk_test_51R8c7MPWmXkqaxc5vcsnss7f5jpSNOEre8ckqjiiVt7U0MiOOCzWPlzHwKgMmg8vBiqL6khXqfXoAwBQtM5z4r6g00XluWR2Eu"
+
+        let content = `
+        <input type="hidden" id="total_amount" name="total_amount" value=${total * 100}>
+        <script
+        src="https://checkout.stripe.com/checkout.js"
+        class="stripe-button"
+        id="stripe-button"
+        data-key="${publishKey}"
+        data-amount=${total * 100}
+        data-name="Flipkart"
+        data-image="./img/flipkartlogo.svg"
+        data-currency="inr"
+        data-email="flipkart.payment@gmail.com"></script>`
+
+        $('#form1').html(content);
     }
 
-    function removeItem(id){
+    function removeItem(cart_id, product_id) {
+        let inputField_id = "quantity-input-" + cart_id;
+        let inputField = document.getElementById(inputField_id).value;
         $.ajax({
             type: "POST",
             url: "../remove-cart-item.php",
-            data: {"product_id": id},
+            data: { "cart_id": cart_id, "product_id": product_id, "quantity": inputField },
             dataType: "json",
             success: function (response) {
-                if(response.success){
+                if (response.success) {
                     alert(response.message);
                 }
                 location.reload();
             }
         });
-        let inputField = $(this).siblings(".quantity-input");
-        let newQuantity = parseInt(inputField.val())
-
-        console.log(newQuantity);
-        $.ajax({
-            type: "POST",
-            url: "../update-inventory.php",
-            data: {"cart_id":cart_id, "action":"remove", "stock": 1},
-            dataType: "json",
-            success: function (response) {
-                
-            }
-        });
-
     }
 });
