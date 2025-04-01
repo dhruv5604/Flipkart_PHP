@@ -107,7 +107,3 @@ $(document).ready(function () {
     },
   });
 });
-
-$('#btn-cart').click(function (e) { 
-  window.location.href = "../viewcart.php";
-});

@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $products[] = $row;
     }
 
-    $query_insert_orderItems = "insert into Order_Item(order_id, product_id, quantity, price) values (?, ?, ?, ?)";
+    $query_insert_orderItems = "insert into Order_Item(order_id, product_id, quantity) values (?, ?, ?)";
     $stmt = $con->prepare($query_insert_orderItems);
 
     foreach ($products as $product) {
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $stmt_price->fetch();
         $stmt_price->close();
 
-        $stmt->bind_param("iiii", $order_id, $product_id, $quantity, $price);
+        $stmt->bind_param("iii", $order_id, $product_id, $quantity);
         $stmt->execute();
     }
     $stmt->close();
