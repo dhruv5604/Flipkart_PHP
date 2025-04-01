@@ -1,5 +1,4 @@
 <?php
-
 require('connection.php');
 require('check_post.php');
 session_start();

@@ -97,7 +97,7 @@ if ($_SESSION['role'] != "admin") {
         required />
       <label for="productOffer">Offer:</label>
       <input type="number" name="productOffer" id="productOffer" max="100" min="0">
-      <label for="productStatus">Stock:</label>
+      <label for="productStock">Stock:</label>
       <input type="number" id="productStock" name="productStock" />
       <input type="submit" value="Add product" />
     </form>

@@ -85,87 +85,92 @@ $(document).ready(function () {
         let inputField = $(this).siblings(".quantity-input");
         let priceElement = $(this).closest(".cart-item").find(".price");
         let originalPrice = parseFloat(priceElement.attr("data-price"));
-
+    
         let currentValue = parseInt(inputField.val());
         if (currentValue > 1) {
             let newQuantity = currentValue - 1;
             inputField.val(newQuantity);
             priceElement.text(originalPrice * newQuantity);
             updateTotalPrice();
-
+    
             let cart_id = $(this).closest(".cart-item").attr("id");
-
+    
             $.ajax({
                 type: "POST",
                 url: "../update-inventory.php",
                 data: { "cart_id": cart_id, "action": "minus" },
                 dataType: "json",
                 success: function (response) {
-
                 }
             });
         }
     });
-
+    
     $(document).on("click", ".plus", function () {
-        let inputField = $(this).siblings(".quantity-input");
-        let priceElement = $(this).closest(".cart-item").find(".price");
-        let originalPrice = parseFloat(priceElement.attr("data-price"));
-
-        let newQuantity = parseInt(inputField.val()) + 1;
-        inputField.val(newQuantity);
-        priceElement.text(originalPrice * newQuantity);
-        updateTotalPrice();
-
-        let cart_id = $(this).closest(".cart-item").attr("id");
-
+        let button = $(this);
+        let cart_id = button.closest(".cart-item").attr("id");
+    
         $.ajax({
             type: "POST",
-            url: "../update-inventory.php",
-            data: { "cart_id": cart_id, "action": "plus" },
+            url: "../fetch-stock.php",
+            data: { "cart_id": cart_id },
             dataType: "json",
             success: function (response) {
-
+                let stock = response[0]['stock'];
+    
+                if (stock > 0) {
+                    let inputField = button.siblings(".quantity-input");
+                    let priceElement = button.closest(".cart-item").find(".price");
+                    let originalPrice = parseFloat(priceElement.attr("data-price"));
+    
+                    let newQuantity = parseInt(inputField.val()) + 1;
+                    inputField.val(newQuantity);
+                    priceElement.text(originalPrice * newQuantity);
+                    updateTotalPrice();
+    
+                    $.ajax({
+                        type: "POST",
+                        url: "../update-inventory.php",
+                        data: { "cart_id": cart_id, "action": "plus" },
+                        dataType: "json",
+                        success: function (response) {
+                        }
+                    });
+                }
             }
         });
-
     });
-
+    
     function updateTotalPrice() {
         let total = 0;
-
+    
         $(".cart-item").each(function () {
-            let itemPrice = parseInt($(this).find(".price").text());
+            let itemPrice = parseFloat($(this).find(".price").text());
             total += itemPrice;
-        })
-        let span = document.createElement("span");
-        span.innerHTML = "&#8377";
-
-        let total_amount = document.createElement("span");
-        total_amount.innerText = total;
-
-        let total_amount_rupee = document.createElement("div");
-        total_amount_rupee.appendChild(span);
-        total_amount_rupee.appendChild(total_amount);
-
-        $('.subtotal').html(total_amount_rupee);
-
-        let publishKey = "pk_test_51R8c7MPWmXkqaxc5vcsnss7f5jpSNOEre8ckqjiiVt7U0MiOOCzWPlzHwKgMmg8vBiqL6khXqfXoAwBQtM5z4r6g00XluWR2Eu"
-
-        let content = `
-        <input type="hidden" id="total_amount" name="total_amount" value=${total * 100}>
-        <script
-        src="https://checkout.stripe.com/checkout.js"
-        class="stripe-button"
-        id="stripe-button"
-        data-key="${publishKey}"
-        data-amount=${total * 100}
-        data-name="Flipkart"
-        data-image="./img/flipkartlogo.svg"
-        data-currency="inr"
-        data-email="flipkart.payment@gmail.com"></script>`
-
-        $('#form1').html(content);
+        });
+    
+        let rupeeSymbol = "&#8377;";
+        let totalContent = `<span>${rupeeSymbol}</span> <span>${total}</span>`;
+    
+        $('.subtotal').html(totalContent);
+    
+        let publishKey = "pk_test_51R8c7MPWmXkqaxc5vcsnss7f5jpSNOEre8ckqjiiVt7U0MiOOCzWPlzHwKgMmg8vBiqL6khXqfXoAwBQtM5z4r6g00XluWR2Eu";
+    
+        let stripeContent = `
+            <input type="hidden" id="total_amount" name="total_amount" value="${total * 100}">
+            <script
+                src="https://checkout.stripe.com/checkout.js"
+                class="stripe-button"
+                id="stripe-button"
+                data-key="${publishKey}"
+                data-amount="${total * 100}"
+                data-name="Flipkart"
+                data-image="./img/flipkartlogo.svg"
+                data-currency="inr"
+                data-email="flipkart.payment@gmail.com">
+            </script>`;
+    
+        $('#form1').html(stripeContent);
     }
 
     function removeItem(cart_id, product_id) {

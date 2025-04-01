@@ -11,11 +11,17 @@ document.getElementById("form1").addEventListener("submit", function (e) {
     contentType: false,
     dataType: "json",
     success: function (response) {
+      console.log(response);
       if (response.success) {
-         location.reload();
+        alert(response.message || "Product updated successfully");
+        location.reload();
       } else {
-        alert(response.error);
+        alert(response.error || "Something went wrong.");
       }
+    },
+    error: function (xhr, status, error) {
+      console.error("AJAX Error:",status,error,xhr.responseText);
+      alert("An error occurred. Check console for details.");
     },
   });
 });
@@ -35,7 +41,7 @@ function editProduct(id) {
       document.getElementById("productImage").src = response['products'][0]["image"];
       document.getElementById("existingImage").value = response['products'][0]["image"];
       document.getElementById("productOffer").value = response['products'][0]["offer"];
-      document.getElementById("productStatus").value = (response['products'][0]["status"] == 1) ? "Available" : "Not Available";
+      document.getElementById("productStock").value = response['stock'][0]['stock'];
       document.getElementById("productImage").removeAttribute("required");
     },
     error: function (xhr, status, error) {
@@ -51,7 +57,7 @@ function deleteProduct(id) {
     url: "../delete-product.php",
     data: { id: id },
     dataType: "json",
-    success: function (response) {},
+    success: function (response) { },
   });
 
   window.location.href = "products.php";
