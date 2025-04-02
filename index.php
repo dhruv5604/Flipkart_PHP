@@ -25,7 +25,6 @@ if (!isset($_SESSION['uname'])) {
     require('nav-bar.php');
     ?>
 
-
     <div class="container d-flex justify-content-center flex-wrap mt-3 p-4">
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
