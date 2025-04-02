@@ -3,7 +3,7 @@
 require('connection.php');
 require('check_post.php');
 
-if($_SERVER['REQUEST_METHOD'] == "POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $id = $_POST['id'];
 
     $query = "delete from category where id = ?";

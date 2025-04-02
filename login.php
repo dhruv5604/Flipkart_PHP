@@ -21,7 +21,7 @@ if ($stmt) {
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['uname'] = $name;
         $_SESSION['role'] = $row['role'];
-        header("Location: index");
+        header("Location: /");
         exit();
     } else {
         echo "Invalid username or password.";

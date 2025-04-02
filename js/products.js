@@ -20,7 +20,7 @@ document.getElementById("form1").addEventListener("submit", function (e) {
       }
     },
     error: function (xhr, status, error) {
-      console.error("AJAX Error:",status,error,xhr.responseText);
+      console.error("AJAX Error:", status, error, xhr.responseText);
       alert("An error occurred. Check console for details.");
     },
   });

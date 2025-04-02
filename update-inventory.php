@@ -19,5 +19,5 @@ $query2 = ($action === "plus")
     :  "update cart set quantity = quantity - 1 where id = ?";
 
 $stmt1 = $con->prepare($query2);
-$stmt1->bind_param("i",$cart_id);
+$stmt1->bind_param("i", $cart_id);
 $stmt1->execute();

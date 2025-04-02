@@ -1,11 +1,11 @@
-function addToCart(id){
+function addToCart(id) {
   $.ajax({
     type: "POST",
     url: "../add-cart.php",
-    data: {"product_id": id},
+    data: { "product_id": id },
     dataType: "json",
     success: function (response) {
-      if(!response.success){
+      if (!response.success) {
         alert("Product already exists in cart");
         return;
       }
@@ -48,62 +48,62 @@ $(document).ready(function () {
     success: function (response) {
       response.forEach((product) => {
         if (product.stock <= 0) {
-            return;
+          return;
         }
-    
+
         let categoryId = product.category_id;
         let cardWrapper = document.getElementById(categoryId);
-    
+
         if (cardWrapper) {
-            let offer = product.offer;
-            let discount = (product.price * offer) / 100;
-            let discounted_price = product.price - discount;
-    
-            let card = document.createElement("div");
-            card.classList.add("card");
-    
-            let img = document.createElement("img");
-            img.classList.add("card-img-top", "img-fluid");
-            img.src = product.image;
-    
-            let card_body = document.createElement("div");
-            card_body.classList.add("card-body");
-    
-            let ptag = document.createElement("p");
-            ptag.classList.add("card-text");
-            ptag.innerText = product.name;
-    
-            let delTag = document.createElement("del");
-            delTag.innerText = product.price;
-    
-            let strongTag_discount = document.createElement("strong");
-            strongTag_discount.innerText = discounted_price.toFixed(2);
+          let offer = product.offer;
+          let discount = (product.price * offer) / 100;
+          let discounted_price = product.price - discount;
 
-            let offer_p = document.createElement("strong");
-            offer_p.innerText = '(' + product.offer + '% off) ' ;
+          let card = document.createElement("div");
+          card.classList.add("card");
 
-            let div_price = document.createElement("p");
-            div_price.appendChild(delTag);
-            div_price.appendChild(document.createTextNode(" "));
-            div_price.appendChild(strongTag_discount);
-            div_price.appendChild(document.createTextNode(" "));
-            div_price.appendChild(offer_p);
+          let img = document.createElement("img");
+          img.classList.add("card-img-top", "img-fluid");
+          img.src = product.image;
 
-            let btn = document.createElement("button");
-            btn.innerText = "Add to Cart";
-            btn.classList.add('btn','btn-primary','mb-1');
-            btn.addEventListener("click" , () => addToCart(product.id));
+          let card_body = document.createElement("div");
+          card_body.classList.add("card-body");
 
-            card_body.appendChild(ptag);
-            card_body.appendChild(div_price);
-            card.appendChild(img);
-            card.appendChild(card_body);
-            card.appendChild(btn);
+          let ptag = document.createElement("p");
+          ptag.classList.add("card-text");
+          ptag.innerText = product.name;
 
-            cardWrapper.appendChild(card);
+          let delTag = document.createElement("del");
+          delTag.innerText = product.price;
+
+          let strongTag_discount = document.createElement("strong");
+          strongTag_discount.innerText = discounted_price.toFixed(2);
+
+          let offer_p = document.createElement("strong");
+          offer_p.innerText = '(' + product.offer + '% off) ';
+
+          let div_price = document.createElement("p");
+          div_price.appendChild(delTag);
+          div_price.appendChild(document.createTextNode(" "));
+          div_price.appendChild(strongTag_discount);
+          div_price.appendChild(document.createTextNode(" "));
+          div_price.appendChild(offer_p);
+
+          let btn = document.createElement("button");
+          btn.innerText = "Add to Cart";
+          btn.classList.add('btn', 'btn-primary', 'mb-1');
+          btn.addEventListener("click", () => addToCart(product.id));
+
+          card_body.appendChild(ptag);
+          card_body.appendChild(div_price);
+          card.appendChild(img);
+          card.appendChild(card_body);
+          card.appendChild(btn);
+
+          cardWrapper.appendChild(card);
         }
-    });
-    
+      });
+
     },
   });
 });

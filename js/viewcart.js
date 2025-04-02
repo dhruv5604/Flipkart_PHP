@@ -5,7 +5,14 @@ $(document).ready(function () {
         dataType: "json",
         success: function (response) {
             const container = document.getElementById("inside-cart");
-
+            container.classList.add('text-center')
+            if (response.length == 0) {
+                $('#inside-cart').html(
+                    '<h3>Your cart is empty</h3>' +
+                    '<a href="../index" class="btn btn-primary">Shop Now</a>'
+                )
+                return;
+            }
             response.forEach((product) => {
                 let offer = product.offer;
                 let discount = (product.price * offer) / 100;
@@ -85,16 +92,16 @@ $(document).ready(function () {
         let inputField = $(this).siblings(".quantity-input");
         let priceElement = $(this).closest(".cart-item").find(".price");
         let originalPrice = parseFloat(priceElement.attr("data-price"));
-    
+
         let currentValue = parseInt(inputField.val());
         if (currentValue > 1) {
             let newQuantity = currentValue - 1;
             inputField.val(newQuantity);
             priceElement.text(originalPrice * newQuantity);
             updateTotalPrice();
-    
+
             let cart_id = $(this).closest(".cart-item").attr("id");
-    
+
             $.ajax({
                 type: "POST",
                 url: "../update-inventory.php",
@@ -105,11 +112,11 @@ $(document).ready(function () {
             });
         }
     });
-    
+
     $(document).on("click", ".plus", function () {
         let button = $(this);
         let cart_id = button.closest(".cart-item").attr("id");
-    
+
         $.ajax({
             type: "POST",
             url: "../fetch-stock.php",
@@ -117,17 +124,17 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 let stock = response[0]['stock'];
-    
+
                 if (stock > 0) {
                     let inputField = button.siblings(".quantity-input");
                     let priceElement = button.closest(".cart-item").find(".price");
                     let originalPrice = parseFloat(priceElement.attr("data-price"));
-    
+
                     let newQuantity = parseInt(inputField.val()) + 1;
                     inputField.val(newQuantity);
                     priceElement.text(originalPrice * newQuantity);
                     updateTotalPrice();
-    
+
                     $.ajax({
                         type: "POST",
                         url: "../update-inventory.php",
@@ -140,22 +147,22 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     function updateTotalPrice() {
         let total = 0;
-    
+
         $(".cart-item").each(function () {
             let itemPrice = parseFloat($(this).find(".price").text());
             total += itemPrice;
         });
-    
+
         let rupeeSymbol = "&#8377;";
         let totalContent = `<span>${rupeeSymbol}</span> <span>${total}</span>`;
-    
+
         $('.subtotal').html(totalContent);
-    
+
         let publishKey = "pk_test_51R8c7MPWmXkqaxc5vcsnss7f5jpSNOEre8ckqjiiVt7U0MiOOCzWPlzHwKgMmg8vBiqL6khXqfXoAwBQtM5z4r6g00XluWR2Eu";
-    
+
         let stripeContent = `
             <input type="hidden" id="total_amount" name="total_amount" value="${total * 100}">
             <script
@@ -169,7 +176,7 @@ $(document).ready(function () {
                 data-currency="inr"
                 data-email="flipkart.payment@gmail.com">
             </script>`;
-    
+
         $('#form1').html(stripeContent);
     }
 

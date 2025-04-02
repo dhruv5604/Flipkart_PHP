@@ -4,7 +4,7 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: "../empty-cart.php",
-        data: {"amount":amount},
+        data: { "amount": amount },
         dataType: "json",
         success: function (response) {
             console.log(response);

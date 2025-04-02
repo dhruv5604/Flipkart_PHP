@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors',1);
+ini_set('display_errors', 1);
 require('config.php');
 session_start();
 ?>
@@ -117,15 +117,15 @@ session_start();
     </div>
     <div class="subtotal"></div>
 
-    <form action="checkout.php" method="post" id="form1" >
-       
+    <form action="checkout.php" method="post" id="form1">
+
     </form>
   </div>
 
   <script src="./js/viewcart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

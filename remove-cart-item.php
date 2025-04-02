@@ -12,12 +12,12 @@ $product_id = $_POST['product_id'];
 
 $query = "delete from cart where id = ?";
 $stmt = $con->prepare($query);
-$stmt->bind_param("i",$cart_id);
+$stmt->bind_param("i", $cart_id);
 
-if($stmt->execute()){
+if ($stmt->execute()) {
     $query = "update inventory set stock = stock + ? where product_id = ?";
     $stmt1 = $con->prepare($query);
-    $stmt1->bind_param("ii",$quantity,$product_id);
+    $stmt1->bind_param("ii", $quantity, $product_id);
     $stmt1->execute();
 }
 
@@ -25,4 +25,4 @@ $stmt->close();
 $stmt1->close();
 $con->close();
 
-echo json_encode(["success"=>"true","message"=>"Product removed from cart"]);
+echo json_encode(["success" => "true", "message" => "Product removed from cart"]);

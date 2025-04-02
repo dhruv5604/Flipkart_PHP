@@ -43,5 +43,3 @@ while ($row = $result->fetch_assoc()) {
 }
 
 echo json_encode(array_values($orders));
-
-?>

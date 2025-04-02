@@ -20,13 +20,13 @@ while ($row = $result->fetch_assoc()) {
 
 $query = "select * from inventory where product_id = ?";
 $stmt = $con->prepare($query);
-$stmt->bind_param("i",$id);
+$stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
 $stmt->close();
 $stock = [];
 
-while($row = $result->fetch_assoc()){
+while ($row = $result->fetch_assoc()) {
     $stock[] = $row;
 }
 
@@ -41,4 +41,4 @@ while ($row = $result->fetch_assoc()) {
 }
 
 header("Content-Type: application/json");
-echo json_encode(['products' => $products, "category" => $category,"stock" => $stock]);
+echo json_encode(['products' => $products, "category" => $category, "stock" => $stock]);

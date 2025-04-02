@@ -2,7 +2,7 @@
 
 require('connection.php');
 session_start();
-if($_SERVER['REQUEST_METHOD'] == 'GET'){
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     $user_id = $_SESSION['user_id'];
 
@@ -11,19 +11,18 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                 join User u on u.id = c.user_id 
                 join inventory i on i.product_id = p.id where u.id = ?';
     $stmt = $con->prepare($query);
-    $stmt->bind_param("i",$user_id);
+    $stmt->bind_param("i", $user_id);
     $stmt->execute();
 
     $result = $stmt->get_result();
 
     $products = [];
 
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
             $products[] = $row;
         }
     }
 
     echo json_encode($products);
-
 }

@@ -44,21 +44,10 @@ session_start();
         .status {
             font-weight: bold;
         }
-
-        .status.pending {
-            color: orange;
-        }
-
-        .status.completed {
-            color: green;
-        }
-
-        .status.cancelled {
-            color: red;
-        }
     </style>
     <link rel="stylesheet" href="./css/index.css">
 </head>
+
 <body>
     <?php
     require('nav-bar.php');

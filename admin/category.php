@@ -66,7 +66,7 @@ if ($_SESSION['role'] != "admin") {
                         <a type="button" class="btn btn-primary" href="../index">HomePage</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a type="button" class="btn btn-primary" href="./index">Admin Panel</a>
+                        <a type="button" class="btn btn-primary" href="./">Admin Panel</a>
                     </li>
                     <li>
                         <a type="button" class="btn btn-primary" href="./products">Product crud</a>

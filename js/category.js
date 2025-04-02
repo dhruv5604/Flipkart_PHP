@@ -49,11 +49,10 @@ function deleteCategory(id) {
     url: "../delete-category.php",
     data: { id: id },
     dataType: "json",
-    success: function (response) {},
+    success: function (response) { },
   });
   window.location.href = "category.html";
 }
-
 
 $(document).ready(function () {
   $.ajax({
