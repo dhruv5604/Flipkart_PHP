@@ -44,6 +44,7 @@ function editCategory(id) {
 }
 
 function deleteCategory(id) {
+  console.log(id)
   $.ajax({
     type: "POST",
     url: "../delete-category.php",
@@ -51,7 +52,7 @@ function deleteCategory(id) {
     dataType: "json",
     success: function (response) { },
   });
-  window.location.href = "category.html";
+  window.location.href = "category";
 }
 
 $(document).ready(function () {

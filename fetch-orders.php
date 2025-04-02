@@ -5,13 +5,12 @@ require('connection.php');
 
 $user_id = $_SESSION['user_id'];
 
-$query = "SELECT o.id AS order_id, o.order_status, o.total_amount, 
-                 oi.product_id, oi.quantity, 
-                 p.name, p.price, p.offer, p.image 
-          FROM Orders o 
-          JOIN Order_Item oi ON o.id = oi.order_id 
-          JOIN products p ON oi.product_id = p.id 
-          WHERE o.user_id = ?";
+$query = "select o.id as order_id, o.order_status, o.total_amount, 
+                 oi.product_name, oi.quantity, 
+                 oi.product_img, oi.product_price, oi.product_offer
+          from Orders o 
+          join Order_Item oi on o.id = oi.order_id 
+          where o.user_id = ?";
 
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $user_id);
@@ -33,12 +32,11 @@ while ($row = $result->fetch_assoc()) {
     }
 
     $orders[$order_id]["items"][] = [
-        "product_id" => $row['product_id'],
-        "name" => $row['name'],
+        "name" => $row['product_name'],
         "quantity" => $row['quantity'],
-        "price" => $row['price'],
-        "offer" => $row['offer'],
-        "image" => $row['image']
+        "price" => $row['product_price'],
+        "offer" => $row['product_offer'],
+        "image" => $row['product_img']
     ];
 }
 

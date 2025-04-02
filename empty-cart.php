@@ -27,22 +27,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $products[] = $row;
     }
 
-    $query_insert_orderItems = "insert into Order_Item(order_id, product_id, quantity) values (?, ?, ?)";
+    $query_insert_orderItems = "insert into Order_Item(order_id, product_name,product_price,product_img,quantity,product_offer) values (?, ?, ?, ?, ?, ?)";
     $stmt = $con->prepare($query_insert_orderItems);
 
     foreach ($products as $product) {
         $product_id = $product['product_id'];
         $quantity = $product['quantity'];
 
-        $query_price = "select price from products where id = ?";
-        $stmt_price = $con->prepare($query_price);
-        $stmt_price->bind_param("i", $product_id);
-        $stmt_price->execute();
-        $stmt_price->bind_result($price);
-        $stmt_price->fetch();
-        $stmt_price->close();
+        $query_product = "select name,image,price,offer from products where id = ?";
+        $stmt_product = $con->prepare($query_product);
+        $stmt_product->bind_param("i", $product_id);
+        $stmt_product->execute();
+        $stmt_product->bind_result($product_name,$product_img,$product_price,$product_offer);
+        $stmt_product->fetch();
+        $stmt_product->close();
 
-        $stmt->bind_param("iii", $order_id, $product_id, $quantity);
+        $stmt->bind_param("isisii", $order_id, $product_name,$product_price,$product_img,$quantity,$product_offer);
         $stmt->execute();
     }
     $stmt->close();
