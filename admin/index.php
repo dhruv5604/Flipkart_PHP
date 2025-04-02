@@ -1,8 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['role'] != 'admin') {
-    header('Location: ../index.php');
-}
+require('../check-admin.php');
 ?>
 
 <!DOCTYPE html>

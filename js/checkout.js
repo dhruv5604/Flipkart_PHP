@@ -2,7 +2,7 @@ $(document).ready(function () {
     let amount = $('#amount').data('amount');
 
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "../empty-cart.php",
         data: { "amount": amount },
         dataType: "json",

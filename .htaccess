@@ -1,10 +1,4 @@
-RewriteEngine On
-# RewriteBase /
-RewriteRule ^index$ index.php [L]
-RewriteRule ^login$ Login/login.html [L]
-RewriteRule ^signup$ Login/signup.html [L]
-RewriteRule ^view-cart$ viewcart.php [L]
-RewriteRule ^view-orders$ viewOrders.php [L]
-RewriteRule ^admin/$ admin/index.php [L]
-RewriteRule ^admin/products$ admin/products.php [L]
-RewriteRule ^admin/category$ admin/category.php [L]
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php

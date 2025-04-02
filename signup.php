@@ -12,7 +12,6 @@ $dob = $_POST['dob'];
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
-echo 'ruk ja';
 
 $query = "INSERT INTO User(name, password, contactNumber, dob) VALUES (?, ?, ?, ?)";
 $stmt = $con->prepare($query);

@@ -5,7 +5,7 @@ require('connection.php');
 
 $user_id = $_SESSION['user_id'];
 
-$query = "select o.id as order_id, o.order_status, o.total_amount, 
+$query = "select o.id as order_id, o.order_status, o.total_amount,o.order_date,
                  oi.product_name, oi.quantity, 
                  oi.product_img, oi.product_price, oi.product_offer
           from Orders o 
@@ -27,6 +27,7 @@ while ($row = $result->fetch_assoc()) {
             "order_id" => $row['order_id'],
             "status" => $row['order_status'],
             "total" => $row['total_amount'],
+            "date" => $row['order_date'],
             "items" => []
         ];
     }
