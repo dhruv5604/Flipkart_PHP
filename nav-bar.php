@@ -1,6 +1,6 @@
 <div class="container-fluid p-2">
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="index">
                 <img src="./img/flipkartlogo.svg" alt="Flipkart Logo" class="img-fluid">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -30,13 +30,13 @@
                             </li>
                             <li><a class="dropdown-item" href="#">My Profile</a></li>
                             <li><a class="dropdown-item" href="#">Flipkart Plus zone</a></li>
-                            <li><a class="dropdown-item" href="viewOrders.php">Orders</a></li>
+                            <li><a class="dropdown-item" href="viewOrders">Orders</a></li>
                             <li><a class="dropdown-item" href="#">Wishlist</a></li>
                             <li><a class="dropdown-item" href="#">Rewards</a></li>
                         </ul>
                     </li>
                     <li class="nav-item me-3">
-                        <button type="button" class="btn me-2" id="btn-cart" onclick="window.location.href = '../viewcart.php'"><i class="fa-solid fa-cart-shopping"></i> Cart</button>
+                        <button type="button" class="btn me-2" id="btn-cart" onclick="window.location.href = '../viewcart'"><i class="fa-solid fa-cart-shopping"></i> Cart</button>
                     </li>
                     <li class="nav-item me-3">
                         <button type="button" class="btn"><i class="fa-solid fa-shop"></i> Become a Seller</button>
@@ -55,7 +55,7 @@
                     <?php 
                         if($_SESSION['role'] == 'admin'){
                             echo '<li>
-                                <a type="button" class="btn btn-primary" href="./admin/index.php">Admin Panel</a>
+                                <a type="button" class="btn btn-primary" href="./admin/index">Admin Panel</a>
                             </li>';
                         }
                     ?>

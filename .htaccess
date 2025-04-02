@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index$ index.php [L]
+RewriteRule ^login$ Login/login.html [L]
+RewriteRule ^signup$ Login/signup.html [L]
+RewriteRule ^viewcart$ viewcart.php [L]
+RewriteRule ^viewOrders$ viewOrders.php [L]
+RewriteRule ^admin/index$ admin/index.php [L]
+RewriteRule ^admin/products$ admin/products.php [L]
+RewriteRule ^admin/category$ admin/category.php [L]

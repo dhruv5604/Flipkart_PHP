@@ -57,15 +57,15 @@ if ($_SESSION['role'] != "admin") {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-5">
           <li class="nav-item me-3">
-            <a type="button" class="btn btn-primary" href="../index.php">HomePage</a>
+            <a type="button" class="btn btn-primary" href="../index">HomePage</a>
           </li>
 
           <li class="nav-item me-3">
-            <a type="button" class="btn btn-primary" href="./index.php">Admin Panel</a>
+            <a type="button" class="btn btn-primary" href="./index">Admin Panel</a>
           </li>
 
           <li>
-            <a type="button" class="btn btn-primary" href="./category.php">Category crud</a>
+            <a type="button" class="btn btn-primary" href="./category">Category crud</a>
           </li>
         </ul>
       </div>

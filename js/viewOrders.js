@@ -34,7 +34,7 @@ $(document).ready(function() {
                                         <div>
                                             <img src="${item.image}" alt="${item.name}" width="50">
                                             <span>${item.name} (x${item.quantity}) - ₹${discountedPrice.toFixed(2)}
-                                            /span>
+                                            </span>
                                         </div>
                                     `;
                                 }).join('')}
@@ -51,8 +51,6 @@ $(document).ready(function() {
                 });
             }
         });
-        
     }
-
     fetchOrders();
 });
