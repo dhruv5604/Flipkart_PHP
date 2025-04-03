@@ -32,7 +32,7 @@ foreach ($products as $product) {
 
     $query_product = "select name,image,price,offer from products where id = ?";
     $stmt_product = $con->prepare($query_product);
-    $stmt_product->bind_param("i", var: $product_id);
+    $stmt_product->bind_param("i",  $product_id);
     $stmt_product->execute();
     $stmt_product->bind_result($product_name, $product_img, $product_price, $product_offer);
     $stmt_product->fetch();

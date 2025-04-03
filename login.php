@@ -1,34 +1,37 @@
 <?php
-
 require_once('connection.php');
 require_once('check_post.php');
+session_start();
 
-$name = $_POST['uname'];
-$pass = $_POST['pass'];
+header("Content-Type: application/json");
 
-$query = "SELECT * FROM User WHERE name = ? AND password = ?";
+$email = htmlspecialchars($_POST['email']);
+$pass = htmlspecialchars($_POST['pass']);
+
+$query = "SELECT id, name, password, email,role FROM User WHERE email = ?";
 $stmt = $con->prepare($query);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
-if ($stmt) {
-    $stmt->bind_param("ss", $name, $pass);
-    $stmt->execute();
+if ($row = $result->fetch_assoc()) {
+    $fetched_name = $row['name'];
+    $fetched_pass = $row['password'];
+    $fetched_email = $row['email'];
 
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    if (password_verify($pass, $fetched_pass)) {
+        $_SESSION['user_id'] = $row["id"];
+        $_SESSION['uname'] = $row["name"];
+        $_SESSION['role'] = $row["role"];
 
-    if ($result->num_rows > 0) {
-        session_start();
-        $_SESSION['user_id'] = $row['id'];
-        $_SESSION['uname'] = $name;
-        $_SESSION['role'] = $row['role'];
-        header("Location: /");
-        exit();
+        echo json_encode(["success" => true, "message" => "Login successful!"]);
     } else {
-        echo "Invalid username or password.";
+        echo json_encode(["success" => false, "message" => "Password is incorrect!"]);
     }
-    $stmt->close();
 } else {
-    echo "Error: " . $con->error;
+    echo json_encode(["success" => false, "message" => "No User Found!"]);
 }
 
+$stmt->close();
 $con->close();
+exit();

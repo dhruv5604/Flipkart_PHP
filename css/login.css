@@ -136,12 +136,10 @@ body {
 }
 
 #uname,
-#pass,#cpass,#num,#dob,#tnc {
-    /* background-color: #fff; */
+#pass,#cpass,#num,#email,#tnc {
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
-    /* border-radius: 5px; */
     border: none;
     outline: none;
 }
@@ -152,8 +150,6 @@ p.forget{
 
 .remember {
     margin-left: 0px;
-    /* margin-top: 20px; */
-    /* padding-top: 0px; */
 }
 
 .submit {

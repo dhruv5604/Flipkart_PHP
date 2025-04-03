@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../css/login.css" />
   </head>
 
@@ -15,14 +16,14 @@
     <div class="mainSign">
       <div class="container">
         <marquee class="marq"> Welcome to SignUp page!!!</marquee>
-        <form action="../signup.php" method="POST" class="sign-up-form">
+        <form id="sign-up-form" class="sign-up-form">
           <div class="links">
             <a href="login"><i class="fa-solid fa-user"></i> sign in</a>
             <a href="signup" class="activeSignup"
               ><i class="fa-solid fa-user-plus"></i> sign up</a
             >
           </div>
-
+          
           <div>
             <input
               type="file"
@@ -43,6 +44,19 @@
               placeholder="Username"
               id="uname"
               name="uname"
+              required
+            /><br />
+          </div>
+
+          <div class="input-field">
+          <i class="fa-solid fa-envelope"></i>
+            <input
+              type="email"
+              placeholder="Email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
             /><br />
           </div>
 
@@ -53,6 +67,8 @@
               placeholder="Password"
               id="pass"
               name="pass"
+              autocomplete="new-password"
+              required
             /><br />
           </div>
 
@@ -63,6 +79,8 @@
               placeholder="Confirm Password"
               id="cpass"
               name="cpass"
+              autocomplete="new-password"
+              required
             />
           </div>
 
@@ -73,25 +91,14 @@
               placeholder="Mobile Number"
               id="num"
               name="num"
-              pattern="[0-9]{10}"
+              pattern="[6-9]{1}[0-9]{9}"
               title="Enter 10 digits"
-            />
-          </div>
-
-          <div class="input-field">
-            <i class="fa-solid fa-calendar-days"></i>
-            <input
-              type="date"
-              id="dob"
-              name="dob"
-              max="2007-01-15"
-              title="Age above 18"
-              placeholder="Enter DOB"
+              required
             />
           </div>
 
           <div class="input-field" style="height: 40px">
-            <input type="checkbox" name="rememberme" id="rememberme" />
+            <input type="checkbox" name="rememberme" id="rememberme" required/>
             <label for="rememberme"
               >Accept <span class="tnc"> terms and conditions</span></label
             >
@@ -112,5 +119,7 @@
         </form>
       </div>
     </div>
+
+    <script src="../js/login.js"></script>
   </body>
 </html>

@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../css/login.css" />
   </head>
 
@@ -17,8 +17,6 @@
       <div class="container">
         <marquee class="marq">Welcome to Login page!!!</marquee>
         <form
-          action="../login.php"
-          method="POST"
           id="sign-in-form"
           class="sign-in-form"
         >
@@ -30,8 +28,8 @@
           </div>
 
           <div class="input-field">
-            <i class="fa-solid fa-globe"></i>
-            <input type="text" placeholder="Username" id="uname" name="uname" />
+          <i class="fa-solid fa-envelope"></i>
+            <input type="email" placeholder="Email" id="email" name="email" />
           </div>
 
           <div class="input-field">
@@ -63,5 +61,6 @@
         </form>
       </div>
     </div>
+    <script src="/js/login.js"></script>
   </body>
 </html>
