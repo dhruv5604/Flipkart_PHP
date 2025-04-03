@@ -31,7 +31,10 @@ require('../check-admin.php');
     <div class="container-fluid p-2">
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
             <a class="navbar-brand" href="#">
-                <img src="../img/flipkartlogo.svg" alt="Flipkart Logo" class="img-fluid">
+                <img
+                    src="../static/img/flipkartlogo.svg"
+                    alt="Flipkart Logo"
+                    class="img-fluid" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

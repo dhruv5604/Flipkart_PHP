@@ -1,7 +1,7 @@
 <div class="container-fluid p-2">
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <a class="navbar-brand" href="/">
-            <img src="./static/img/flipkartlogo.svg" alt="Flipkart Logo" class="img-fluid">
+            <img src="/static/img/flipkartlogo.svg" alt="Flipkart Logo" class="img-fluid">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +20,7 @@
                     <button type="button" class="btn loginbtn btn-outline-primary dropdown-toggle me-4"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-regular fa-user"></i> <?php echo $_SESSION['uname']; ?>
-                    </button>
+                    </button>   
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">New Customer <span class="text-primary">Sign
                                     Up</span></a>

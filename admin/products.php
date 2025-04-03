@@ -37,7 +37,7 @@ require('../check-admin.php');
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <a class="navbar-brand" href="#">
         <img
-          src="../img/flipkartlogo.svg"
+          src="../static/img/flipkartlogo.svg"
           alt="Flipkart Logo"
           class="img-fluid" />
       </a>

@@ -21,26 +21,21 @@ require('../check-admin.php');
         body {
             background-color: white;
         }
-
         h1 {
             margin-top: 100px;
             text-align: center;
         }
-
         td button {
             width: 10%;
             background: none;
             border: none;
         }
-
         .id {
             width: 20%;
         }
-
         .category {
             width: 40%;
         }
-
         .action {
             width: 20%;
         }
@@ -52,7 +47,10 @@ require('../check-admin.php');
     <div class="container-fluid p-2">
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
             <a class="navbar-brand" href="#">
-                <img src="../img/flipkartlogo.svg" alt="Flipkart Logo" class="img-fluid">
+                <img
+                    src="../static/img/flipkartlogo.svg"
+                    alt="Flipkart Logo"
+                    class="img-fluid" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,10 +62,10 @@ require('../check-admin.php');
                         <a type="button" class="btn btn-primary" href="../index">HomePage</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a type="button" class="btn btn-primary" href="./">Admin Panel</a>
+                        <a type="button" class="btn btn-primary" href="./products">Product Crud</a>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-primary" href="./products">Product crud</a>
+                        <a type="button" class="btn btn-primary" href="./category">Category crud</a>
                     </li>
                 </ul>
             </div>
@@ -80,7 +78,6 @@ require('../check-admin.php');
             <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" required>
             <button type="submit">Add Category</button>
         </form>
-
         <table>
             <thead>
                 <tr>
