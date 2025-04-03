@@ -28,37 +28,37 @@ if (!isset($_SESSION['uname'])) {
     <div class="container d-flex justify-content-center flex-wrap mt-3 p-4">
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/grocery.webp" alt="Grocery">
+                <img class="img-fluid" src="./static/img/grocery.webp" alt="Grocery">
                 <strong>Grocery</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/mobile.webp" alt="Mobile">
+                <img class="img-fluid" src="./static/img/mobile.webp" alt="Mobile">
                 <strong>Mobile</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/grocery.webp" alt="Fashion">
+                <img class="img-fluid" src="./static/img/grocery.webp" alt="Fashion">
                 <strong>Fashion</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/applicens.webp" alt="Appliances">
+                <img class="img-fluid" src="./static/img/applicens.webp" alt="Appliances">
                 <strong>Appliances</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/flight.webp" alt="Flights">
+                <img class="img-fluid" src="./static/img/flight.webp" alt="Flights">
                 <strong>Flights</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/grocery.webp" alt="Flights">
+                <img class="img-fluid" src="./static/img/grocery.webp" alt="Flights">
                 <strong>Grocery</strong>
             </button>
         </div>
@@ -76,13 +76,13 @@ if (!isset($_SESSION['uname'])) {
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="./img/caresol1.webp" class="d-block w-100 img-fluid" alt="caresol1">
+                    <img src="./static/img/caresol1.webp" class="d-block w-100 img-fluid" alt="caresol1">
                 </div>
                 <div class="carousel-item">
-                    <img src="./img/caresol2.webp" class="d-block w-100 img-fluid" alt="caresol2">
+                    <img src="./static/img/caresol2.webp" class="d-block w-100 img-fluid" alt="caresol2">
                 </div>
                 <div class="carousel-item">
-                    <img src="./img/caresol3.webp" class="d-block w-100 img-fluid" alt="caresol3">
+                    <img src="./static/img/caresol3.webp" class="d-block w-100 img-fluid" alt="caresol3">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -110,49 +110,49 @@ if (!isset($_SESSION['uname'])) {
                 <div class="d-flex instruments2">
                     <div class="cards-wrapper">
                         <div class="card">
-                            <img src="img/soft.jpeg" class="card-img-top img-fluid" alt="soft toy">
+                            <img src="static/img/soft.jpeg" class="card-img-top img-fluid" alt="soft toy">
                             <div class="card-body">
                                 <p class="card-text">Soft Toys</p>
                                 <strong class="card-text">Upto 70% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/coffee.jpeg" class="card-img-top img-fluid" alt="Coffee Powder">
+                            <img src="static/img/coffee.jpeg" class="card-img-top img-fluid" alt="Coffee Powder">
                             <div class="card-body ">
                                 <p class="card-text ">Coffee Powder</p>
                                 <strong class="card-text">Upto 80% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/musi.jpeg" class="card-img-top mb-3" alt="Musical Keyboards">
+                            <img src="static/img/musi.jpeg" class="card-img-top mb-3" alt="Musical Keyboards">
                             <div class="card-body ">
                                 <p class="card-text ">Musical Keyboards</p>
                                 <strong class="card-text ">Upto 70% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/guitar.jpeg" class="card-img-top img-fluid" alt="Strings Instruments">
+                            <img src="static/img/guitar.jpeg" class="card-img-top img-fluid" alt="Strings Instruments">
                             <div class="card-body ">
                                 <p class="card-text ">Strings Instruments</p>
                                 <strong class="card-text">Upto 70% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/microphone.jpeg" class="card-img-top img-fluid" alt="Microphones">
+                            <img src="static/img/microphone.jpeg" class="card-img-top img-fluid" alt="Microphones">
                             <div class="card-body mt-4">
                                 <p class="card-text ">Microphones</p>
                                 <strong class="card-text">Upto 70% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
+                            <img src="static/img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
                             <div class="card-body ">
                                 <p class="card-text">Non-Geared Cycles</p>
                                 <strong class="card-text ">Upto 40% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
+                            <img src="static/img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
                             <div class="card-body ">
                                 <p class="card-text">Non-Geared Cycles</p>
                                 <strong class="card-text ">Upto 40% off</strong>
@@ -184,49 +184,49 @@ if (!isset($_SESSION['uname'])) {
         <div class="d-flex">
             <div class="cards-wrapper">
                 <div class="card">
-                    <img src="img/soft.jpeg" class="card-img-top img-fluid" alt="soft Toy image">
+                    <img src="static/img/soft.jpeg" class="card-img-top img-fluid" alt="soft Toy image">
                     <div class="card-body">
                         <p class="card-text">Soft Toys</p>
                         <strong class="card-text">Upto 70% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/coffee.jpeg" class="card-img-top img-fluid" alt="Coffee Powder">
+                    <img src="static/img/coffee.jpeg" class="card-img-top img-fluid" alt="Coffee Powder">
                     <div class="card-body ">
                         <p class="card-text ">Coffee Powder</p>
                         <strong class="card-text">Upto 80% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/musi.jpeg" class="card-img-top mb-3" alt="Musical Keyboards">
+                    <img src="static/img/musi.jpeg" class="card-img-top mb-3" alt="Musical Keyboards">
                     <div class="card-body ">
                         <p class="card-text ">Musical Keyboards</p>
                         <strong class="card-text ">Upto 70% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/guitar.jpeg" class="card-img-top img-fluid" alt="Strings Instruments">
+                    <img src="static/img/guitar.jpeg" class="card-img-top img-fluid" alt="Strings Instruments">
                     <div class="card-body ">
                         <p class="card-text ">Strings Instruments</p>
                         <strong class="card-text">Upto 70% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/microphone.jpeg" class="card-img-top img-fluid" alt="Microphones">
+                    <img src="static/img/microphone.jpeg" class="card-img-top img-fluid" alt="Microphones">
                     <div class="card-body mt-4">
                         <p class="card-text ">Microphones</p>
                         <strong class="card-text">Upto 70% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
+                    <img src="static/img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
                     <div class="card-body ">
                         <p class="card-text">Non-Geared Cycles</p>
                         <strong class="card-text ">Upto 40% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
+                    <img src="static/img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
                     <div class="card-body ">
                         <p class="card-text">Non-Geared Cycles</p>
                         <strong class="card-text ">Upto 40% off</strong>

@@ -11,10 +11,6 @@ $stmt->bind_param("i", $cart_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$stock = [];
-
-while ($row = $result->fetch_assoc()) {
-    $stock[] = $row;
-}
+$stock = $result->fetch_all(MYSQLI_ASSOC);
 
 echo json_encode($stock);

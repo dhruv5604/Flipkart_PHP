@@ -28,7 +28,7 @@ if ($row = $result->fetch_assoc()) {
 }
 
 if (!empty($_FILES['productImage']['name'])) {
-    $uploadDir = realpath("img") . "/";
+    $uploadDir = realpath("static/uploaded-img") . "/";
     $newImage = basename($_FILES["productImage"]["name"]);
     $targetFilePath = $uploadDir . $newImage;
 
@@ -43,7 +43,7 @@ if (!empty($_FILES['productImage']['name'])) {
     }
 
     if (move_uploaded_file($_FILES["productImage"]["tmp_name"], $targetFilePath)) {
-        $imageToSave = "../img/" . $newImage;
+        $imageToSave = "../static/uploaded-img/" . $newImage;
     } else {
         echo json_encode(["error" => "Image upload failed. Check folder permissions."]);
         exit;

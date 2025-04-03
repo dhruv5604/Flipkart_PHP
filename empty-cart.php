@@ -21,10 +21,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 $stmt->close();
 
-$products = [];
-while ($row = $result->fetch_assoc()) {
-    $products[] = $row;
-}
+$products = $result->fetch_all(MYSQLI_ASSOC);
 
 $query_insert_orderItems = "insert into Order_Item(order_id, product_name,product_price,product_img,quantity,product_offer) values (?, ?, ?, ?, ?, ?)";
 $stmt = $con->prepare($query_insert_orderItems);
@@ -35,7 +32,7 @@ foreach ($products as $product) {
 
     $query_product = "select name,image,price,offer from products where id = ?";
     $stmt_product = $con->prepare($query_product);
-    $stmt_product->bind_param("i", $product_id);
+    $stmt_product->bind_param("i", var: $product_id);
     $stmt_product->execute();
     $stmt_product->bind_result($product_name, $product_img, $product_price, $product_offer);
     $stmt_product->fetch();

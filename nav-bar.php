@@ -1,7 +1,7 @@
 <div class="container-fluid p-2">
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <a class="navbar-brand" href="/">
-            <img src="./img/flipkartlogo.svg" alt="Flipkart Logo" class="img-fluid">
+            <img src="./static/img/flipkartlogo.svg" alt="Flipkart Logo" class="img-fluid">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
                 </li>
                 <li class="nav-item me-3">
                     <div class="btn-group">
-                        <button type="button" class="btn1" lis><img src="./img/3dots.svg"></button>
+                        <button type="button" class="btn1" lis><img src="./static/img/3dots.svg"></button>
                         <ul class="listfor3dot">
                             <li>Notifications</li>
                             <li>24X7 Customer Care</li>

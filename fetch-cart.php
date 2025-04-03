@@ -16,13 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     $result = $stmt->get_result();
 
-    $products = [];
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $products[] = $row;
-        }
-    }
+    $products = $result->fetch_all(MYSQLI_ASSOC); 
 
     echo json_encode($products);
 }

@@ -59,7 +59,6 @@ function deleteProduct(id) {
     dataType: "json",
     success: function (response) { },
   });
-
   window.location.href = "products.php";
 }
 

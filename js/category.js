@@ -44,15 +44,15 @@ function editCategory(id) {
 }
 
 function deleteCategory(id) {
-  console.log(id)
   $.ajax({
     type: "POST",
     url: "../delete-category.php",
     data: { id: id },
     dataType: "json",
-    success: function (response) { },
+    success: function (response) { 
+      window.location.href = "category";
+    },
   });
-  window.location.href = "category";
 }
 
 $(document).ready(function () {

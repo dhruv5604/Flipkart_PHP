@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "fetch-addToCart.php",
+        url: "fetch-cart.php",
         dataType: "json",
         success: function (response) {
             const container = document.getElementById("inside-cart");

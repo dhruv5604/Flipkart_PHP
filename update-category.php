@@ -10,13 +10,7 @@ $stmt = $con->prepare($query);
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
-$categories = [];
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $categories[] = $row['category'];
-    }
-}
+$categories = $result->fetch_all(MYSQLI_ASSOC);
 
 header('Content-Type: application/json');
 echo json_encode($categories);
