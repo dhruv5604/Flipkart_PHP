@@ -160,7 +160,7 @@ $(document).ready(function () {
         let totalContent = `<span>${rupeeSymbol}</span> <span>${total}</span>`;
 
         $('.subtotal').html(totalContent);
-
+        
         let publishKey = "pk_test_51R8c7MPWmXkqaxc5vcsnss7f5jpSNOEre8ckqjiiVt7U0MiOOCzWPlzHwKgMmg8vBiqL6khXqfXoAwBQtM5z4r6g00XluWR2Eu";
 
         let stripeContent = `

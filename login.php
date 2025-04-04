@@ -23,6 +23,7 @@ if ($row = $result->fetch_assoc()) {
         $_SESSION['user_id'] = $row["id"];
         $_SESSION['uname'] = $row["name"];
         $_SESSION['role'] = $row["role"];
+        $_SESSION['email'] = $row["email"];
 
         echo json_encode(["success" => true, "message" => "Login successful!"]);
     } else {

@@ -49,7 +49,7 @@
           </div>
 
           <div class="input-field">
-          <i class="fa-solid fa-envelope"></i>
+            <i class="fa-solid fa-envelope"></i>
             <input
               type="email"
               placeholder="Email"
@@ -114,7 +114,7 @@
           </div>
 
           <div class="hveacc">
-            <p>Already have an account? <a href="login.html">Sign In</a></p>
+            <p>Already have an account? <a href="login.php">Sign In</a></p>
           </div>
         </form>
       </div>

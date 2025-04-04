@@ -21,7 +21,7 @@ $("#sign-in-form").submit(function (e) {
 
 $("#sign-up-form").submit(function (e) { 
     e.preventDefault();
-
+    console.log("hello")
     $.ajax({
         type: "POST",
         url: "../signup.php",

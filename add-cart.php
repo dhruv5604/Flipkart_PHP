@@ -16,9 +16,15 @@ if ($stmt->get_result()->num_rows > 0) {
     exit;
 }
 
+$query = "update inventory set stock = stock - 1 where product_id = ?";
+$stmt1 = $con->prepare($query);
+$stmt1->bind_param("i",$product_id);
+$stmt1->execute();
+$stmt1->close();
+
 $query = "insert into cart(user_id,product_id) values(?,?)";
 $stmt = $con->prepare($query);
 $stmt->bind_param("ii", $user_id, $product_id);
 $stmt->execute();
-
+$stmt->close();
 echo json_encode(["success" => "true", "message" => "Product successfully added to cart"]);

@@ -118,7 +118,7 @@ session_start();
     <div class="subtotal"></div>
 
     <form action="checkout.php" method="post" id="form1">
-
+    
     </form>
   </div>
 
