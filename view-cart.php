@@ -1,6 +1,7 @@
 <?php
 ini_set('display_errors', 1);
 require('config.php');
+
 session_start();
 ?>
 

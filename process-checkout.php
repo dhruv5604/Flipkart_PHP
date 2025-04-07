@@ -3,6 +3,9 @@ require('config.php');
 require('connection.php');
 require('vendor/autoload.php');
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -101,7 +104,7 @@ try {
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
     $mail->Username = 'dhruvsolanki5604@gmail.com';
-    $mail->Password = 'pyui erkp ktfh vhji';
+    $mail->Password = $_ENV['GMAIL_PASSWORD'];
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
