@@ -1,12 +1,15 @@
 <?php
 
 require('connection.php');
+require('check_post.php');
 
-$query = "SELECT * FROM category";
-$result = $con->query($query);
+$id = $_POST["id"];
 
-$categories = [];
-
+$query = 'select * from category where id = ?';
+$stmt = $con->prepare($query);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 $categories = $result->fetch_all(MYSQLI_ASSOC);
 
 header('Content-Type: application/json');

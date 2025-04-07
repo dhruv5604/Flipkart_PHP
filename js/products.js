@@ -29,14 +29,15 @@ document.getElementById("form1").addEventListener("submit", function (e) {
 function editProduct(id) {
   $.ajax({
     type: "POST",
-    url: "../update-product.php",
+    url: "../fetch-product.php",
     data: { id: id },
     dataType: "json",
     success: function (response) {
+      console.log(response);
       document.getElementById("productPrice").value = response['products'][0]["price"];
       document.getElementById("productDescription").value =
         response['products'][0]["name"];
-      document.getElementById("categoryList").value = response['category'];
+      document.getElementById("categoryList").selected = response['category'];
       document.getElementById("productId").value = response['products'][0]["id"];
       document.getElementById("productImage").src = response['products'][0]["image"];
       document.getElementById("existingImage").value = response['products'][0]["image"];
@@ -67,7 +68,7 @@ function deleteProduct(id) {
 $(document).ready(function () {
   $.ajax({
     type: "GET",
-    url: "../fetch-category.php",
+    url: "../fetch-all-category.php",
     dataType: "json",
     success: function (response) {
       let categoryList = document.getElementById("categoryList");
@@ -82,7 +83,7 @@ $(document).ready(function () {
 
   $.ajax({
     type: "GET",
-    url: "../fetch-products.php",
+    url: "../fetch-all-products.php",
     dataType: "json",
     success: function (response) {
       const tbody = document.getElementById("product-list");

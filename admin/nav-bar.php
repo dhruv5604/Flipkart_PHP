@@ -13,7 +13,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-5">
                 <li class="nav-item me-3">
-                    <a type="button" class="btn btn-primary" href="../index">HomePage</a>
+                    <a type="button" class="btn btn-primary" href="../index">Home Page</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a type="button" class="btn btn-primary" href="./index">Admin Page</a>
                 </li>
                 <li class="nav-item me-3">
                     <a type="button" class="btn btn-primary" href="./products">Product Crud</a>
@@ -24,4 +27,4 @@
             </ul>
         </div>
     </nav>
-</div>
+</div>  

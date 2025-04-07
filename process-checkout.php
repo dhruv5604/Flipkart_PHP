@@ -84,12 +84,12 @@ try {
       $mail->isSMTP();
       $mail->Host = 'smtp.gmail.com';
       $mail->SMTPAuth = true;
-      $mail->Username = 'dhruvsolanki5604@gmail.com';
+      $mail->Username = $_ENV['EMAIL'];
       $mail->Password = $_ENV['GMAIL_PASSWORD'];
       $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
       $mail->Port = 587;
 
-      $mail->setFrom('dhruvsolanki5604@gmail.com', 'Dhruv');
+      $mail->setFrom($_ENV['EMAIL'], 'Dhruv');
       $mail->addAddress($_SESSION['email']);
 
       $mail->isHTML(true);

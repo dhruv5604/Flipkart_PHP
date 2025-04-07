@@ -1,9 +1,6 @@
-document
-  .getElementById("categoryForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    let formData = new FormData(this);
+$("#categoryForm").submit(function (e) { 
+  e.preventDefault();
+  let formData = new FormData(this);
 
     $.ajax({
       type: "POST",
@@ -24,18 +21,18 @@ document
         console.error("Response Text:", xhr.responseText);
       },
     });
-  });
+});
 
 function editCategory(id) {
   $.ajax({
     type: "POST",
-    url: "../update-category.php",
+    url: "../fetch-category.php",
     data: { id: id },
     dataType: "json",
     success: function (response) {
       if (Array.isArray(response) && response.length > 0) {
         response.forEach((category) => {
-          document.getElementById("newCategory").value = category;
+          document.getElementById("newCategory").value = category.category;
           document.getElementById("categoryId").value = id;
         });
       }
@@ -61,12 +58,12 @@ function deleteCategory(id) {
 $(document).ready(function () {
   $.ajax({
     type: "GET",
-    url: "../fetch-category.php",
+    url: "../fetch-all-category.php",
     dataType: "json",
     success: function (response) {
       response.forEach((category) => {
         const categoryList = document.getElementById("category-list");
-
+        console.log(response)
         let tr = document.createElement("tr");
         let td_id = document.createElement("td");
         td_id.innerHTML = category.id;
