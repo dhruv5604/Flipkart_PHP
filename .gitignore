@@ -1,2 +1,6 @@
 .vscode/launch.json
 vendor/*
+composer-setup.php
+composer.json
+composer.lock
+composer.phar
