@@ -29,9 +29,7 @@ require('../check-admin.php');
 
 <body>
     
-    <?php
-    require('nav-bar.php');
-    ?>
+    <?php require_once 'nav-bar.php'; ?>
 
     <div class="container-fluid">
         <div class="container">

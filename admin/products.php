@@ -37,7 +37,7 @@ require('../check-admin.php');
   require('nav-bar.php');
   ?>
 
-  <h1 style="text-align: center">Welcome To Product Crud Operation</h1>
+  <h1 style="text-align: center">Welcome To Product Crud Operatidon</h1>
 
   <div class="form1">
     <form id="form1">

@@ -20,7 +20,7 @@
                     <button type="button" class="btn loginbtn btn-outline-primary dropdown-toggle me-4"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-regular fa-user"></i> <?php echo $_SESSION['uname']; ?>
-                    </button>   
+                    </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">New Customer <span class="text-primary">Sign
                                     Up</span></a>
