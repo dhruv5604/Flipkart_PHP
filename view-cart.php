@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors', 1);
-require('config.php');
+require('config.php');  
 
 session_start();
 ?>
@@ -118,9 +118,9 @@ session_start();
     </div>
     <div class="subtotal"></div>
 
-    <form action="checkout.php" method="post" id="form1">
-    
-    </form>
+    <form action="process-payment.php" method="post" id="form1">
+      <button id="checkout-btn">Pay</button>
+    </form> 
   </div>
 
   <script src="./js/viewcart.js"></script>

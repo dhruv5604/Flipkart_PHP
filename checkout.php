@@ -1,5 +1,17 @@
 <?php
-require('process-checkout.php');
+require('connection.php');
+
+$order_id = $_GET['order_id'];
+
+$query = "select transaction_id,total_amount from Orders where id = ?";
+$stmt = $con->prepare($query);
+$stmt->bind_param("i", $order_id);
+$stmt->execute();
+$stmt->bind_result($transaction_id, $total_amount);
+$stmt->fetch();
+$stmt->close();
+$con->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -58,9 +70,9 @@ require('process-checkout.php');
         <p>Thank you for your purchase. Your transaction has been completed.</p>
 
         <div class="order-details">
-            <p><strong>Order ID:</strong> <?php echo $order_id; ?></p>
-            <p><strong>Transaction ID:</strong> <?php echo $txn_id; ?></p>
-            <p><strong>Amount Paid:</strong> ₹<?php echo $paid_amount; ?></p>
+            <p><strong>Order ID:</strong> <?php echo $order_id?></p>
+            <p><strong>Transaction ID:</strong> <?php echo $transaction_id?> </p>
+            <p><strong>Amount Paid:</strong> ₹ <?php echo $total_amount?></p>
             <p><strong>Payment Status:</strong> Success</p>
         </div>
         <br>

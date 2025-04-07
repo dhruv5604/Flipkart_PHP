@@ -160,21 +160,6 @@ $(document).ready(function () {
         let totalContent = `<span>${rupeeSymbol}</span> <span>${total}</span>`;
 
         $('.subtotal').html(totalContent);
-
-        let stripeContent = `
-            <input type="hidden" id="total_amount" name="total_amount" value="${total * 100}">
-            <script
-                src="https://checkout.stripe.com/checkout.js"
-                class="stripe-button"
-                id="stripe-button"
-                data-amount="${total * 100}"
-                data-name="Flipkart"
-                data-image="./img/flipkartlogo.svg"
-                data-currency="inr"
-                data-email="flipkart.payment@gmail.com">
-            </script>`;
-
-        $('#form1').html(stripeContent);
     }
 
     function removeItem(cart_id, product_id) {

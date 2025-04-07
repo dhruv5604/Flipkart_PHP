@@ -1,7 +1,7 @@
 <?php
-require('config.php');
-require('connection.php');
-require('vendor/autoload.php');
+require 'config.php';
+require 'connection.php';
+require 'vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -9,29 +9,15 @@ $dotenv->load();
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-
-\Stripe\Stripe::setVerifySslCerts(false);
 session_start();
 
-$token = $_POST['stripeToken'];
-$amount = isset($_POST['total_amount']) ? intval($_POST['total_amount']) : 0;
-
-if ($amount < 1) {
-    die("Error: Total amount must be at least ₹0.01.");
-}
+$user_id = $_SESSION['user_id'];
 
 try {
-    $data = \Stripe\Charge::create([
-        "amount" => $amount,
-        "currency" => "inr",
-        "description" => "Flipkart",
-        "source" => $token
-    ]);
-
-    $order_id = null;
-    $txn_id = $data->balance_transaction;
-    $paid_amount = $data->amount / 100;
-
+  $session = \Stripe\Checkout\Session::retrieve($_GET['session_id']);
+  $txn_id = $session->payment_intent;
+  $paid_amount = $session->amount_total / 100;
+  if ($session->payment_status == 'paid') {
     $user_id = $_SESSION['user_id'];
     $query_insert_order = "insert into Orders(user_id, total_amount, transaction_id) values (?, ?, ?)";
     $stmt = $con->prepare($query_insert_order);
@@ -51,81 +37,76 @@ try {
     $stmt = $con->prepare($query_insert_orderItems);
 
     foreach ($products as $product) {
-        $product_id = $product['product_id'];
-        $quantity = $product['quantity'];
+      $product_id = $product['product_id'];
+      $quantity = $product['quantity'];
 
-        $query_product = "select name,image,price,offer from products where id = ?";
-        $stmt_product = $con->prepare($query_product);
-        $stmt_product->bind_param("i", $product_id);
-        $stmt_product->execute();
-        $stmt_product->bind_result($product_name, $product_img, $product_price, $product_offer);
-        $stmt_product->fetch();
-        $stmt_product->close();
+      $query_product = "select name,image,price,offer from products where id = ?";
+      $stmt_product = $con->prepare($query_product);
+      $stmt_product->bind_param("i", $product_id);
+      $stmt_product->execute();
+      $stmt_product->bind_result($product_name, $product_img, $product_price, $product_offer);
+      $stmt_product->fetch();
+      $stmt_product->close();
 
-        $stmt->bind_param("isisii", $order_id, $product_name, $product_price, $product_img, $quantity, $product_offer);
-        $stmt->execute();
+      $stmt->bind_param("isisii", $order_id, $product_name, $product_price, $product_img, $quantity, $product_offer);
+      $stmt->execute();
     }
 
     $query_delete_cart = "delete from cart where user_id = ?";
     $stmt = $con->prepare($query_delete_cart);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
-    exit();
-}
 
-
-$query = 'SELECT o.id, o.total_amount, o.user_id, o.order_status, o.order_date, o.transaction_id,
+    $query = 'SELECT o.id, o.total_amount, o.user_id, o.order_status, o.order_date, o.transaction_id,
                  oi.quantity, oi.product_offer, oi.product_price, oi.product_name, oi.product_img
           FROM Orders o
           JOIN Order_Item oi ON o.id = oi.order_id
           WHERE o.id = ?';
 
-$stmt_order = $con->prepare($query);
-$stmt_order->bind_param("i", $order_id);
-$stmt_order->execute();
-$result = $stmt_order->get_result();
+    $stmt_order = $con->prepare($query);
+    $stmt_order->bind_param("i", $order_id);
+    $stmt_order->execute();
+    $result = $stmt_order->get_result();
 
-$order_items = [];
-$order_info = null;
+    $order_items = [];
+    $order_info = null;
 
-while ($row = $result->fetch_assoc()) {
-    if (!$order_info) {
+    while ($row = $result->fetch_assoc()) {
+      if (!$order_info) {
         $order_info = $row;
+      }
+      $order_items[] = $row;
     }
-    $order_items[] = $row;
-}
 
-$mail = new PHPMailer(true);
+    $mail = new PHPMailer(true);
 
-try {
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'dhruvsolanki5604@gmail.com';
-    $mail->Password = $_ENV['GMAIL_PASSWORD'];
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port = 587;
+    try {
+      $mail->isSMTP();
+      $mail->Host = 'smtp.gmail.com';
+      $mail->SMTPAuth = true;
+      $mail->Username = 'dhruvsolanki5604@gmail.com';
+      $mail->Password = $_ENV['GMAIL_PASSWORD'];
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+      $mail->Port = 587;
 
-    $mail->setFrom('dhruvsolanki5604@gmail.com', 'Dhruv');
-    $mail->addAddress($_SESSION['email']);
+      $mail->setFrom('dhruvsolanki5604@gmail.com', 'Dhruv');
+      $mail->addAddress($_SESSION['email']);
 
-    $mail->isHTML(true);
-    $mail->Subject = 'Order Confirmation - Order #' . $order_info['id'];
+      $mail->isHTML(true);
+      $mail->Subject = 'Order Confirmation - Order #' . $order_info['id'];
 
-    $product_rows = "";
+      $product_rows = "";
 
-    foreach ($order_items as $item) {
+      foreach ($order_items as $item) {
         $img_path = __DIR__ . "/static/uploaded-img/" . basename($item['product_img']);
 
         if (file_exists($img_path)) {
-            $mail->addEmbeddedImage($img_path, 'product_image', basename($img_path));
-            $img_tag = "<img src='cid:product_image' width='60' height='60' style='object-fit:cover;'>";        
+          $mail->addEmbeddedImage($img_path, 'product_image', basename($img_path));
+          $img_tag = "<img src='cid:product_image' width='60' height='60' style='object-fit:cover;'>";
         } else {
-            $img_tag = "<span>Image not found</span>";
+          $img_tag = "<span>Image not found</span>";
         }
-        
+
         $product_rows .= "
         <tr>
             <td>$img_tag</td>
@@ -134,15 +115,15 @@ try {
             <td>₹{$item['product_price']}</td>
         </tr>
     ";
-    }
+      }
 
-    $username = $_SESSION['uname'];
-    $order_id = $order_info['id'];
-    $txn_id = $order_info['transaction_id'];
-    $amount = $order_info['total_amount'];
-    $order_date = date("d-m-Y", strtotime($order_info['order_date']));
+      $username = $_SESSION['uname'];
+      $order_id = $order_info['id'];
+      $txn_id = $order_info['transaction_id'];
+      $amount = $order_info['total_amount'];
+      $order_date = date("d-m-Y", strtotime($order_info['order_date']));
 
-    $mail->Body = "
+      $mail->Body = "
     <html>
     <head>
       <style>
@@ -181,8 +162,12 @@ try {
       </div>
     </body>
     </html>";
-
-    $mail->send();
-} catch (Exception $exception) {
-    echo "Error : {$mail->ErrorInfo}";
+      $mail->send();
+    } catch (Exception $exception) {
+      echo "Error : {$mail->ErrorInfo}";
+    }
+  }
+  header("Location: checkout.php?order_id=" . $order_id);
+} catch (Exception $e) {
+  echo "Error : $e";
 }

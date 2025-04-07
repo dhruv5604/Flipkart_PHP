@@ -33,13 +33,8 @@ if (!empty($_FILES['productImage']['name'])) {
     $fileExtension = pathinfo($originalName, PATHINFO_EXTENSION);
     $fileNameOnly = pathinfo($originalName, PATHINFO_FILENAME);
     
-    $newImage = $originalName;
+    $newImage = $fileNameOnly . '_' . time() . '.' . $fileExtension;
     $targetFilePath = $uploadDir . $newImage;
-
-    while (file_exists($targetFilePath)) {
-        $newImage = $fileNameOnly . '_' . time() . '.' . $fileExtension;
-        $targetFilePath = $uploadDir . $newImage;
-    }
 
     if (!is_writable($uploadDir)) {
         echo json_encode(["error" => "Upload directory is not writable: " . $uploadDir]);
