@@ -29,8 +29,17 @@ if ($row = $result->fetch_assoc()) {
 
 if (!empty($_FILES['productImage']['name'])) {
     $uploadDir = realpath("static/uploaded-img") . "/";
-    $newImage = basename($_FILES["productImage"]["name"]);
+    $originalName = basename($_FILES["productImage"]["name"]);
+    $fileExtension = pathinfo($originalName, PATHINFO_EXTENSION);
+    $fileNameOnly = pathinfo($originalName, PATHINFO_FILENAME);
+    
+    $newImage = $originalName;
     $targetFilePath = $uploadDir . $newImage;
+
+    while (file_exists($targetFilePath)) {
+        $newImage = $fileNameOnly . '_' . time() . '.' . $fileExtension;
+        $targetFilePath = $uploadDir . $newImage;
+    }
 
     if (!is_writable($uploadDir)) {
         echo json_encode(["error" => "Upload directory is not writable: " . $uploadDir]);
