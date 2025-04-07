@@ -52,6 +52,9 @@ function deleteCategory(id) {
     success: function (response) { 
       window.location.href = "category";
     },
+    error: function (e) { 
+      alert("Error in deleting category");
+     }
   });
 }
 

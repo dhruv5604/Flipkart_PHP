@@ -57,10 +57,11 @@ function deleteProduct(id) {
     url: "../delete-product.php",
     data: { id: id },
     dataType: "json",
-    success: function (response) { },
+    success: function (response) {
+      window.location.href = "products.php";
+     },
   });
 
-  window.location.href = "products.php";
 }
 
 $(document).ready(function () {
