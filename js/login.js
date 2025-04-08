@@ -1,8 +1,6 @@
 $("#sign-in-form").submit(function (e) {
     e.preventDefault(); 
 
-    
-
     $.ajax({
         type: "POST",
         url: "../login.php",
