@@ -5,8 +5,25 @@ session_start();
 
 header("Content-Type: application/json");
 
+$email_regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+
 $email = htmlspecialchars($_POST['email']);
 $pass = htmlspecialchars($_POST['pass']);
+
+if(is_null($email)) {
+    echo json_encode(["success" => false, "error_block" => "span-email", "message" => "Enter E-mail Address"]);
+    exit();
+}
+
+if (!preg_match($email_regex, $email)) {
+    echo json_encode(["success" => false, "error_block" => "span-email", "message" => "Enter valid email address"]);
+    exit();
+}
+
+if (is_null($pass)) {
+    echo json_encode(["success" => false, "error_block" => "span-password", "message" => "Enter password"]);
+    exit();
+}
 
 $query = "SELECT id, name, password, email,role FROM User WHERE email = ?";
 $stmt = $con->prepare($query);
@@ -27,10 +44,10 @@ if ($row = $result->fetch_assoc()) {
 
         echo json_encode(["success" => true, "message" => "Login successful!"]);
     } else {
-        echo json_encode(["success" => false, "message" => "Password is incorrect!"]);
+        echo json_encode(["success" => false, "error_block" => "span-password", "message" => "Password is incorrect!"]);
     }
 } else {
-    echo json_encode(["success" => false, "message" => "No User Found!"]);
+    echo json_encode(["success" => false, "error_block" => "span-email", "message" => "No User Found!"]);
 }
 
 $stmt->close();

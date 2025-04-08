@@ -7,7 +7,7 @@ $category = trim($_POST['newCategory']);
 $id = isset($_POST['categoryId']) ? intval($_POST['categoryId']) : 0;
 
 if (empty($category)) {
-    echo json_encode(["error" => "Category name is required"]);
+    echo json_encode(["sucess" => false, "error_block" => "span-category", "message" => "Please Enter Category Name"]);
     exit;
 }
 
@@ -36,7 +36,7 @@ if ($result->num_rows == 0) {
 
     $stmt->close();
 } else {
-    echo json_encode(["error" => "Category already exists"]);
+    echo json_encode(["sucess" => false, "error_block" => "span-category", "message" => "Category already Exists!!"]);
 }
 
 $con->close();

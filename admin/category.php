@@ -44,6 +44,9 @@ require('../check-admin.php');
         .action {
             width: 20%;
         }
+        span {
+            color:red;
+        }
     </style>
 </head>
 
@@ -56,7 +59,8 @@ require('../check-admin.php');
     <div class="form2">
         <form id="categoryForm">
             <input type="hidden" id="categoryId" name="categoryId">
-            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" required>
+            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" >
+            <span id="span-category"></span>
             <button type="submit">Add Category</button>
         </form>
         <table>

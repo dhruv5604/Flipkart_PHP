@@ -1,7 +1,13 @@
 <?php
-
 session_start();
-require('../check-admin.php');
+require '../check-admin.php';
+
+$errors = $_SESSION['errors'];
+$form_data = $_SESSION['form_data'];
+
+unset($_SESSION['errors']);
+unset($_SESSION['form-data']);
+
 ?>
 
 <!DOCTYPE html>
@@ -29,43 +35,65 @@ require('../check-admin.php');
       background: none;
       border: none;
     }
+
+    span {
+      color: red;
+    }
   </style>
 </head>
 
 <body>
   <?php
-  require('nav-bar.php');
+  require 'nav-bar.php';
   ?>
 
   <h1 style="text-align: center">Welcome To Product Crud Operatidon</h1>
 
   <div class="form1">
-    <form id="form1">
-      <input type="hidden" id="productId" name="productId" />
-      <input type="hidden" id="existingImage" name="existingImage" />
-      <label for="productImage">Image URL:</label>
-      <input
-        type="file"
-        name="productImage"
-        id="productImage"
-        accept="image/*"
-        required />
-      <label for="productPrice">Price:</label>
-      <input type="number" name="productPrice" id="productPrice" required />
-      <label for="categoryList">Category:</label>
-      <select name="categoryList" id="categoryList"></select>
-      <label for="productDescription">Name:</label>
-      <input
-        type="text"
-        id="productDescription"
-        name="productDescription"
-        required />
-      <label for="productOffer">Offer:</label>
-      <input type="number" name="productOffer" id="productOffer" max="100" min="0">
-      <label for="productStock">Stock:</label>
-      <input type="number" id="productStock" name="productStock" />
-      <input type="submit" value="Add product" />
-    </form>
+  <form id="form1" action="../add-products" method="POST" enctype="multipart/form-data">
+  <input type="hidden" id="productId" name="productId" value="<?php echo isset($form_data['productId']) ? $form_data['productId'] : ''; ?>" />
+  <input type="hidden" id="existingImage" name="existingImage" value="<?php echo isset($form_data['existingImage']) ? $form_data['existingImage'] : ''; ?>" />
+
+  <div id="div-image">
+    <label for="productImage">Image URL:</label>
+    <input type="file" name="productImage" id="productImage" accept="image/*" />
+    <span id="span-image" class="error"><?php echo $errors['image'] ?? ''; ?></span><br>
+  </div>
+
+  <div id="div-price">
+    <label for="productPrice">Price:</label>
+    <input type="text" name="productPrice" id="productPrice" value="<?php echo isset($form_data['productPrice']) ? htmlspecialchars($form_data['productPrice']) : ''; ?>" />
+    <span id="span-price" class="error"><?php echo $errors['price'] ?? ''; ?></span><br>
+  </div>
+
+  <div id="div-category">
+    <label for="categoryList">Category:</label>
+    <select name="categoryList" id="categoryList">
+     
+    </select>
+    <span id="span-category" class="error"><?php echo $errors['category'] ?? ''; ?></span><br>
+  </div>
+
+  <div id="div-description">
+    <label for="productDescription">Name:</label>
+    <input type="text" id="productDescription" name="productDescription" value="<?php echo isset($form_data['productDescription']) ? htmlspecialchars($form_data['productDescription']) : ''; ?>" />
+    <span id="span-description" class="error"><?php echo $errors['name'] ?? ''; ?></span><br>
+  </div>
+
+  <div id="div-offer">
+    <label for="productOffer">Offer:</label>
+    <input type="text" name="productOffer" id="productOffer" value="<?php echo isset($form_data['productOffer']) ? htmlspecialchars($form_data['productOffer']) : ''; ?>" />
+    <span id="span-offer" class="error"><?php echo $errors['offer'] ?? ''; ?></span><br>
+  </div>
+
+  <div id="div-stock">
+    <label for="productStock">Stock:</label>
+    <input type="number" id="productStock" name="productStock" value="<?php echo isset($form_data['productStock']) ? htmlspecialchars($form_data['productStock']) : ''; ?>" />
+    <span id="span-stock" class="error"><?php echo $errors['stock'] ?? ''; ?></span><br>
+  </div>
+
+  <input type="submit" value="Add product" />
+</form>
   </div>
 
   <table id="table1">

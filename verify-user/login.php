@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+  header("Location: /");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,7 +22,7 @@
   <body>
     <div class="main">
       <div class="container">
-        <marquee class="marq">Welcome to Login page!!!</marquee>
+        <!-- <marquee class="marq">Welcome to Login page!!!</marquee> -->
         <form
           id="sign-in-form"
           class="sign-in-form"
@@ -29,8 +36,9 @@
 
           <div class="input-field">
           <i class="fa-solid fa-envelope"></i>
-            <input type="email" placeholder="Email" id="email" name="email" />
+            <input type="text" placeholder="Email" id="email" name="email" />
           </div>
+          <span class="error" id="span-email"></span>
 
           <div class="input-field">
             <i class="fa-solid fa-lock"></i>
@@ -41,6 +49,7 @@
               name="pass"
             />
           </div>
+          <span class="error" id="span-password"></span>
 
           <p class="forget"><a href="#">forget password?</a></p>
 

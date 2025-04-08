@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+  header("Location: /");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,7 +22,6 @@
   <body>
     <div class="mainSign">
       <div class="container">
-        <marquee class="marq"> Welcome to SignUp page!!!</marquee>
         <form id="sign-up-form" class="sign-up-form">
           <div class="links">
             <a href="login"><i class="fa-solid fa-user"></i> sign in</a>
@@ -31,10 +37,6 @@
               name="profilepic"
               style="display: none"
             />
-            <label for="profilepic" class="profile">
-              <i class="fa-solid fa-user"></i>
-              <span class="tooltip">Select profile pic</span>
-            </label>
           </div>
 
           <div class="input-field">
@@ -43,22 +45,22 @@
               type="text"
               placeholder="Username"
               id="uname"
-              name="uname"
-              required
-            /><br />
-          </div>
+              name="uname" />
+              <br />
+            </div>
+            <span class="error" id="span-username"></span>
 
           <div class="input-field">
             <i class="fa-solid fa-envelope"></i>
             <input
-              type="email"
+              type="text"
               placeholder="Email"
               id="email"
               name="email"
-              autocomplete="email"
-              required
-            /><br />
+              autocomplete="email" />
+            <br />
           </div>
+          <span class="error" id="span-email"></span>
 
           <div class="input-field">
             <i class="fa-solid fa-lock"></i>
@@ -67,10 +69,10 @@
               placeholder="Password"
               id="pass"
               name="pass"
-              autocomplete="new-password"
-              required
-            /><br />
+              autocomplete="new-password" />
+            <br />
           </div>
+          <span class="error" id="span-password"></span>
 
           <div class="input-field">
             <i class="fa-solid fa-lock"></i>
@@ -79,10 +81,9 @@
               placeholder="Confirm Password"
               id="cpass"
               name="cpass"
-              autocomplete="new-password"
-              required
-            />
+              autocomplete="new-password" />
           </div>
+          <span class="error" id="span-cpassword"></span>
 
           <div class="input-field">
             <i class="fa-solid fa-phone"></i>
@@ -92,17 +93,17 @@
               id="num"
               name="num"
               pattern="[6-9]{1}[0-9]{9}"
-              title="Enter 10 digits"
-              required
-            />
+              title="Enter 10 digits" />
           </div>
+          <span class="error" id="span-phone"></span>
 
           <div class="input-field" style="height: 40px">
-            <input type="checkbox" name="rememberme" id="rememberme" required/>
-            <label for="rememberme"
-              >Accept <span class="tnc"> terms and conditions</span></label
-            >
+            <input type="checkbox" name="rememberme" id="rememberme" />
+            <label for="rememberme">
+              Accept <span class="tnc"> terms and conditions</span>
+              </label>
           </div>
+          <span class="error" id="span-tnc"></span>
 
           <div
             class="input-field"

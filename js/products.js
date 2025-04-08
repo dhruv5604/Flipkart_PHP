@@ -1,8 +1,49 @@
 document.getElementById("form1").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  let formData = new FormData(this);
+  $('.error').text('');
 
+    // if ($("#productImage").val() === "") {
+    //   $("#span-image").text("Please select Image");
+    // }
+
+    // if ($("#productPrice").val() === "") {
+    //   $("#span-price").text("Please Enter price");
+    // }
+
+    // if (!Number.isInteger(Number($('#productPrice').val()))) {
+    //   $("#span-price").text("Please Enter Nuumbers only");
+    // }
+
+    // if ($("#productPrice").val() < 0) {
+    //   $("#span-price").text("Price Must be greate than 0.");
+    // }
+
+    // if ($("#categoryList").val() === "") {
+    //   $("#span-category").text("Please select category");
+    // }
+
+    // if ($("#productDescription").val() === "") {
+    //   $("#span-description").text("Please Enter Name");
+    // }
+
+    // if ($("#productOffer").val() === "") {
+    //   $("#span-offer").text("Please Enter Discount");
+    // }
+
+    // if (!Number.isInteger(Number($('#productOffer').val()))) {
+    //   $("#span-offer").text("Please Enter Nuumbers only");
+    // }
+
+    // if ($("#productOffer").val() > 100 || $("#productOffer").val() < 0) {
+    //   $("#span-offer").text("Discount must be greater than 0 and less than 100");
+    // }
+
+    // if ($("#productStock").val() === "") {
+    //   $("#span-stock").text("Please Enter stock");
+    // }
+
+  let formData = new FormData(this);
   $.ajax({
     type: "POST",
     url: "../add-products.php",
@@ -11,12 +52,11 @@ document.getElementById("form1").addEventListener("submit", function (e) {
     contentType: false,
     dataType: "json",
     success: function (response) {
-      console.log(response);
       if (response.success) {
         alert(response.message || "Product updated successfully");
         location.reload();
       } else {
-        alert(response.error || "Something went wrong.");
+        $("#" + response.error_block).text(response.message);
       }
     },
     error: function (xhr, status, error) {
@@ -33,16 +73,22 @@ function editProduct(id) {
     data: { id: id },
     dataType: "json",
     success: function (response) {
-      console.log(response);
-      document.getElementById("productPrice").value = response['products'][0]["price"];
+      document.getElementById("productPrice").value =
+        response["products"][0]["price"];
       document.getElementById("productDescription").value =
-        response['products'][0]["name"];
-      document.getElementById("categoryList").selected = response['category'];
-      document.getElementById("productId").value = response['products'][0]["id"];
-      document.getElementById("productImage").src = response['products'][0]["image"];
-      document.getElementById("existingImage").value = response['products'][0]["image"];
-      document.getElementById("productOffer").value = response['products'][0]["offer"];
-      document.getElementById("productStock").value = response['stock'][0]['stock'];
+        response["products"][0]["name"];
+      document.getElementById("categoryList").value =
+        response["products"][0]["category"];
+      document.getElementById("productId").value =
+        response["products"][0]["id"];
+      document.getElementById("productImage").src =
+        response["products"][0]["image"];
+      document.getElementById("existingImage").value =
+        response["products"][0]["image"];
+      document.getElementById("productOffer").value =
+        response["products"][0]["offer"];
+      document.getElementById("productStock").value =
+        response["stock"][0]["stock"];
       document.getElementById("productImage").removeAttribute("required");
     },
     error: function (xhr, status, error) {
@@ -60,9 +106,8 @@ function deleteProduct(id) {
     dataType: "json",
     success: function (response) {
       window.location.href = "products.php";
-     },
+    },
   });
-
 }
 
 $(document).ready(function () {
@@ -109,10 +154,10 @@ $(document).ready(function () {
         td_category.innerText = product["category_id"];
 
         let td_offer = document.createElement("td");
-        td_offer.innerHTML = product['offer'];
+        td_offer.innerHTML = product["offer"];
 
         let td_status = document.createElement("td");
-        td_status.innerHTML = product['stock'];
+        td_status.innerHTML = product["stock"];
 
         let td_btn = document.createElement("td");
 

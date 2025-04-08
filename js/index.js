@@ -17,7 +17,7 @@ function addToCart(id) {
 $(document).ready(function () {
   $.ajax({
     type: "GET",
-    url: "../fetch-category.php",
+    url: "../fetch-all-category.php",
     dataType: "json",
     success: function (response) {
       const container = document.getElementById("category-container");
@@ -43,7 +43,7 @@ $(document).ready(function () {
 
   $.ajax({
     type: "GET",
-    url: "../fetch-products.php",
+    url: "../fetch-all-products.php",
     dataType: "json",
     success: function (response) {
       response.forEach((product) => {

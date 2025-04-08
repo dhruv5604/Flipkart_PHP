@@ -268,3 +268,8 @@ p.forget {
 .marq {
   color: rgb(118, 118, 223);
 }
+
+.error {
+  color: red;
+  font-size: small;
+}
