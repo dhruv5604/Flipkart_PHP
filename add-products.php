@@ -17,31 +17,40 @@ $imageToSave = $existingImage;
 $errors = [];
 
 if (empty($price)) {
-    $errors['price'] = 'Please Enter price';
+    echo json_encode(["success" => false, "error_block" => "span_price", "message" => "Please Enter price"]);
+    exit;
 } else if (!is_numeric($price)) {
-    $errors['price'] = 'Please Enter Numbers only';
+    echo json_encode(["success" => false, "error_block" => "span_price", "message" => "Please Enter Numbers"]);
+    exit;
 } else if ($price < 0) {
-    $errors['price'] = 'Price Must be greate than 0';
+    echo json_encode(["success" => false, "error_block" => "span_price", "message" => "Price must be greater than 0"]);
+    exit;
 }
 
 if (empty($category)) {
-    $errors['category'] = 'Please select category';
+    echo json_encode(["success" => false, "error_block" => "span_category", "message" => "Please select category"]);
+    exit;
 }
 
 if (empty($desc)) {
-    $errors['name'] = 'Please Enter Name';
+    echo json_encode(["success" => false, "error_block" => "span_description", "message" => "Please Enter Name"]);
+    exit;
 }
 
 if (empty($offer)) {
-    $errors['offer'] = 'Please Enter offer';
+    echo json_encode(["success" => false, "error_block" => "span_offer", "message" => "Please Enter offer"]);
+    exit;
 } else if (!is_numeric($offer)) {
-    $errors['offer'] = 'Please Enter Numbers only';
+    echo json_encode(["success" => false, "error_block" => "span_offer", "message" => "Please Enter Numbers only"]);
+    exit;
 } else if ($offer > 100 || $offer < 0) {
-    $errors['offer'] = 'Discount must be greater than 0 and less than 100';
+    echo json_encode(["success" => false, "error_block" => "span_offer", "message" => "Discount must be greater than 0 and less than 100"]);
+    exit;
 }
 
 if (empty($stock)) {
-    $errors['stock'] = 'Please Enter stock';
+    echo json_encode(["success" => false, "error_block" => "span_stock", "message" => "Please Enter stock"]);
+    exit;
 }
 
 if (!empty($_FILES['productImage']['name'])) {
@@ -54,25 +63,26 @@ if (!empty($_FILES['productImage']['name'])) {
     $targetFilePath = $uploadDir . $newImage;
 
     if (!is_writable($uploadDir)) {
-        echo json_encode(["sucess" => false, "error_block" => "span-image", "message" => "Upload directory is not writable: "]);
+        echo json_encode(["sucess" => false, "error_block" => "span_image", "message" => "Upload directory is not writable: "]);
         exit;
     }
 
     if ($_FILES["productImage"]["error"] !== UPLOAD_ERR_OK) {
-        echo json_encode(["sucess" => false, "error_block" => "span-image", "message" => "File upload error: " . $_FILES["productImage"]["error"]]);
+        echo json_encode(["sucess" => false, "error_block" => "span_image", "message" => "File upload error: " . $_FILES["productImage"]["error"]]);
         exit;
     }
 
     if (move_uploaded_file($_FILES["productImage"]["tmp_name"], $targetFilePath)) {
         $imageToSave = "../static/uploaded-img/" . $newImage;
     } else {
-        echo json_encode(["sucess" => false, "error_block" => "span-image", "message" => "Image upload failed. Check folder permissions."]);
+        echo json_encode(["sucess" => false, "error_block" => "span_image", "message" => "Image upload failed. Check folder permissions."]);
         exit;
     }
 }
 
 if (empty($imageToSave)) {
-    $errors['image'] = 'Please Enter Image';
+    echo json_encode(["success" => false, "error_block" => "span_image", "message" => "Please Enter Image"]);
+    exit;
 }
 
 if (!empty($errors)) {
@@ -146,7 +156,7 @@ try {
                 echo json_encode(["error" => "Failed to insert product"]);
             }
         } else {
-            echo json_encode(["sucess" => false, "error_block" => "span-description", "message" => "Product already exists."]);
+            echo json_encode(["sucess" => false, "error_block" => "span_description", "message" => "Product already exists."]);
             exit;
         }
     }

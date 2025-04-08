@@ -8,5 +8,6 @@ $server = $_ENV['DB_SERVER'];
 $username = $_ENV['DB_USERNAME'];
 $dbpassword = $_ENV['DB_PASSWORD'];
 $database = $_ENV['DB_DATABASE'];
+$port = $_ENV['DB_PORT'];
 
-$con = mysqli_connect($server, $username, $dbpassword, $database);
+$con = mysqli_connect($server, $username, $dbpassword, $database,$port);
