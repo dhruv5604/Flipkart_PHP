@@ -1,8 +1,12 @@
 <?php
+require 'vendor/autoload.php';
 
-$server = 'localhost';
-$username = 'root';
-$password = 'root@user';
-$database = 'flipkart';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-$con = mysqli_connect($server,$username,$password,$database);
+$server = $_ENV['DB_SERVER'];
+$username = $_ENV['DB_USERNAME'];
+$dbpassword = $_ENV['DB_PASSWORD'];
+$database = $_ENV['DB_DATABASE'];
+
+$con = mysqli_connect($server, $username, $dbpassword, $database);

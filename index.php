@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!isset($_SESSION['uname'])){
-    header('Location:Login/login.html');
+if (!isset($_SESSION['uname'])) {
+    header('Location:verify-user/login');
 }
 ?>
 
@@ -14,112 +14,51 @@ if(!isset($_SESSION['uname'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./css/index.css">
     </link>
     <title>Flipkart</title>
 </head>
 
 <body>
-    <div class="container-fluid p-2">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
-            <a class="navbar-brand" href="#">
-                <img src="./img/flipkartlogo.svg" alt="Flipkart Logo" class="img-fluid">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="input-group ms-4 me-4">
-                    <span class="input-group-text" id="span4search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-                    <input type="text" class="form-control" placeholder="Search for Products, Brands, and More"
-                        aria-describedby="span4search">
-                </div>
-                <ul class="navbar-nav ms-5">
-                    <li class="nav-item dropdown me-3">
-                        <button type="button" class="btn loginbtn btn-outline-primary dropdown-toggle me-4"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-regular fa-user"></i> Login
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">New Customer <span class="text-primary">Sign
-                                        Up</span></a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Flipkart Plus zone</a></li>
-                            <li><a class="dropdown-item" href="#">Orders</a></li>
-                            <li><a class="dropdown-item" href="#">Wishlist</a></li>
-                            <li><a class="dropdown-item" href="#">Rewards</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item me-3">
-                        <button type="button" class="btn me-2"><i class="fa-solid fa-cart-shopping"></i> Cart</button>
-                    </li>
-                    <li class="nav-item me-3">
-                        <button type="button" class="btn"><i class="fa-solid fa-shop"></i> Become a Seller</button>
-                    </li>
-                    <li class="nav-item me-3">
-                        <div class="btn-group">
-                            <button type="button" class="btn1" lis><img src="./img/3dots.svg"></button>
-                            <ul class="listfor3dot">
-                                <li>Notifications</li>
-                                <li>24X7 Customer Care</li>
-                                <li>Advertise</li>
-                                <li>Download App</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a type="button" class="btn btn-primary" href="./admin/index.html">Admin Panel</a>
-                    </li>
-                    <li>
-                        <a type="button" class="btn btn-primary logout-btn" href="logout.php">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-
+    <?php
+    require('nav-bar.php');
+    ?>
 
     <div class="container d-flex justify-content-center flex-wrap mt-3 p-4">
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/grocery.webp" alt="Grocery">
+                <img class="img-fluid" src="./static/img/grocery.webp" alt="Grocery">
                 <strong>Grocery</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/mobile.webp" alt="Mobile">
+                <img class="img-fluid" src="./static/img/mobile.webp" alt="Mobile">
                 <strong>Mobile</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/grocery.webp" alt="Fashion">
+                <img class="img-fluid" src="./static/img/grocery.webp" alt="Fashion">
                 <strong>Fashion</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/applicens.webp" alt="Appliances">
+                <img class="img-fluid" src="./static/img/applicens.webp" alt="Appliances">
                 <strong>Appliances</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/flight.webp" alt="Flights">
+                <img class="img-fluid" src="./static/img/flight.webp" alt="Flights">
                 <strong>Flights</strong>
             </button>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3 d-flex justify-content-center">
             <button class="btn text-center">
-                <img class="img-fluid" src="./img/grocery.webp" alt="Flights">
+                <img class="img-fluid" src="./static/img/grocery.webp" alt="Flights">
                 <strong>Grocery</strong>
             </button>
         </div>
@@ -137,13 +76,13 @@ if(!isset($_SESSION['uname'])){
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="./img/caresol1.webp" class="d-block w-100 img-fluid" alt="caresol1">
+                    <img src="./static/img/caresol1.webp" class="d-block w-100 img-fluid" alt="caresol1">
                 </div>
                 <div class="carousel-item">
-                    <img src="./img/caresol2.webp" class="d-block w-100 img-fluid" alt="caresol2">
+                    <img src="./static/img/caresol2.webp" class="d-block w-100 img-fluid" alt="caresol2">
                 </div>
                 <div class="carousel-item">
-                    <img src="./img/caresol3.webp" class="d-block w-100 img-fluid" alt="caresol3">
+                    <img src="./static/img/caresol3.webp" class="d-block w-100 img-fluid" alt="caresol3">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -171,49 +110,49 @@ if(!isset($_SESSION['uname'])){
                 <div class="d-flex instruments2">
                     <div class="cards-wrapper">
                         <div class="card">
-                            <img src="img/soft.jpeg" class="card-img-top img-fluid" alt="soft toy">
+                            <img src="./static/img/soft.jpeg" class="card-img-top img-fluid" alt="soft toy">
                             <div class="card-body">
                                 <p class="card-text">Soft Toys</p>
                                 <strong class="card-text">Upto 70% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/coffee.jpeg" class="card-img-top img-fluid" alt="Coffee Powder">
+                            <img src="./static/img/coffee.jpeg" class="card-img-top img-fluid" alt="Coffee Powder">
                             <div class="card-body ">
                                 <p class="card-text ">Coffee Powder</p>
                                 <strong class="card-text">Upto 80% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/musi.jpeg" class="card-img-top mb-3" alt="Musical Keyboards">
+                            <img src="./static/img/musi.jpeg" class="card-img-top mb-3" alt="Musical Keyboards">
                             <div class="card-body ">
                                 <p class="card-text ">Musical Keyboards</p>
                                 <strong class="card-text ">Upto 70% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/guitar.jpeg" class="card-img-top img-fluid" alt="Strings Instruments">
+                            <img src="./static/img/guitar.jpeg" class="card-img-top img-fluid" alt="Strings Instruments">
                             <div class="card-body ">
                                 <p class="card-text ">Strings Instruments</p>
                                 <strong class="card-text">Upto 70% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/microphone.jpeg" class="card-img-top img-fluid" alt="Microphones">
+                            <img src="./static/img/microphone.jpeg" class="card-img-top img-fluid" alt="Microphones">
                             <div class="card-body mt-4">
                                 <p class="card-text ">Microphones</p>
                                 <strong class="card-text">Upto 70% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
+                            <img src="./static/img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
                             <div class="card-body ">
                                 <p class="card-text">Non-Geared Cycles</p>
                                 <strong class="card-text ">Upto 40% off</strong>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
+                            <img src="./static/img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
                             <div class="card-body ">
                                 <p class="card-text">Non-Geared Cycles</p>
                                 <strong class="card-text ">Upto 40% off</strong>
@@ -245,49 +184,49 @@ if(!isset($_SESSION['uname'])){
         <div class="d-flex">
             <div class="cards-wrapper">
                 <div class="card">
-                    <img src="img/soft.jpeg" class="card-img-top img-fluid" alt="soft Toy image">
+                    <img src="./static/img/soft.jpeg" class="card-img-top img-fluid" alt="soft Toy image">
                     <div class="card-body">
                         <p class="card-text">Soft Toys</p>
                         <strong class="card-text">Upto 70% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/coffee.jpeg" class="card-img-top img-fluid" alt="Coffee Powder">
+                    <img src="./static/img/coffee.jpeg" class="card-img-top img-fluid" alt="Coffee Powder">
                     <div class="card-body ">
                         <p class="card-text ">Coffee Powder</p>
                         <strong class="card-text">Upto 80% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/musi.jpeg" class="card-img-top mb-3" alt="Musical Keyboards">
+                    <img src="./static/img/musi.jpeg" class="card-img-top mb-3" alt="Musical Keyboards">
                     <div class="card-body ">
                         <p class="card-text ">Musical Keyboards</p>
                         <strong class="card-text ">Upto 70% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/guitar.jpeg" class="card-img-top img-fluid" alt="Strings Instruments">
+                    <img src="./static/img/guitar.jpeg" class="card-img-top img-fluid" alt="Strings Instruments">
                     <div class="card-body ">
                         <p class="card-text ">Strings Instruments</p>
                         <strong class="card-text">Upto 70% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/microphone.jpeg" class="card-img-top img-fluid" alt="Microphones">
+                    <img src="./static/img/microphone.jpeg" class="card-img-top img-fluid" alt="Microphones">
                     <div class="card-body mt-4">
                         <p class="card-text ">Microphones</p>
                         <strong class="card-text">Upto 70% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
+                    <img src="./static/img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
                     <div class="card-body ">
                         <p class="card-text">Non-Geared Cycles</p>
                         <strong class="card-text ">Upto 40% off</strong>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
+                    <img src="./static/img/cycle.jpeg" class="card-img-top mb-5" alt="Non-Geared Cycles">
                     <div class="card-body ">
                         <p class="card-text">Non-Geared Cycles</p>
                         <strong class="card-text ">Upto 40% off</strong>
