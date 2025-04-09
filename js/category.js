@@ -1,4 +1,4 @@
-$('#newCategory').change(function () { 
+$('#newCategory').change(function () {
   if ($('#newCategory').val() === "") {
     $('#span-category').text('Enter Category name');
   }

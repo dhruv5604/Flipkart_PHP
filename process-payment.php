@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors',1);
+ini_set('display_errors', 1);
 require('config.php');
 require('connection.php');
 session_start();
@@ -29,7 +29,7 @@ function createStripeSession($products)
             ],
             'quantity' => intval($product['quantity']),
         ];
-        $total_amount += $discounted_price * $product['quantity']; 
+        $total_amount += $discounted_price * $product['quantity'];
     }
     try {
         $session = \Stripe\Checkout\Session::create([

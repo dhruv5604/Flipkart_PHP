@@ -11,7 +11,7 @@ $email = htmlspecialchars($_POST['email']);
 $pass = htmlspecialchars($_POST['pass']);
 $errors = [];
 
-if(is_null($email)) {
+if (is_null($email)) {
     $errors['span-email'] = 'Enter E-mail Address';
 }
 

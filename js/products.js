@@ -1,29 +1,3 @@
-// document.getElementById("form1").addEventListener("submit", function (e) {
-//   e.preventDefault();
-
-  // let formData = new FormData(this);
-  // $.ajax({
-  //   type: "POST",
-  //   url: "../add-products.php",
-  //   data: formData,
-  //   processData: false,
-  //   contentType: false,
-  //   dataType: "json",
-  //   success: function (response) {
-  //     if (response.success) {
-  //       alert(response.message || "Product updated successfully");
-  //       location.reload();
-  //     } else {
-  //       $("#" + response.error_block).text(response.message);
-  //     }
-  //   },
-  //   error: function (xhr, status, error) {
-  //     console.error("AJAX Error:", status, error, xhr.responseText);
-  //     alert("An error occurred. Check console for details.");
-  //   },
-  // });
-// });
-
 function editProduct(id) {
   $.ajax({
     type: "POST",
@@ -69,7 +43,6 @@ function deleteProduct(id) {
 }
 
 $(document).ready(function () {
-
   $.ajax({
     type: "GET",
     url: "../fetch-all-products.php",
@@ -161,7 +134,9 @@ $("#productStock").change(function () {
     $("#span_stock").text("Please Enter Nuumbers only");
 
     if ($("#productStock").val() < 0) {
-      $("#span_stock").text("Discount must be greater than 0 and less than 100");
+      $("#span_stock").text(
+        "Discount must be greater than 0 and less than 100"
+      );
     }
   }
 });

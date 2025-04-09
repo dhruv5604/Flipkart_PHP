@@ -18,7 +18,7 @@ if ($stmt->get_result()->num_rows > 0) {
 
 $query = "update inventory set stock = stock - 1 where product_id = ?";
 $stmt1 = $con->prepare($query);
-$stmt1->bind_param("i",$product_id);
+$stmt1->bind_param("i", $product_id);
 $stmt1->execute();
 $stmt1->close();
 

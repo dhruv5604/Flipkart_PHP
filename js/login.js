@@ -13,7 +13,6 @@ $("#email").change(function () {
     }
 });
 
-
 $("#pass").change(function () {
     $("#span-password").text("");
 

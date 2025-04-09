@@ -64,7 +64,7 @@ unset($_SESSION['form_data']);
 
       <div id="div-price">
         <label for="productPrice">Price:</label>
-        <input type="text" name="productPrice" id="productPrice" value="<?php echo $form_data['productPrice']?>"/>
+        <input type="text" name="productPrice" id="productPrice" value="<?php echo $form_data['productPrice'] ?>" />
         <span id="span_price" class="error">
           <?php echo $errors['span_price'] ?>
         </span><br>
@@ -78,9 +78,9 @@ unset($_SESSION['form_data']);
           $result = $con->query($query);
 
           while ($row = $result->fetch_assoc()) {
-            ?>
-            <option value="<?php echo $row['category']?>">
-              <?php echo $row['category']?>
+          ?>
+            <option value="<?php echo $row['category'] ?>">
+              <?php echo $row['category'] ?>
             </option>
           <?php
           }
@@ -93,7 +93,7 @@ unset($_SESSION['form_data']);
 
       <div id="div-description">
         <label for="productDescription">Name:</label>
-        <input type="text" id="productDescription" name="productDescription" value="<?php echo $form_data['productDescription']?>"/>
+        <input type="text" id="productDescription" name="productDescription" value="<?php echo $form_data['productDescription'] ?>" />
         <span id="span_description" class="error">
           <?php echo $errors['span_description'] ?>
         </span><br>
@@ -101,7 +101,7 @@ unset($_SESSION['form_data']);
 
       <div id="div-offer">
         <label for="productOffer">Offer:</label>
-        <input type="text" name="productOffer" id="productOffer" value="<?php echo $form_data['productOffer']?>"/>
+        <input type="text" name="productOffer" id="productOffer" value="<?php echo $form_data['productOffer'] ?>" />
         <span id="span_offer" class="error">
           <?php echo $errors['span_offer'] ?>
         </span><br>
@@ -109,9 +109,9 @@ unset($_SESSION['form_data']);
 
       <div id="div-stock">
         <label for="productStock">Stock:</label>
-        <input type="text" id="productStock" name="productStock" value="<?php echo $form_data['productStock']?>"/>
+        <input type="text" id="productStock" name="productStock" value="<?php echo $form_data['productStock'] ?>" />
         <span id="span_stock" class="error">
-        <?php echo $errors['span_stock'] ?>
+          <?php echo $errors['span_stock'] ?>
         </span><br>
       </div>
 

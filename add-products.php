@@ -46,7 +46,7 @@ if (empty($stock)) {
     $errors['span_stock'] = 'Please Enter Numbers only';
 } else if ($stock < 0) {
     $errors['span_stock'] = 'Stock must be greater than 0';
-} 
+}
 
 if (!empty($_FILES['productImage']['name'])) {
     $uploadDir = realpath("static/uploaded-img") . "/";

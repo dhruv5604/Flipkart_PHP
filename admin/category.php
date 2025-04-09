@@ -49,8 +49,9 @@ unset($_SESSION['form_data']);
         .action {
             width: 20%;
         }
+
         span {
-            color:red;
+            color: red;
         }
     </style>
 </head>
@@ -60,13 +61,13 @@ unset($_SESSION['form_data']);
     <?php
     require('nav-bar.php');
     ?>
-    
+
     <div class="form2">
         <form id="categoryForm" action="../add-category" method="post">
             <input type="hidden" id="categoryId" name="categoryId">
-            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" value="<?php echo $form_data['newCategory']?>" >
+            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" value="<?php echo $form_data['newCategory'] ?>">
             <span id="span-category">
-                <?php echo $errors['span-category']?>
+                <?php echo $errors['span-category'] ?>
             </span>
             <button type="submit">Add Category</button>
         </form>
