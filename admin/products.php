@@ -1,13 +1,13 @@
 <?php
-// session_start();
-// require '../check-admin.php';
+session_start();
+require('../connection.php');
+require('../check-admin.php');
 
-// $errors = $_SESSION['errors'];
-// $form_data = $_SESSION['form_data'];
+$errors = $_SESSION['errors'];
+$form_data = $_SESSION['form_data'];
 
-// unset($_SESSION['errors']);
-// unset($_SESSION['form-data']);
-
+unset($_SESSION['errors']);
+unset($_SESSION['form_data']);
 ?>
 
 <!DOCTYPE html>
@@ -47,53 +47,76 @@
   require 'nav-bar.php';
   ?>
 
-  <h1 style="text-align: center">Welcome To Product Crud Operatidon</h1>
+  <h1 style="text-align: center">Welcome To Product Crud Operation</h1>
 
   <div class="form1">
-  <form id="form1" >
-  <input type="hidden" id="productId" name="productId" />
-  <input type="hidden" id="existingImage" name="existingImage" />
+    <form id="form1" action="../add-products.php" method="post" enctype="multipart/form-data">
+      <input type="hidden" id="productId" name="productId" />
+      <input type="hidden" id="existingImage" name="existingImage" />
 
-  <div id="div-image">
-    <label for="productImage">Image URL:</label>
-    <input type="file" name="productImage" id="productImage" accept="image/*" />
-    <span id="span_image" class="error"></span><br>
-  </div>
+      <div id="div-image">
+        <label for="productImage">Image URL:</label>
+        <input type="file" name="productImage" id="productImage" accept="image/*" />
+        <span id="span_image" class="error">
+          <?php echo $errors['span_image'] ?>
+        </span><br>
+      </div>
 
-  <div id="div-price">
-    <label for="productPrice">Price:</label>
-    <input type="text" name="productPrice" id="productPrice"  />
-    <span id="span_price" class="error"></span><br>
-  </div>
+      <div id="div-price">
+        <label for="productPrice">Price:</label>
+        <input type="text" name="productPrice" id="productPrice" value="<?php echo $form_data['productPrice']?>"/>
+        <span id="span_price" class="error">
+          <?php echo $errors['span_price'] ?>
+        </span><br>
+      </div>
 
-  <div id="div-category">
-    <label for="categoryList">Category:</label>
-    <select name="categoryList" id="categoryList">
-     
-    </select>
-    <span id="span_category" class="error"></span><br>
-  </div>
+      <div id="div-category">
+        <label for="categoryList">Category:</label>
+        <select name="categoryList" id="categoryList">
+          <?php
+          $query = "select * from category";
+          $result = $con->query($query);
 
-  <div id="div-description">
-    <label for="productDescription">Name:</label>
-    <input type="text" id="productDescription" name="productDescription" />
-    <span id="span_description" class="error"></span><br>
-  </div>
+          while ($row = $result->fetch_assoc()) {
+            ?>
+            <option value="<?php echo $row['category']?>">
+              <?php echo $row['category']?>
+            </option>
+          <?php
+          }
+          ?>
+        </select>
+        <span id="span_category" class="error">
+          <?php echo $errors['span_category'] ?>
+        </span><br>
+      </div>
 
-  <div id="div-offer">
-    <label for="productOffer">Offer:</label>
-    <input type="text" name="productOffer" id="productOffer" />
-    <span id="span_offer" class="error"></span><br>
-  </div>
+      <div id="div-description">
+        <label for="productDescription">Name:</label>
+        <input type="text" id="productDescription" name="productDescription" value="<?php echo $form_data['productDescription']?>"/>
+        <span id="span_description" class="error">
+          <?php echo $errors['span_description'] ?>
+        </span><br>
+      </div>
 
-  <div id="div-stock">
-    <label for="productStock">Stock:</label>
-    <input type="number" id="productStock" name="productStock" />
-    <span id="span_stock" class="error"></span><br>
-  </div>
+      <div id="div-offer">
+        <label for="productOffer">Offer:</label>
+        <input type="text" name="productOffer" id="productOffer" value="<?php echo $form_data['productOffer']?>"/>
+        <span id="span_offer" class="error">
+          <?php echo $errors['span_offer'] ?>
+        </span><br>
+      </div>
 
-  <input type="submit" value="Add product" />
-</form>
+      <div id="div-stock">
+        <label for="productStock">Stock:</label>
+        <input type="text" id="productStock" name="productStock" value="<?php echo $form_data['productStock']?>"/>
+        <span id="span_stock" class="error">
+        <?php echo $errors['span_stock'] ?>
+        </span><br>
+      </div>
+
+      <input type="submit" value="Add product" />
+    </form>
   </div>
 
   <table id="table1">

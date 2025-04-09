@@ -2,6 +2,11 @@
 session_start();
 require('../check-admin.php');
 
+$errors = $_SESSION['errors'];
+$form_data = $_SESSION['form_data'];
+
+unset($_SESSION['errors']);
+unset($_SESSION['form_data']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,10 +62,12 @@ require('../check-admin.php');
     ?>
     
     <div class="form2">
-        <form id="categoryForm">
+        <form id="categoryForm" action="../add-category" method="post">
             <input type="hidden" id="categoryId" name="categoryId">
-            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" >
-            <span id="span-category"></span>
+            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" value="<?php echo $form_data['newCategory']?>" >
+            <span id="span-category">
+                <?php echo $errors['span-category']?>
+            </span>
             <button type="submit">Add Category</button>
         </form>
         <table>

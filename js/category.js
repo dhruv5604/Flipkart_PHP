@@ -1,32 +1,7 @@
-$("#categoryForm").submit(function (e) {
-  e.preventDefault();
-
-  let category = $('#newCategory').val();
-
-  if(category.trim() === ""){
-    $('#span-category').text('Please Enter Category Name');
+$('#newCategory').change(function () { 
+  if ($('#newCategory').val() === "") {
+    $('#span-category').text('Enter Category name');
   }
-
-  let formData = new FormData(this);
-  $.ajax({
-    type: "POST",
-    url: "../add-category.php",
-    data: formData,
-    processData: false,
-    contentType: false,
-    dataType: "json",
-    success: function (response) {
-      if (response.success) {
-        location.reload();
-      } else {
-        $("#" + response.error_block).text(response.message);
-      }
-    },
-    error: function (xhr, status, error) {
-      console.error("AJAX Error:", status, error);
-      console.error("Response Text:", xhr.responseText);
-    },
-  });
 });
 
 function editCategory(id) {

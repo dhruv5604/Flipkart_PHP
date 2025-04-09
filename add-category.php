@@ -5,9 +5,16 @@ require('check_post.php');
 
 $category = trim($_POST['newCategory']);
 $id = isset($_POST['categoryId']) ? intval($_POST['categoryId']) : 0;
+$errors = [];
 
 if (empty($category)) {
-    echo json_encode(["sucess" => false, "error_block" => "span-category", "message" => "Please Enter Category Name"]);
+    $errors['span-category'] = 'Please Enter Caegory Name';
+}
+
+if (!empty($errors)) {
+    $_SESSION['errors'] = $errors;
+    $_SESSION['form_data'] = $_POST;
+    header("Location: admin/category");
     exit;
 }
 
@@ -16,6 +23,7 @@ $stmt = $con->prepare($query);
 $stmt->bind_param("s", $category);
 $stmt->execute();
 $result = $stmt->get_result();
+
 
 if ($result->num_rows == 0) {
     if ($id > 0) {
@@ -36,8 +44,16 @@ if ($result->num_rows == 0) {
 
     $stmt->close();
 } else {
-    echo json_encode(["sucess" => false, "error_block" => "span-category", "message" => "Category already Exists!!"]);
+    $errors['span-category'] = 'Category already exists';
+}
+
+if (!empty($errors)) {
+    $_SESSION['errors'] = $errors;
+    $_SESSION['form_data'] = $_POST;
+    header("Location: admin/category");
+    exit;
 }
 
 $con->close();
+header("Location: admin/category");
 exit;

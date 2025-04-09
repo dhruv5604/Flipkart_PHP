@@ -17,41 +17,36 @@ $imageToSave = $existingImage;
 $errors = [];
 
 if (empty($price)) {
-    echo json_encode(["success" => false, "error_block" => "span_price", "message" => "Please Enter price"]);
-    exit;
+    $errors['span_price'] = "Please Enter price";
 } else if (!is_numeric($price)) {
-    echo json_encode(["success" => false, "error_block" => "span_price", "message" => "Please Enter Numbers"]);
-    exit;
+    $errors['span_price'] = 'Please Enter Numbers';
 } else if ($price < 0) {
-    echo json_encode(["success" => false, "error_block" => "span_price", "message" => "Price must be greater than 0"]);
-    exit;
+    $errors['span_price'] = 'Price must be greater than 0';
 }
 
 if (empty($category)) {
-    echo json_encode(["success" => false, "error_block" => "span_category", "message" => "Please select category"]);
-    exit;
+    $errors['span_category'] = 'Please select category';
 }
 
 if (empty($desc)) {
-    echo json_encode(["success" => false, "error_block" => "span_description", "message" => "Please Enter Name"]);
-    exit;
+    $errors['span_description'] = 'Please Enter Name';
 }
 
 if (empty($offer)) {
-    echo json_encode(["success" => false, "error_block" => "span_offer", "message" => "Please Enter offer"]);
-    exit;
+    $errors['span_offer'] = 'Please Enter offer';
 } else if (!is_numeric($offer)) {
-    echo json_encode(["success" => false, "error_block" => "span_offer", "message" => "Please Enter Numbers only"]);
-    exit;
+    $errors['span_offer'] = 'Please Enter Numbers only';
 } else if ($offer > 100 || $offer < 0) {
-    echo json_encode(["success" => false, "error_block" => "span_offer", "message" => "Discount must be greater than 0 and less than 100"]);
-    exit;
+    $errors['span_offer'] = 'Discount must be greater than 0 and less than 100';
 }
 
 if (empty($stock)) {
-    echo json_encode(["success" => false, "error_block" => "span_stock", "message" => "Please Enter stock"]);
-    exit;
-}
+    $errors['span_stock'] = 'Please Enter stock';
+} else if (!is_numeric($stock)) {
+    $errors['span_stock'] = 'Please Enter Numbers only';
+} else if ($stock < 0) {
+    $errors['span_stock'] = 'Stock must be greater than 0';
+} 
 
 if (!empty($_FILES['productImage']['name'])) {
     $uploadDir = realpath("static/uploaded-img") . "/";
@@ -63,32 +58,41 @@ if (!empty($_FILES['productImage']['name'])) {
     $targetFilePath = $uploadDir . $newImage;
 
     if (!is_writable($uploadDir)) {
-        echo json_encode(["sucess" => false, "error_block" => "span_image", "message" => "Upload directory is not writable: "]);
-        exit;
+        $errors['span_image'] = 'Upload directory is not writable:';
     }
 
     if ($_FILES["productImage"]["error"] !== UPLOAD_ERR_OK) {
-        echo json_encode(["sucess" => false, "error_block" => "span_image", "message" => "File upload error: " . $_FILES["productImage"]["error"]]);
-        exit;
+        $errors['span_image'] = "File upload error: " . $_FILES["productImage"]["error"];
     }
 
     if (move_uploaded_file($_FILES["productImage"]["tmp_name"], $targetFilePath)) {
         $imageToSave = "../static/uploaded-img/" . $newImage;
     } else {
-        echo json_encode(["sucess" => false, "error_block" => "span_image", "message" => "Image upload failed. Check folder permissions."]);
-        exit;
+        $errors['span_image'] = 'Image upload failed. Check folder permissions.';
     }
 }
 
 if (empty($imageToSave)) {
-    echo json_encode(["success" => false, "error_block" => "span_image", "message" => "Please Enter Image"]);
-    exit;
+    $errors['span_image'] = 'Please Enter Image';
 }
 
 if (!empty($errors)) {
     $_SESSION['errors'] = $errors;
     $_SESSION['form_data'] = $_POST;
-    header("Location: admin/products.php");
+    header("Location: admin/products");
+    exit;
+}
+
+$query = "SELECT id FROM category WHERE category = ?";
+$stmt = $con->prepare($query);
+$stmt->bind_param("s", $category);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $category_id = $row['id'];
+} else {
+    echo json_encode(["error" => "Invalid category"]);
     exit;
 }
 
@@ -96,18 +100,6 @@ try {
     $con->begin_transaction();
 
     if (!empty($id)) {
-        $query = "SELECT id FROM category WHERE category = ?";
-        $stmt = $con->prepare($query);
-        $stmt->bind_param("s", $category);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($row = $result->fetch_assoc()) {
-            $category_id = $row['id'];
-        } else {
-            echo json_encode(["error" => "Invalid category"]);
-            exit;
-        }
         $query = "UPDATE products SET price=?, category_id=?, name=?, image=?, offer=? WHERE id=?";
         $stmt = $con->prepare($query);
         $stmt->bind_param("iissii", $price, $category_id, $desc, $imageToSave, $offer, $id);
@@ -156,8 +148,7 @@ try {
                 echo json_encode(["error" => "Failed to insert product"]);
             }
         } else {
-            echo json_encode(["sucess" => false, "error_block" => "span_description", "message" => "Product already exists."]);
-            exit;
+            $errors['span_description'] = 'Product already exists.';
         }
     }
     $con->commit();
@@ -166,5 +157,13 @@ try {
     echo json_encode(["error" => $e->getMessage()]);
 }
 
+if (!empty($errors)) {
+    $_SESSION['errors'] = $errors;
+    $_SESSION['form_data'] = $_POST;
+    header("Location: admin/products");
+    exit;
+}
+
 $con->close();
+header("Location: admin/products");
 exit;

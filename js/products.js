@@ -1,70 +1,28 @@
-document.getElementById("form1").addEventListener("submit", function (e) {
-  e.preventDefault();
+// document.getElementById("form1").addEventListener("submit", function (e) {
+//   e.preventDefault();
 
-  $('.error').text('');
-
-    // if ($("#productImage").val() === "") {
-    //   $("#span-image").text("Please select Image");
-    // }
-
-    // if ($("#productPrice").val() === "") {
-    //   $("#span-price").text("Please Enter price");
-    // }
-
-    // if (!Number.isInteger(Number($('#productPrice').val()))) {
-    //   $("#span-price").text("Please Enter Nuumbers only");
-    // }
-
-    // if ($("#productPrice").val() < 0) {
-    //   $("#span-price").text("Price Must be greate than 0.");
-    // }
-
-    // if ($("#categoryList").val() === "") {
-    //   $("#span-category").text("Please select category");
-    // }
-
-    // if ($("#productDescription").val() === "") {
-    //   $("#span-description").text("Please Enter Name");
-    // }
-
-    // if ($("#productOffer").val() === "") {
-    //   $("#span-offer").text("Please Enter Discount");
-    // }
-
-    // if (!Number.isInteger(Number($('#productOffer').val()))) {
-    //   $("#span-offer").text("Please Enter Nuumbers only");
-    // }
-
-    // if ($("#productOffer").val() > 100 || $("#productOffer").val() < 0) {
-    //   $("#span-offer").text("Discount must be greater than 0 and less than 100");
-    // }
-
-    // if ($("#productStock").val() === "") {
-    //   $("#span-stock").text("Please Enter stock");
-    // }
-
-  let formData = new FormData(this);
-  $.ajax({
-    type: "POST",
-    url: "../add-products.php",
-    data: formData,
-    processData: false,
-    contentType: false,
-    dataType: "json",
-    success: function (response) {
-      if (response.success) {
-        alert(response.message || "Product updated successfully");
-        location.reload();
-      } else {
-        $("#" + response.error_block).text(response.message);
-      }
-    },
-    error: function (xhr, status, error) {
-      console.error("AJAX Error:", status, error, xhr.responseText);
-      alert("An error occurred. Check console for details.");
-    },
-  });
-});
+  // let formData = new FormData(this);
+  // $.ajax({
+  //   type: "POST",
+  //   url: "../add-products.php",
+  //   data: formData,
+  //   processData: false,
+  //   contentType: false,
+  //   dataType: "json",
+  //   success: function (response) {
+  //     if (response.success) {
+  //       alert(response.message || "Product updated successfully");
+  //       location.reload();
+  //     } else {
+  //       $("#" + response.error_block).text(response.message);
+  //     }
+  //   },
+  //   error: function (xhr, status, error) {
+  //     console.error("AJAX Error:", status, error, xhr.responseText);
+  //     alert("An error occurred. Check console for details.");
+  //   },
+  // });
+// });
 
 function editProduct(id) {
   $.ajax({
@@ -111,20 +69,6 @@ function deleteProduct(id) {
 }
 
 $(document).ready(function () {
-  $.ajax({
-    type: "GET",
-    url: "../fetch-all-category.php",
-    dataType: "json",
-    success: function (response) {
-      let categoryList = document.getElementById("categoryList");
-      response.forEach((category) => {
-        let option = document.createElement("option");
-        option.value = category.category;
-        option.innerText = category.category;
-        categoryList.appendChild(option);
-      });
-    },
-  });
 
   $.ajax({
     type: "GET",
@@ -184,4 +128,40 @@ $(document).ready(function () {
       });
     },
   });
+});
+
+$("#productPrice").change(function () {
+  $("#span_price").text("");
+
+  if (!Number.isInteger(Number($("#productPrice").val()))) {
+    $("#span_price").text("Please Enter Numbers only");
+  }
+
+  if ($("#productPrice").val() < 0) {
+    $("#span_price").text("Price Must be greate than 0.");
+  }
+});
+
+$("#productOffer").change(function () {
+  $("#span_offer").text("");
+
+  if (!Number.isInteger(Number($("#productOffer").val()))) {
+    $("#span_offer").text("Please Enter Nuumbers only");
+  }
+
+  if ($("#productOffer").val() > 100 || $("#productOffer").val() < 0) {
+    $("#span_offer").text("Discount must be greater than 0 and less than 100");
+  }
+});
+
+$("#productStock").change(function () {
+  $("#span_stock").text("");
+
+  if (!Number.isInteger(Number($("#productStock").val()))) {
+    $("#span_stock").text("Please Enter Nuumbers only");
+
+    if ($("#productStock").val() < 0) {
+      $("#span_stock").text("Discount must be greater than 0 and less than 100");
+    }
+  }
 });
