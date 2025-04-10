@@ -30,7 +30,7 @@ if (is_null($category_id)) {
     $errors['span_category'] = 'Please select category';
 }
 
-if (is_null($name)) {
+if (empty($name)) {
     $errors['span_name'] = 'Please Enter Name';
 }
 

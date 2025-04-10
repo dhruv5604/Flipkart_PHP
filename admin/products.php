@@ -53,7 +53,7 @@ unset($_SESSION['form_data']);
   <h1 style="text-align: center">Welcome To Product Crud Operation</h1>
 
   <div class="form1">
-    <form id="form1" action="../add-products.php" method="post" enctype="multipart/form-data">
+    <form id="form1" action="../add-products" method="post" enctype="multipart/form-data">
       <input type="hidden" id="productId" name="productId" />
       <input type="hidden" id="existingImage" name="existingImage" />
 

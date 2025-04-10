@@ -1,100 +1,145 @@
 <?php
-ini_set("display_errors", 1);
-ob_clean();
-header("Content-Type: application/json");
-
-require_once('connection.php');
-require_once('check_post.php');
-
-$name = htmlspecialchars($_POST['uname']);
-$pass = htmlspecialchars($_POST['pass']);
-$cnfpass  = htmlspecialchars($_POST['cpass']);
-$num = htmlspecialchars($_POST['num']);
-$email = htmlspecialchars($_POST['email']);
-$tnc = isset($_POST['rememberme']) && $_POST['rememberme'] === "on" ? 1 : 0;
-
-$secure_pass = password_hash($pass, PASSWORD_DEFAULT);
-
-$pass_regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/';
-$username_regex = '/^[A-Za-z]{1}[A-Za-z0-9]+$/';
-$num_regex = '/^[6-9]{1}[0-9]{9}$/';
-$email_regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-
-$errors = [];
-
-if (!preg_match($username_regex, $name)) {
-    $errors['span-username'] = 'Username contains only letters and numbers and must start with letter';
+session_start();
+if (isset($_SESSION['user_id'])) {
+  header("Location: /");
 }
 
-if (!preg_match($email_regex, $email)) {
-    $errors['span-email'] = 'Enter valid email address';
-}
+$errors = $_SESSION['errors'];
+$form_data = $_SESSION['form_data'];
 
-if (!preg_match($pass_regex, $pass)) {
-    $errors['span-password'] = 'Password should contain minimum 8 letters, 1 Uppercase, 1 lowercase, 1 special character and 1 digit';
-}
+unset($_SESSION['errors']);
+unset($_SESSION['form_data']);
 
-if (empty($cnfpass)) {
-    $errors['span-cpassword'] = 'Enter Confirm Password';
-}
+?>
 
-if ($pass !== $cnfpass) {
-    $errors['span-password'] = 'Password and confirm password didn\'t match';
-}
+<!DOCTYPE html>
+<html lang="en">
 
-if (!preg_match($num_regex, $num)) {
-    $errors['span-phone'] = 'Number should contain 10 digits and start with 6-9';
-}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
 
-if ($tnc == 0) {
-    $errors['span-tnc'] = 'Please accept terms and conditions';
-}
+<body>
+  <div class="mainSign">
+    <div class="container">
+      <form id="sign-up-form" class="sign-up-form" action="../signup-process.php" method="post">
+        <div class="links">
+          <a href="login"><i class="fa-solid fa-user"></i> sign in</a>
+          <a href="signup" class="activeSignup"><i class="fa-solid fa-user-plus"></i> sign up</a>
+        </div>
 
-if (!$con) {
-    $errors['span-tnc'] = 'Database connection failed';
-}
+        <div>
+          <input
+            type="file"
+            id="profilepic"
+            name="profilepic"
+            style="display: none" />
+        </div>
 
-if (!empty($errors)) {
-    $_SESSION['errors'] = $errors;
-    $_SESSION['form_data'] = $_POST;
-    header("Location: verify-user/signup");
-    exit;
-}
+        <div class="input-field">
+          <i class="fa-solid fa-globe"></i>
+          <input
+            type="text"
+            placeholder="Username"
+            id="uname"
+            name="uname"
+            value="<?php echo $form_data['uname'] ?>" />
+          <br />
+        </div>
+        <span class="error" id="span-username">
+          <?php echo $errors['span-username'] ?>
+        </span>
 
-$query = "SELECT email FROM User WHERE email = ?";
-$stmt = $con->prepare($query);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$stmt->store_result();
+        <div class="input-field">
+          <i class="fa-solid fa-envelope"></i>
+          <input
+            type="text"
+            placeholder="Email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            value="<?php echo $form_data['email'] ?>" />
+          <br />
+        </div>
+        <span class="error" id="span-email">
+          <?php echo $errors['span-email'] ?>
+        </span>
 
-if ($stmt->num_rows > 0) {
-    $errors['span-email'] = 'Email already exists';
-}
+        <div class="input-field">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            type="password"
+            placeholder="Password"
+            id="pass"
+            name="pass"
+            autocomplete="new-password"
+            value="<?php echo $form_data['pass'] ?>" />
+          <br />
+        </div>
+        <span class="error" id="span-password">
+          <?php echo $errors['span-password'] ?>
+        </span>
 
-if (!empty($errors)) {
-    $_SESSION['errors'] = $errors;
-    $_SESSION['form_data'] = $_POST;
-    header("Location: verify-user/signup");
-    exit;
-}
+        <div class="input-field">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            id="cpass"
+            name="cpass"
+            autocomplete="new-password"
+            value="<?php echo $form_data['cpass'] ?>" />
+        </div>
+        <span class="error" id="span-cpassword">
+          <?php echo $errors['span-cpassword'] ?>
+        </span>
 
-$stmt->close();
+        <div class="input-field">
+          <i class="fa-solid fa-phone"></i>
+          <input
+            type="text"
+            placeholder="Mobile Number"
+            id="num"
+            name="num"
+            value="<?php echo $form_data['num'] ?>" />
+        </div>
+        <span class="error" id="span-phone">
+          <?php echo $errors['span-phone'] ?>
+        </span>
 
-$query1 = "INSERT INTO User(name, password, contactNumber, email,term_condition) VALUES (?, ?, ?, ?, ?)";
-$stmt1 = $con->prepare($query1);
+        <div class="input-field" style="height: 40px">
+          <input type="checkbox" name="rememberme" id="rememberme" />
+          <label for="rememberme">
+            Accept <span class="tnc"> terms and conditions</span>
+          </label>
+        </div>
+        <span class="error" id="span-tnc">
+          <?php echo $errors['span-tnc'] ?>
+        </span>
 
-if ($stmt1) {
-    $stmt1->bind_param("ssssi", $name, $secure_pass, $num, $email, $tnc);
-    if ($stmt1->execute()) {
-        echo json_encode(["success" => true, "message" => "User registered successfully"]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Failed to register user"]);
-    }
-    $stmt1->close();
-} else {
-    echo json_encode(["success" => false, "message" => "Database error: " . $con->error]);
-}
+        <div
+          class="input-field"
+          style="width: 100%; background-color: #f1f1f1">
+          <button type="submit" class="submit" value="Sign up">
+            Sign Up
+          </button>
+        </div>
 
-$con->close();
-header("Location: ../");
-exit();
+        <div class="hveacc">
+          <p>Already have an account? <a href="login.php">Sign In</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/signup.js"></script>
+</body>
+
+</html>

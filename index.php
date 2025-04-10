@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 error_reporting(-1);
 session_start();
 if (!isset($_SESSION['uname'])) {
-    header('Location:verify-user/login');
+    header('Location: login');
 }
 ?>
 

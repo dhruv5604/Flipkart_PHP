@@ -1,68 +1,83 @@
 <?php
-require_once('connection.php');
-require_once('check_post.php');
 session_start();
-
-header("Content-Type: application/json");
-
-$email_regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-
-$email = htmlspecialchars($_POST['email']);
-$pass = htmlspecialchars($_POST['pass']);
-$errors = [];
-
-if (is_null($email)) {
-    $errors['span-email'] = 'Enter E-mail Address';
+if (isset($_SESSION['user_id'])) {
+  header("Location: /");
 }
 
-if (!preg_match($email_regex, $email)) {
-    $errors['span-email'] = 'Enter valid email address';
-}
+$errors = $_SESSION['errors'];
+$form_data = $_SESSION['form_data'];
 
-if (is_null($pass)) {
-    $errors['span-password'] = 'Enter password';
-}
+unset($_SESSION['errors']);
+unset($_SESSION['form_data']);
 
-if (!empty($errors)) {
-    $_SESSION['errors'] = $errors;
-    $_SESSION['form_data'] = $_POST;
-    header("Location: verify-user/login");
-    exit;
-}
+?>
 
-$query = "SELECT id, name, password, email,role FROM User WHERE email = ?";
-$stmt = $con->prepare($query);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
+<!DOCTYPE html>
+<html lang="en">
 
-if ($row = $result->fetch_assoc()) {
-    $fetched_name = $row['name'];
-    $fetched_pass = $row['password'];
-    $fetched_email = $row['email'];
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
 
-    if (password_verify($pass, $fetched_pass)) {
-        $_SESSION['user_id'] = $row["id"];
-        $_SESSION['uname'] = $row["name"];
-        $_SESSION['role'] = $row["role"];
-        $_SESSION['email'] = $row["email"];
+<body>
+  <div class="main">
+    <div class="container">
+      <form id="sign-in-form" class="sign-in-form" action="../login-process.php" method="post">
+        <div class="links">
+          <a href="login" class="activeSignIn">
+            <i class="fa-solid fa-user"></i> sign in
+          </a>
+          <a href="signup"><i class="fa-solid fa-user-plus"></i> sign up</a>
+        </div>
 
-        echo json_encode(["success" => true, "message" => "Login successful!"]);
-    } else {
-        $errors['span-password'] = 'Password is incorrect!';
-    }
-} else {
-    $errors['span-email'] = 'No User Found!';
-}
+        <div class="input-field">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="text" placeholder="Email" id="email" name="email" value="<?php echo $form_data['email'] ?>" />
+        </div>
+        <span class="error" id="span-email">
+          <?php echo $errors['span-email'] ?>
+        </span>
 
-if (!empty($errors)) {
-    $_SESSION['errors'] = $errors;
-    $_SESSION['form_data'] = $_POST;
-    header("Location: verify-user/login");
-    exit;
-}
+        <div class="input-field">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            type="password"
+            placeholder="Password"
+            id="pass"
+            name="pass"
+            value="<?php echo $form_data['pass'] ?>" />
+        </div>
+        <span class="error" id="span-password">
+          <?php echo $errors['span-password'] ?>
+        </span>
 
-$stmt->close();
-$con->close();
-header("Location: /");
-exit();
+        <p class="forget"><a href="#">forget password?</a></p>
+
+        <div class="remember">
+          <input type="checkbox" name="rememberme" id="rememberme" />
+          <label for="rememberme">Remember Me</label>
+        </div>
+
+        <div>
+          <button type="submit" class="submit" value="Sign In">
+            <i class="fas fa-sign-in"></i> Sign In
+          </button>
+        </div>
+
+        <div class="hveacc">
+          <p>Don't have an account? <a href="signup">Sign Up</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="/js/login.js"></script>
+</body>
+
+</html>
