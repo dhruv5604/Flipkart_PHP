@@ -1,4 +1,7 @@
 <?php
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
 session_start();
 if (!isset($_SESSION['uname'])) {
     header('Location:verify-user/login');
@@ -18,16 +21,9 @@ if (!isset($_SESSION['uname'])) {
     <link rel="stylesheet" href="./css/index.css">
     </link>
     <title>Flipkart</title>
-    <noscript>
 </head>
 
 <body>
-    <noscript>
-        <div style="color: red; text-align: center;">
-            JavaScript is disabled in your browser. Please enable JavaScript to use this site.
-        </div>
-    </noscript>
-
     <?php
     require('nav-bar.php');
     ?>

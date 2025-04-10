@@ -1,9 +1,12 @@
 <?php
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
 session_start();
 require('../check-admin.php');
 
-$errors = $_SESSION['errors'];
-$form_data = $_SESSION['form_data'];
+$errors = $_SESSION['errors'] ?? '';
+$form_data =  $_SESSION['form_data'] ?? '';
 
 unset($_SESSION['errors']);
 unset($_SESSION['form_data']);
@@ -65,9 +68,9 @@ unset($_SESSION['form_data']);
     <div class="form2">
         <form id="categoryForm" action="../add-category" method="post">
             <input type="hidden" id="categoryId" name="categoryId">
-            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" value="<?php echo $form_data['newCategory'] ?>">
+            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" value="<?= $form_data['newCategory'] ?? '' ?>">
             <span id="span-category">
-                <?php echo $errors['span-category'] ?>
+                <?= $errors['span-category'] ?? '' ?>
             </span>
             <button type="submit">Add Category</button>
         </form>

@@ -1,18 +1,3 @@
-$("#login-email").change(function () {
-    $("#span-login-email").text("");
-    const email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    if ($("#login-email").val().trim() === "") {
-        $("#span-login-email").text("Please Enter Email");
-        return;
-    }
-
-    if (!email_regex.test($("#login-email").val().trim())) {
-        $("#span-login-email").text("Enter valid email address");
-        return;
-    }
-});
-
 $("#uname").change(function () {
     $("#span-username").text("");
     const username_regex = /^[A-Za-z]{1}[A-Za-z0-9]+$/;
