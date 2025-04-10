@@ -61,7 +61,7 @@ unset($_SESSION['form_data']);
         <label for="productImage">Image URL:</label>
         <input type="file" name="productImage" id="productImage" accept="image/*" />
         <span id="span_image" class="error">
-          <?= isset($errors['span_image']) ? implode('<br>', $errors['span_image']) : ''; ?>
+          <?= $errors['span_image'] ?? '' ?>
         </span><br>
       </div>
 

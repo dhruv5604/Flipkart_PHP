@@ -5,12 +5,13 @@ function editProduct(id) {
     data: { id: id },
     dataType: "json",
     success: function (response) {
+      console.log(response);
       document.getElementById("productPrice").value =
         response["products"][0]["price"];
-      document.getElementById("productDescription").value =
+      document.getElementById("productName").value =
         response["products"][0]["name"];
       document.getElementById("categoryList").value =
-        response["products"][0]["category"];
+        response["products"][0]["category_id"];
       document.getElementById("productId").value =
         response["products"][0]["id"];
       document.getElementById("productImage").src =

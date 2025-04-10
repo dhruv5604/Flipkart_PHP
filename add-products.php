@@ -15,6 +15,8 @@ $existingImage = $_POST['existingImage'] ?? "";
 $imageToSave = $existingImage;
 
 $errors = [];
+$extAllowed = ['jpg', 'jpeg', 'png', 'webp'];
+$mimeAllowed = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
 
 if (is_null($price)) {
     $errors['span_price'] = "Please Enter price";
@@ -48,16 +50,28 @@ if (is_null($stock)) {
     $errors['span_stock'] = 'Stock must be greater than 0';
 }
 
+function set_errors_session($errors)
+{
+    $_SESSION['errors'] = $errors;
+    $_SESSION['form_data'] = $_POST;
+    header("Location: admin/products");
+    exit;
+}
+
+
 if (!empty($_FILES['productImage']['name'])) {
     $uploadDir = realpath("static/uploaded-img") . "/";
     $originalName = basename($_FILES["productImage"]["name"]);
     $fileExtension = pathinfo($originalName, PATHINFO_EXTENSION);
     $fileNameOnly = pathinfo($originalName, PATHINFO_FILENAME);
+    $mimeType = mime_content_type($_FILES["productImage"]["tmp_name"]);
 
     $newImage = $fileNameOnly . '_' . time() . '.' . $fileExtension;
     $targetFilePath = $uploadDir . $newImage;
 
-    if (!is_writable($uploadDir)) {
+    if (!in_array($fileExtension, $extAllowed) || !in_array($mimeType, $mimeAllowed)) {
+        $errors['span_image'] = "Sorry, only JPG, JPEG, PNG & WEBP files are allowed.";
+    } else if (!is_writable($uploadDir)) {
         $errors['span_image'] = 'Upload directory is not writable:';
     } else if ($_FILES["productImage"]["error"] !== UPLOAD_ERR_OK) {
         $errors['span_image'] = "File upload error: " . $_FILES["productImage"]["error"];
@@ -68,15 +82,16 @@ if (!empty($_FILES['productImage']['name'])) {
     }
 }
 
+if (!empty($errors)) {
+    set_errors_session($errors);
+}
+
 if (empty($imageToSave)) {
-    $errors['span_image'][] = 'Please Enter Image';
+    $errors['span_image'] = 'Please Enter Image';
 }
 
 if (!empty($errors)) {
-    $_SESSION['errors'] = $errors;
-    $_SESSION['form_data'] = $_POST;
-    header("Location: admin/products");
-    exit;
+    set_errors_session($errors);
 }
 
 try {
@@ -141,10 +156,7 @@ try {
 }
 
 if (!empty($errors)) {
-    $_SESSION['errors'] = $errors;
-    $_SESSION['form_data'] = $_POST;
-    header("Location: admin/products");
-    exit;
+    set_errors_session($errors);
 }
 
 $con->close();
