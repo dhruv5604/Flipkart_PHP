@@ -4,8 +4,8 @@ if (isset($_SESSION['user_id'])) {
   header("Location: /");
 }
 
-$errors = $_SESSION['errors'];
-$form_data = $_SESSION['form_data'];
+$errors = $_SESSION['errors'] ?? '';
+$form_data =  $_SESSION['form_data'] ?? '';
 
 unset($_SESSION['errors']);
 unset($_SESSION['form_data']);
@@ -39,10 +39,10 @@ unset($_SESSION['form_data']);
 
         <div class="input-field">
           <i class="fa-solid fa-envelope"></i>
-          <input type="text" placeholder="Email" id="email" name="email" value="<?php echo $form_data['email'] ?>" />
+          <input type="text" placeholder="Email" id="email" name="email" value="<?= $form_data['email'] ?>" />
         </div>
         <span class="error" id="span-email">
-          <?php echo $errors['span-email'] ?>
+          <?= $errors['span-email'] ?>
         </span>
 
         <div class="input-field">
@@ -52,10 +52,10 @@ unset($_SESSION['form_data']);
             placeholder="Password"
             id="pass"
             name="pass"
-            value="<?php echo $form_data['pass'] ?>" />
+            value="<?= $form_data['pass'] ?? '' ?>" />
         </div>
         <span class="error" id="span-password">
-          <?php echo $errors['span-password'] ?>
+          <?= $errors['span-password'] ?? '' ?>
         </span>
 
         <p class="forget"><a href="#">forget password?</a></p>

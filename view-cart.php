@@ -1,9 +1,7 @@
 <?php
 ini_set('display_errors', 1);
-require('config.php');  
 require('is_login.php');
-
-session_start();
+require('config.php');  
 ?>
 
 <!DOCTYPE html>

@@ -4,8 +4,8 @@ if (isset($_SESSION['user_id'])) {
   header("Location: /");
 }
 
-$errors = $_SESSION['errors'];
-$form_data = $_SESSION['form_data'];
+$errors = $_SESSION['errors'] ?? '';
+$form_data = $_SESSION['form_data'] ?? '';
 
 unset($_SESSION['errors']);
 unset($_SESSION['form_data']);
@@ -50,11 +50,11 @@ unset($_SESSION['form_data']);
             placeholder="Username"
             id="uname"
             name="uname"
-            value="<?php echo $form_data['uname'] ?>" />
+            value="<?= $form_data['uname'] ?? '' ?>" />
           <br />
         </div>
         <span class="error" id="span-username">
-          <?php echo $errors['span-username'] ?>
+          <?= $errors['span-username'] ?? '' ?>
         </span>
 
         <div class="input-field">
@@ -65,11 +65,11 @@ unset($_SESSION['form_data']);
             id="email"
             name="email"
             autocomplete="email"
-            value="<?php echo $form_data['email'] ?>" />
+            value="<?= $form_data['email'] ?? '' ?>" />
           <br />
         </div>
         <span class="error" id="span-email">
-          <?php echo $errors['span-email'] ?>
+          <?= $errors['span-email'] ?? '' ?>
         </span>
 
         <div class="input-field">
@@ -80,11 +80,11 @@ unset($_SESSION['form_data']);
             id="pass"
             name="pass"
             autocomplete="new-password"
-            value="<?php echo $form_data['pass'] ?>" />
+            value="<?= $form_data['pass'] ?? '' ?>" />
           <br />
         </div>
         <span class="error" id="span-password">
-          <?php echo $errors['span-password'] ?>
+          <?= $errors['span-password'] ?? '' ?>
         </span>
 
         <div class="input-field">
@@ -95,10 +95,10 @@ unset($_SESSION['form_data']);
             id="cpass"
             name="cpass"
             autocomplete="new-password"
-            value="<?php echo $form_data['cpass'] ?>" />
+            value="<?= $form_data['cpass'] ?? '' ?>" />
         </div>
         <span class="error" id="span-cpassword">
-          <?php echo $errors['span-cpassword'] ?>
+          <?= $errors['span-cpassword'] ?? '' ?>
         </span>
 
         <div class="input-field">
@@ -108,10 +108,10 @@ unset($_SESSION['form_data']);
             placeholder="Mobile Number"
             id="num"
             name="num"
-            value="<?php echo $form_data['num'] ?>" />
+            value="<?= $form_data['num'] ?? '' ?>" />
         </div>
         <span class="error" id="span-phone">
-          <?php echo $errors['span-phone'] ?>
+          <?= $errors['span-phone'] ?? '' ?>
         </span>
 
         <div class="input-field" style="height: 40px">
@@ -121,7 +121,7 @@ unset($_SESSION['form_data']);
           </label>
         </div>
         <span class="error" id="span-tnc">
-          <?php echo $errors['span-tnc'] ?>
+          <?= $errors['span-tnc']  ?? '' ?>
         </span>
 
         <div

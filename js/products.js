@@ -5,7 +5,6 @@ function editProduct(id) {
     data: { id: id },
     dataType: "json",
     success: function (response) {
-      console.log(response);
       document.getElementById("productPrice").value =
         response["products"][0]["price"];
       document.getElementById("productName").value =
@@ -148,7 +147,7 @@ $("#productStock").change(function () {
 
     if ($("#productStock").val() < 0) {
       $("#span_stock").text(
-        "Stock must be greater than 0 and less than 100"
+        "Stock must be greater than 0"
       );
     }
   }
