@@ -1,6 +1,5 @@
 <?php
 ini_set("display_errors", 1);
-ob_clean();
 header("Content-Type: application/json");
 
 require_once('connection.php');

@@ -113,7 +113,7 @@ try {
             <td>{$item['product_name']}</td>
             <td>{$item['quantity']}</td>
             <td>₹{$item['product_price']}</td>
-        </tr>
+        </tr>o
     ";
       }
 
