@@ -70,9 +70,9 @@ $con->close();
         <p>Thank you for your purchase. Your transaction has been completed.</p>
 
         <div class="order-details">
-            <p><strong>Order ID:</strong> <?php echo $order_id?></p>
-            <p><strong>Transaction ID:</strong> <?php echo $transaction_id?> </p>
-            <p><strong>Amount Paid:</strong> ₹ <?php echo $total_amount?></p>
+            <p><strong>Order ID:</strong> <?= $order_id?></p>
+            <p><strong>Transaction ID:</strong> <?= $transaction_id?> </p>
+            <p><strong>Amount Paid:</strong> ₹ <?= $total_amount?></p>
             <p><strong>Payment Status:</strong> Success</p>
         </div>
         <br>

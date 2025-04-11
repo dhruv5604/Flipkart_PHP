@@ -113,7 +113,7 @@ try {
             <td>{$item['product_name']}</td>
             <td>{$item['quantity']}</td>
             <td>₹{$item['product_price']}</td>
-        </tr>
+        </tr>o
     ";
       }
 
@@ -124,44 +124,44 @@ try {
       $order_date = date("d-m-Y", strtotime($order_info['order_date']));
 
       $mail->Body = "
-    <html>
-    <head>
-      <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
-        .container { background: #fff; padding: 20px; border-radius: 8px; }
-        h2 { color: #333; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: #007bff; color: white; }
-        .footer { margin-top: 30px; font-size: 14px; color: #888; text-align: center; }
-      </style>
-    </head>
-    <body>
-      <div class='container'>
-        <h2>Hello $username,</h2>
-        <p>Thank you for your order! Here are your details:</p>
-        <p><strong>Order ID:</strong> $order_id</p>
-        <p><strong>Transaction ID:</strong> $txn_id</p>
-        <p><strong>Amount Paid:</strong> ₹$amount</p>
-        <p><strong>Order Date:</strong> $order_date</p>
+              <html>
+                <head>
+                  <style>
+                    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+                    .container { background: #fff; padding: 20px; border-radius: 8px; }
+                    h2 { color: #333; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+                    th { background: #007bff; color: white; }
+                    .footer { margin-top: 30px; font-size: 14px; color: #888; text-align: center; }
+                  </style>
+                </head>
+                <body>
+                  <div class='container'>
+                    <h2>Hello $username,</h2>
+                    <p>Thank you for your order! Here are your details:</p>
+                    <p><strong>Order ID:</strong> $order_id</p>
+                    <p><strong>Transaction ID:</strong> $txn_id</p>
+                    <p><strong>Amount Paid:</strong> ₹$amount</p>
+                    <p><strong>Order Date:</strong> $order_date</p>
 
-        <table>
-          <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
-          $product_rows
-        </table>
+                    <table>
+                      <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                      </tr>
+                      $product_rows
+                    </table>
 
-        <div class='footer'>
-          <p>Need help? Email us at support@flipkart-clone.com</p>
-          <p>&copy; " . date("Y") . " Flipkart Clone</p>
-        </div>
-      </div>
-    </body>
-    </html>";
+                    <div class='footer'>
+                      <p>Need help? Email us at support@flipkart-clone.com</p>
+                      <p>&copy; " . date("Y") . " Flipkart Clone</p>
+                    </div>
+                  </div>
+                </body>
+              </html>";
       $mail->send();
     } catch (Exception $exception) {
       echo "Error : {$mail->ErrorInfo}";

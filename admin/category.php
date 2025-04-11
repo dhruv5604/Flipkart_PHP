@@ -2,6 +2,11 @@
 session_start();
 require('../check-admin.php');
 
+$errors = $_SESSION['errors'] ?? '';
+$form_data =  $_SESSION['form_data'] ?? '';
+
+unset($_SESSION['errors']);
+unset($_SESSION['form_data']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +49,10 @@ require('../check-admin.php');
         .action {
             width: 20%;
         }
+
+        span {
+            color: red;
+        }
     </style>
 </head>
 
@@ -52,11 +61,14 @@ require('../check-admin.php');
     <?php
     require('nav-bar.php');
     ?>
-    
+
     <div class="form2">
-        <form id="categoryForm">
+        <form id="categoryForm" action="../add-category" method="post">
             <input type="hidden" id="categoryId" name="categoryId">
-            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" required>
+            <input type="text" name="newCategory" id="newCategory" placeholder="Enter New Category" value="<?= $form_data['newCategory'] ?? '' ?>">
+            <span id="span-category">
+                <?= $errors['span-category'] ?? '' ?>
+            </span>
             <button type="submit">Add Category</button>
         </form>
         <table>

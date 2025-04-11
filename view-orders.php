@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('is_login.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

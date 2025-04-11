@@ -30,8 +30,8 @@ $(document).ready(function () {
                             <div class="order-items" id="items-${order.order_id}">
                                 <hr>
                                 ${order.items.map(item => {
-                                    let discountedPrice = item.price - (item.price * item.offer / 100);
-                                    return `
+                        let discountedPrice = item.price - (item.price * item.offer / 100);
+                        return `
                                         <div>
                                             <img src="${item.image}" alt="${item.name}" width="50">
                                             <span>${item.name} (x${item.quantity}) - ₹${discountedPrice.toFixed(2)}

@@ -1,26 +1,7 @@
-$("#categoryForm").submit(function (e) { 
-  e.preventDefault();
-  let formData = new FormData(this);
-
-    $.ajax({
-      type: "POST",
-      url: "../add-category.php",
-      data: formData,
-      processData: false,
-      contentType: false,
-      dataType: "json",
-      success: function (response) {
-        if (response.success) {
-          location.reload();
-        } else {
-          alert(response.error);
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("AJAX Error:", status, error);
-        console.error("Response Text:", xhr.responseText);
-      },
-    });
+$('#newCategory').change(function () {
+  if ($('#newCategory').val() === "") {
+    $('#span-category').text('Enter Category name');
+  }
 });
 
 function editCategory(id) {
@@ -46,12 +27,12 @@ function deleteCategory(id) {
     url: "../delete-category.php",
     data: { id: id },
     dataType: "json",
-    success: function (response) { 
+    success: function (response) {
       window.location.href = "category";
     },
-    error: function (e) { 
+    error: function (e) {
       alert("Error in deleting category");
-     }
+    },
   });
 }
 
@@ -63,7 +44,6 @@ $(document).ready(function () {
     success: function (response) {
       response.forEach((category) => {
         const categoryList = document.getElementById("category-list");
-        console.log(response)
         let tr = document.createElement("tr");
         let td_id = document.createElement("td");
         td_id.innerHTML = category.id;
