@@ -39,10 +39,10 @@ unset($_SESSION['form_data']);
 
         <div class="input-field">
           <i class="fa-solid fa-envelope"></i>
-          <input type="text" placeholder="Email" id="email" name="email" value="<?= $form_data['email'] ?>" />
+          <input type="text" placeholder="Email" id="email" name="email" value="<?= $form_data['email'] ?? '' ?>" />
         </div>
         <span class="error" id="span-email">
-          <?= $errors['span-email'] ?>
+          <?= $errors['span-email'] ?? '' ?>
         </span>
 
         <div class="input-field">
