@@ -1,87 +1,145 @@
 <?php
-ini_set("display_errors", 1);
-ob_clean();
-header("Content-Type: application/json"); 
-
-require_once('connection.php');
-require_once('check_post.php');
-
-$name = htmlspecialchars($_POST['uname']);
-$pass = htmlspecialchars($_POST['pass']);
-$cnfpass  = htmlspecialchars($_POST['cpass']);
-$num = htmlspecialchars($_POST['num']);
-$email = htmlspecialchars($_POST['email']);
-$tnc = isset($_POST['rememberme']) && $_POST['rememberme'] === "on" ? 1 : 0;
-
-$secure_pass = password_hash($pass, PASSWORD_DEFAULT);
-
-$pass_regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/';
-$username_regex = '/^[A-Za-z]{1}[A-Za-z0-9]+$/';
-$num_regex = '/^[6-9]{1}[0-9]{9}$/';
-$email_regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-
-if(!preg_match($username_regex,$name)){
-    echo json_encode(["success" => false, "message" => "Username contains only letters and numbers and must start with letter"]);
-    exit();
+session_start();
+if (isset($_SESSION['user_id'])) {
+  header("Location: /");
 }
 
-if(!preg_match($email_regex,$email)){
-    echo json_encode(["success" => false, "message" => "Enter valid email address"]);
-    exit();
-}
+$errors = $_SESSION['errors'] ?? '';
+$form_data = $_SESSION['form_data'] ?? '';
 
-if(!preg_match($pass_regex,$pass)){
-    echo json_encode(["success" => false, "message" => "Password should contain minimum 8 letters, 1 Uppercase, 1 lowercase, 1 special character and 1 digit"]);
-    exit();
-}
+unset($_SESSION['errors']);
+unset($_SESSION['form_data']);
 
-if(!preg_match($num_regex,$num)){
-    echo json_encode(["success" => false, "message" => "Number should contain 10 digits and start with 6-9"]);
-    exit();
-}   
+?>
 
-if($tnc == 0){
-    echo json_encode(["success" => false, "message" => "Please accept terms and conditions"]);
-    exit();
-}
+<!DOCTYPE html>
+<html lang="en">
 
-if (!$con) {
-    echo json_encode(["success" => false, "message" => "Database connection failed"]);
-    exit();
-}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
 
-if ($pass !== $cnfpass) {
-    echo json_encode(["success" => false, "message" => "Password and confirm password didn't match"]);
-    exit();
-}
+<body>
+  <div class="mainSign">
+    <div class="container">
+      <form id="sign-up-form" class="sign-up-form" action="../signup-process.php" method="post">
+        <div class="links">
+          <a href="login"><i class="fa-solid fa-user"></i> sign in</a>
+          <a href="signup" class="activeSignup"><i class="fa-solid fa-user-plus"></i> sign up</a>
+        </div>
 
-$query = "SELECT email FROM User WHERE email = ?";
-$stmt = $con->prepare($query);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$stmt->store_result();
+        <div>
+          <input
+            type="file"
+            id="profilepic"
+            name="profilepic"
+            style="display: none" />
+        </div>
 
-if ($stmt->num_rows > 0) {
-    echo json_encode(["success" => false, "message" => "Email already exists"]);
-    exit();
-}
+        <div class="input-field">
+          <i class="fa-solid fa-globe"></i>
+          <input
+            type="text"
+            placeholder="Username"
+            id="uname"
+            name="uname"
+            value="<?= $form_data['uname'] ?? '' ?>" />
+          <br />
+        </div>
+        <span class="error" id="span-username">
+          <?= $errors['span-username'] ?? '' ?>
+        </span>
 
-$stmt->close();
+        <div class="input-field">
+          <i class="fa-solid fa-envelope"></i>
+          <input
+            type="text"
+            placeholder="Email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            value="<?= $form_data['email'] ?? '' ?>" />
+          <br />
+        </div>
+        <span class="error" id="span-email">
+          <?= $errors['span-email'] ?? '' ?>
+        </span>
 
-$query1 = "INSERT INTO User(name, password, contactNumber, email,term_condition) VALUES (?, ?, ?, ?, ?)";
-$stmt1 = $con->prepare($query1);
+        <div class="input-field">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            type="password"
+            placeholder="Password"
+            id="pass"
+            name="pass"
+            autocomplete="new-password"
+            value="<?= $form_data['pass'] ?? '' ?>" />
+          <br />
+        </div>
+        <span class="error" id="span-password">
+          <?= $errors['span-password'] ?? '' ?>
+        </span>
 
-if ($stmt1) {
-    $stmt1->bind_param("ssssi", $name, $secure_pass, $num, $email,$tnc);
-    if ($stmt1->execute()) {
-        echo json_encode(["success" => true, "message" => "User registered successfully"]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Failed to register user"]);
-    }
-    $stmt1->close();
-} else {
-    echo json_encode(["success" => false, "message" => "Database error: " . $con->error]);
-}
+        <div class="input-field">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            id="cpass"
+            name="cpass"
+            autocomplete="new-password"
+            value="<?= $form_data['cpass'] ?? '' ?>" />
+        </div>
+        <span class="error" id="span-cpassword">
+          <?= $errors['span-cpassword'] ?? '' ?>
+        </span>
 
-$con->close();
-exit();
+        <div class="input-field">
+          <i class="fa-solid fa-phone"></i>
+          <input
+            type="text"
+            placeholder="Mobile Number"
+            id="num"
+            name="num"
+            value="<?= $form_data['num'] ?? '' ?>" />
+        </div>
+        <span class="error" id="span-phone">
+          <?= $errors['span-phone'] ?? '' ?>
+        </span>
+
+        <div class="input-field" style="height: 40px">
+          <input type="checkbox" name="rememberme" id="rememberme" />
+          <label for="rememberme">
+            Accept <span class="tnc"> terms and conditions</span>
+          </label>
+        </div>
+        <span class="error" id="span-tnc">
+          <?= $errors['span-tnc']  ?? '' ?>
+        </span>
+
+        <div
+          class="input-field"
+          style="width: 100%; background-color: #f1f1f1">
+          <button type="submit" class="submit" value="Sign up">
+            Sign Up
+          </button>
+        </div>
+
+        <div class="hveacc">
+          <p>Already have an account? <a href="login.php">Sign In</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/signup.js"></script>
+</body>
+
+</html>

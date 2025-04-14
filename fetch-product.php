@@ -5,7 +5,7 @@ require('check_post.php');
 
 $id = $_POST['id'];
 
-$query = "select * from products where id = ?";
+$query = "select p.*, c.category from products p join category c on p.category_id = c.id where p.id = ?";
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -21,15 +21,9 @@ $result = $stmt->get_result();
 $stmt->close();
 $stock = $result->fetch_all(MYSQLI_ASSOC);
 
-$query = "select * from category where id = ?";
-$stmt = $con->prepare($query);
-$stmt->bind_param("i", $category_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
 while ($row = $result->fetch_assoc()) {
     $category = $row['category'];
 }
 
 header("Content-Type: application/json");
-echo json_encode(['products' => $products, "category" => $category, "stock" => $stock]);
+echo json_encode(['products' => $products, "stock" => $stock]);

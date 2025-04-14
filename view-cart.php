@@ -1,8 +1,6 @@
 <?php
-ini_set('display_errors', 1);
+require('is_login.php');
 require('config.php');  
-
-session_start();
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +117,7 @@ session_start();
     <div class="subtotal"></div>
 
     <form action="process-payment.php" method="post" id="form1">
-      <button id="checkout-btn">Pay</button>
+      <button class="btn btn-primary" id="checkout-btn">Pay</button>
     </form> 
   </div>
 

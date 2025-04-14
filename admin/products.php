@@ -1,7 +1,14 @@
 <?php
 
 session_start();
+require('../connection.php');
 require('../check-admin.php');
+
+$errors = $_SESSION['errors'] ?? '';
+$form_data =  $_SESSION['form_data'] ?? '';
+
+unset($_SESSION['errors']);
+unset($_SESSION['form_data']);
 ?>
 
 <!DOCTYPE html>
@@ -29,41 +36,86 @@ require('../check-admin.php');
       background: none;
       border: none;
     }
+
+    span {
+      color: red;
+    }
   </style>
 </head>
 
 <body>
   <?php
-  require('nav-bar.php');
+  require 'nav-bar.php';
   ?>
 
-  <h1 style="text-align: center">Welcome To Product Crud Operatidon</h1>
+  <h1 style="text-align: center">Welcome To Product Crud Operation</h1>
 
   <div class="form1">
-    <form id="form1">
+    <form id="form1" action="../add-products" method="post" enctype="multipart/form-data">
       <input type="hidden" id="productId" name="productId" />
       <input type="hidden" id="existingImage" name="existingImage" />
-      <label for="productImage">Image URL:</label>
-      <input
-        type="file"
-        name="productImage"
-        id="productImage"
-        accept="image/*"
-        required />
-      <label for="productPrice">Price:</label>
-      <input type="number" name="productPrice" id="productPrice" required />
-      <label for="categoryList">Category:</label>
-      <select name="categoryList" id="categoryList"></select>
-      <label for="productDescription">Name:</label>
-      <input
-        type="text"
-        id="productDescription"
-        name="productDescription"
-        required />
-      <label for="productOffer">Offer:</label>
-      <input type="number" name="productOffer" id="productOffer" max="100" min="0">
-      <label for="productStock">Stock:</label>
-      <input type="number" id="productStock" name="productStock" />
+
+      <div id="div-image">
+        <label for="productImage">Image URL:</label>
+        <input type="file" name="productImage" id="productImage" accept="image/*" />
+        <span id="span_image" class="error">
+          <?= $errors['span_image'] ?? '' ?>
+        </span><br>
+      </div>
+
+      <div id="div-price">
+        <label for="productPrice">Price:</label>
+        <input type="text" name="productPrice" id="productPrice" value="<?= $form_data['productPrice'] ?? '' ?>" />
+        <span id="span_price" class="error">
+          <?= $errors['span_price'] ?? '' ?>
+        </span><br>
+      </div>
+
+      <div id="div-category">
+        <label for="categoryList">Category:</label>
+        <select name="categoryList" id="categoryList">
+          <?php
+          $query = "select * from category";
+          $result = $con->query($query);
+
+          while ($row = $result->fetch_assoc()) {
+          ?>
+            <option value="<?= $row['id'] ?>">
+              <?= $row['category'] ?>
+            </option>
+          <?php
+          }
+          ?>
+        </select>
+        <span id="span_category" class="error">
+          <?= $errors['span_category'] ?? '' ?>
+        </span><br>
+      </div>
+
+      <div id="div-description">
+        <label for="productName">Name:</label>
+        <input type="text" id="productName" name="productName" value="<?= $form_data['productName'] ?? '' ?>" />
+        <span id="span_name" class="error">
+          <?= $errors['span_name'] ?? '' ?>
+        </span><br>
+      </div>
+
+      <div id="div-offer">
+        <label for="productOffer">Offer:</label>
+        <input type="text" name="productOffer" id="productOffer" value="<?= $form_data['productOffer'] ?? '' ?>" />
+        <span id="span_offer" class="error">
+          <?= $errors['span_offer'] ?? '' ?>
+        </span><br>
+      </div>
+
+      <div id="div-stock">
+        <label for="productStock">Stock:</label>
+        <input type="text" id="productStock" name="productStock" value="<?= $form_data['productStock'] ?? '' ?>" />
+        <span id="span_stock" class="error">
+          <?= $errors['span_stock'] ?? '' ?>
+        </span><br>
+      </div>
+
       <input type="submit" value="Add product" />
     </form>
   </div>

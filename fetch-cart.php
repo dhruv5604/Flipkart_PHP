@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     $result = $stmt->get_result();
 
-    $products = $result->fetch_all(MYSQLI_ASSOC); 
+    $products = $result->fetch_all(MYSQLI_ASSOC);
 
     echo json_encode($products);
 }
