@@ -56,7 +56,7 @@ if (!$con) {
 if (!empty($errors)) {
     $_SESSION['errors'] = $errors;
     $_SESSION['form_data'] = $_POST;
-    header("Location: signup");
+    header("Location: signup.php");
     exit;
 }
 
@@ -73,7 +73,7 @@ if ($stmt->num_rows > 0) {
 if (!empty($errors)) {
     $_SESSION['errors'] = $errors;
     $_SESSION['form_data'] = $_POST;
-    header("Location: signup");
+    header("Location: signup.php");
     exit;
 }
 

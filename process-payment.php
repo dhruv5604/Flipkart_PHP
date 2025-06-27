@@ -46,9 +46,6 @@ function createStripeSession($products)
 }
 
 $response = createStripeSession($products);
-echo "<pre>";
-print_r($response);
-echo $response['sessionUrl'];
 if ($response) {
     header("Location: " . $response['sessionUrl']);
 }

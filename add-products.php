@@ -54,7 +54,7 @@ function set_errors_session($errors)
 {
     $_SESSION['errors'] = $errors;
     $_SESSION['form_data'] = $_POST;
-    header("Location: admin/products");
+    header("Location: admin/products.php");
     exit;
 }
 
@@ -160,5 +160,5 @@ if (!empty($errors)) {
 }
 
 $con->close();
-header("Location: admin/products");
+header("Location: admin/products.php");
 exit;

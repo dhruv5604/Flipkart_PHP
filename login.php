@@ -72,7 +72,7 @@ unset($_SESSION['form_data']);
         </div>
 
         <div class="hveacc">
-          <p>Don't have an account? <a href="signup">Sign Up</a></p>
+          <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
         </div>
       </form>
     </div>

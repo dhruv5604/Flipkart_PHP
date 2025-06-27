@@ -19,10 +19,10 @@
                     <a type="button" class="btn btn-primary" href="./">Admin Page</a>
                 </li>
                 <li class="nav-item me-3">
-                    <a type="button" class="btn btn-primary" href="./products">Product Crud</a>
+                    <a type="button" class="btn btn-primary" href="./products.php">Product Crud</a>
                 </li>
                 <li>
-                    <a type="button" class="btn btn-primary" href="./category">Category crud</a>
+                    <a type="button" class="btn btn-primary" href="./category.php">Category crud</a>
                 </li>
             </ul>
         </div>

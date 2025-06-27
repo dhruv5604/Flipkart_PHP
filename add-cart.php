@@ -21,7 +21,7 @@ $stmt1 = $con->prepare($query);
 $stmt1->bind_param("i", $product_id);
 $stmt1->execute();
 $stmt1->close();
-
+    
 $query = "insert into cart(user_id,product_id) values(?,?)";
 $stmt = $con->prepare($query);
 $stmt->bind_param("ii", $user_id, $product_id);
