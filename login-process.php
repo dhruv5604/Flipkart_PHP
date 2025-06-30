@@ -6,6 +6,9 @@ require_once('connection.php');
 require_once('check_post.php');
 session_start();
 
+echo "Hello";
+die;
+
 header("Content-Type: application/json");
 
 $email_regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';

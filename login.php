@@ -1,8 +1,7 @@
 <?php
 session_start();
-if (isset($_SESSION['user_id'])) {
-  header("Location: /");
-}
+
+require('is_login.php');
 
 $errors = $_SESSION['errors'] ?? '';
 $form_data =  $_SESSION['form_data'] ?? '';
@@ -29,7 +28,7 @@ unset($_SESSION['form_data']);
 <body>
   <div class="main">
     <div class="container">
-      <form id="sign-in-form" class="sign-in-form" action="../login-process.php" method="post">
+      <form id="sign-in-form" class="sign-in-form" action="login-process.php" method="post">
         <div class="links">
           <a href="login" class="activeSignIn">
             <i class="fa-solid fa-user"></i> sign in
